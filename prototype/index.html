@@ -8,11 +8,11 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap');
 :root{
-  --cream:#F6EFE3; --paper:#FFFBF4; --sage:#98A871; --sage-soft:#E3E8D3; --forest:#3D664C; --forest-dk:#2C4C38;
-  --rose:#EAB5C4; --rose-soft:#F7E1E7; --brown:#7A5B47; --taupe:#BAAD93; --line:#E7DDCB; --lime:#EFF2BD;
+  --cream:#FFFFFF; --paper:#FFFFFF; --sage:#98A871; --sage-soft:#E3E8D3; --forest:#3D664C; --forest-dk:#2C4C38;
+  --rose:#EAB5C4; --rose-soft:#F7E1E7; --brown:#7A5B47; --taupe:#BAAD93; --line:#E9EBE8; --lime:#EFF2BD;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',system-ui,sans-serif;color:var(--forest);background:#EDE6D8;min-height:100vh;
+body{font-family:'Inter',system-ui,sans-serif;color:var(--forest);background:#F4F5F3;min-height:100vh;
   display:flex;align-items:center;justify-content:center;gap:48px;padding:24px}
 h1,h2,h3,.serif{font-family:'Playfair Display',Georgia,serif}
 button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
@@ -23,7 +23,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .note .tag{display:inline-block;background:var(--lime);color:var(--forest);font-weight:700;font-size:12px;letter-spacing:2px;
   padding:6px 12px;border-radius:20px;margin-bottom:14px}
 .note ol{margin:14px 0 0 18px}.note li{margin:6px 0}
-@media (max-width:860px){.note{display:none}body{padding:0;background:var(--cream)}}
+@media (max-width:860px){.note{display:none}body{padding:0;background:#FFFFFF}}
 
 /* phone */
 .phone{width:400px;height:860px;max-height:calc(100vh - 48px);background:var(--cream);border-radius:44px;overflow:hidden;position:relative;
@@ -56,7 +56,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 
 /* cards */
 .card{background:var(--paper);border:1px solid var(--line);border-radius:22px;margin:10px 16px;overflow:hidden;display:block;width:calc(100% - 32px);text-align:left}
-.card .img{height:120px;background:linear-gradient(135deg,var(--rose-soft),var(--sage-soft));display:flex;align-items:center;justify-content:center}
+.card .img{height:120px;background:linear-gradient(135deg,#FBEFF2,#EEF3E6);display:flex;align-items:center;justify-content:center}
 .card .body{padding:14px 16px 16px}
 .card h3{font-size:20px;margin-bottom:6px}
 .meta{font-size:13.5px;color:var(--brown);display:flex;flex-wrap:wrap;gap:6px 12px}
@@ -66,7 +66,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .badge.lime{background:var(--lime)}
 
 /* place page */
-.hero{height:210px;background:linear-gradient(135deg,var(--rose-soft),var(--sage-soft));display:flex;align-items:center;justify-content:center;position:relative}
+.hero{height:210px;background:linear-gradient(135deg,#FBEFF2,#EEF3E6);display:flex;align-items:center;justify-content:center;position:relative}
 .hero .demo{position:absolute;top:14px;right:14px}
 .place h2{font-size:30px;line-height:1.15;margin:18px 20px 6px}
 .place p{font-size:15px;line-height:1.55;color:var(--brown);margin:10px 20px}
@@ -177,7 +177,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
   <section class="screen place" id="s-place">
     <button class="back" onclick="go('map')">← Назад</button>
     <div class="hero">
-      <svg width="120" height="120" viewBox="0 0 120 120" fill="none"><circle cx="60" cy="60" r="56" fill="#FFFBF4"/><path d="M38 78c6-20 16-34 22-40 6 6 16 20 22 40" stroke="#3D664C" stroke-width="5" stroke-linecap="round"/><circle cx="60" cy="52" r="6" fill="#EAB5C4"/><path d="M44 84h32" stroke="#98A871" stroke-width="5" stroke-linecap="round"/></svg>
+      <svg width="120" height="120" viewBox="0 0 120 120" fill="none"><circle cx="60" cy="60" r="56" fill="#FFFFFF"/><path d="M38 78c6-20 16-34 22-40 6 6 16 20 22 40" stroke="#3D664C" stroke-width="5" stroke-linecap="round"/><circle cx="60" cy="52" r="6" fill="#EAB5C4"/><path d="M44 84h32" stroke="#98A871" stroke-width="5" stroke-linecap="round"/></svg>
       <div class="demo">ПРИМЕРЕН БИЗНЕС</div>
     </div>
     <h2>Ателие „Лисичка“</h2>
@@ -288,7 +288,7 @@ function renderList(){
   document.getElementById('count').textContent = ok ? '1 МЯСТО · ПРИМЕРНО' : '0 МЕСТА';
   document.getElementById('list').innerHTML = ok ? `
     <button class="card" onclick="go('place')">
-      <div class="img"><svg width="64" height="64" viewBox="0 0 120 120" fill="none"><circle cx="60" cy="60" r="56" fill="#FFFBF4"/><path d="M38 78c6-20 16-34 22-40 6 6 16 20 22 40" stroke="#3D664C" stroke-width="6" stroke-linecap="round"/><circle cx="60" cy="52" r="7" fill="#EAB5C4"/></svg></div>
+      <div class="img"><svg width="64" height="64" viewBox="0 0 120 120" fill="none"><circle cx="60" cy="60" r="56" fill="#FFFFFF"/><path d="M38 78c6-20 16-34 22-40 6 6 16 20 22 40" stroke="#3D664C" stroke-width="6" stroke-linecap="round"/><circle cx="60" cy="52" r="7" fill="#EAB5C4"/></svg></div>
       <div class="body"><h3>${PLACE.name}</h3>
         <div class="meta"><span>Изкуство</span><span>4–10 г.</span><span>Лозенец</span></div>
         <div class="badges"><span class="badge">4 мин до метро</span><span class="badge rose">Подходящо за количка</span><span class="badge lime">3 свободни часа</span></div>
@@ -376,8 +376,8 @@ function confirmB(i){state.confirmed.add(state.bookings[i]);renderBiz();toast('�
 
 // ───── map: custom-styled OpenStreetMap (OpenFreeMap tiles), recoloured to the brand palette ─────
 renderList(); renderSessions();
-const C={bg:'#F6EFE3',water:'#CFE0DA',park:'#DCE6C6',wood:'#D3DFBC',build:'#EBE0CC',buildLine:'#E0D3BC',landuse:'#F2E9DA',
-  road:'#FFFCF5',major:'#FFF6E3',casing:'#E6DAC4',rail:'#D9CCB4',border:'#BAAD93',text:'#3D664C',textSoft:'#7A5B47'};
+const C={bg:'#F3F4F1',water:'#D4E6EE',park:'#E1EBD3',wood:'#D8E5C6',build:'#E9EAE6',buildLine:'#DFE0DB',landuse:'#F3F4F1',
+  road:'#FFFFFF',major:'#FFFFFF',casing:'#E4E5E2',rail:'#DADBD7',border:'#C8C9C4',text:'#3D664C',textSoft:'#6B6F6A'};
 function brand(style){
   for(const l of style.layers){const id=l.id, p=(l.paint=l.paint||{});
     if(l.type==='background') p['background-color']=C.bg;
