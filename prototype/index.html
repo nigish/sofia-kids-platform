@@ -132,80 +132,66 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .tabs button.on{color:var(--forest)}
 .tabs svg{width:22px;height:22px}
 .empty{color:var(--brown);font-size:14px;text-align:center;padding:30px 24px;line-height:1.5}
+/* round 2 additions */
+.verified{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;padding:5px 10px;border-radius:12px;background:#E4EEF6;color:#2F5A7A}
+.pin.c-arts{background:#C77D8F}.pin.c-sport{background:#3D664C}.pin.c-music{background:#8C6BB1}.pin.c-lang{background:#D08A3E}
+.pin.c-speech,.pin.c-psy{background:#2F5A7A}.pin.c-stem{background:#7A5B47}
+.pin.sel{transform:rotate(-45deg) scale(1.18);box-shadow:0 0 0 4px rgba(61,102,76,.25),0 6px 14px rgba(44,76,56,.35)}
+.bizpick{display:flex;gap:8px;overflow-x:auto;padding:4px 16px 8px;scrollbar-width:none}
+.bizpick::-webkit-scrollbar{display:none}
+.sub{font-size:13px;color:var(--brown);padding:0 20px 6px}
+.parent{display:flex;align-items:center;gap:12px;margin:4px 16px 8px;padding:12px 14px;background:#F6F8F4;border-radius:18px}
 </style>
 </head>
 <body>
 
 <div class="note">
-  <div class="tag">ПРОТОТИП</div>
+  <div class="tag">ПРОТОТИП · РУНД 2</div>
   <h1>Детски занимания в София</h1>
-  <p>Кликаем прототип за разговор с първите партньори. Бизнесът и събитията са <b>примерни</b> — истинските места се добавят само след съгласие.</p>
+  <p>Всички места, събития и профили тук са <b>измислени</b> — за тестване. Истинските бизнеси се добавят само след съгласие.</p>
   <ol>
-    <li>Разгледай картата и филтрите</li>
-    <li>Отвори „Ателие Лисичка“ и запиши дете</li>
-    <li>Виж записването в „Моите“</li>
-    <li>Превключи на „Бизнес“ — така го вижда ателието</li>
+    <li>Разгледай картата — пробвай филтрите за възраст, количка и транспорт</li>
+    <li>Отвори място и запиши дете</li>
+    <li>Виж записването в „Моите“ — поотделно за всяко дете</li>
+    <li>В „Бизнес“ избери мястото и потвърди записването</li>
   </ol>
 </div>
 
 <div class="phone" id="phone">
 
-  <!-- MAP / EXPLORE -->
   <section class="screen on" id="s-map">
     <div class="top"><div class="logo"><span>Zani</span></div><div class="demo">ДЕМО</div></div>
-    <div class="chips" id="cat">
-      <button class="chip on" data-v="all">Всички</button>
-      <button class="chip" data-v="arts">Изкуство</button>
-      <button class="chip" data-v="sport">Спорт</button>
-      <button class="chip" data-v="music">Музика</button>
-      <button class="chip" data-v="lang">Езици</button>
-      <button class="chip" data-v="speech">Логопед</button>
-      <button class="chip" data-v="psy">Психолог</button>
-    </div>
+    <div class="chips" id="cat"></div>
+    <div class="chips" id="age"></div>
     <div class="chips" id="flt">
-      <button class="chip" data-f="age">Възраст: 4–6 г.</button>
       <button class="chip" data-f="stroller">Подходящо за количка</button>
       <button class="chip" data-f="transit">До 5 мин от спирка</button>
       <button class="chip" data-f="weekend">Уикенд</button>
+      <button class="chip" data-f="verified">Проверени специалисти</button>
     </div>
     <div id="map"></div>
     <div class="count" id="count"></div>
     <div id="list"></div>
   </section>
 
-  <!-- PLACE -->
   <section class="screen place" id="s-place">
     <button class="back" onclick="go('map')">← Назад</button>
-    <div class="hero">
-      <svg width="120" height="120" viewBox="0 0 120 120" fill="none"><circle cx="60" cy="60" r="56" fill="#FFFFFF"/><path d="M38 78c6-20 16-34 22-40 6 6 16 20 22 40" stroke="#3D664C" stroke-width="5" stroke-linecap="round"/><circle cx="60" cy="52" r="6" fill="#EAB5C4"/><path d="M44 84h32" stroke="#98A871" stroke-width="5" stroke-linecap="round"/></svg>
-      <div class="demo">ПРИМЕРЕН БИЗНЕС</div>
-    </div>
-    <h2>Ателие „Лисичка“</h2>
-    <div class="badges" style="margin:0 20px"><span class="badge">Изкуство</span><span class="badge rose">4–10 г.</span><span class="badge lime">Основател-партньор</span></div>
-    <p>Рисуване, моделиране и малки творчески проекти в групи до 8 деца. Всяко занимание завършва с нещо, което детето отнася вкъщи.</p>
-    <div class="facts">
-      <div class="fact"><b>Къде</b><span>Лозенец</span></div>
-      <div class="fact"><b>Транспорт</b><span>4 мин до метро</span></div>
-      <div class="fact"><b>Количка</b><span>Да, партер</span></div>
-      <div class="fact"><b>Цена</b><span>15 € / занимание</span></div>
-    </div>
-    <div class="sec">Свободни места тази седмица</div>
+    <div id="placeBody"></div>
+    <div class="sec">Свободни места</div>
     <div id="sessions"></div>
     <button class="cta" id="toBook" disabled onclick="go('book')">Избери час</button>
   </section>
 
-  <!-- BOOK -->
   <section class="screen" id="s-book">
     <button class="back" onclick="go('place')">← Назад</button>
     <div class="pad" style="padding-bottom:4px"><h2 style="font-size:28px">Кое дете записваш?</h2></div>
     <div id="kids"></div>
     <div class="sec">Записване</div>
     <div class="summary" id="summary"></div>
-    <p style="font-size:13px;color:var(--brown);margin:4px 20px;line-height:1.5">Плащаш на място. Ще получиш напомняне ден преди заниманието.</p>
+    <p id="payNote" style="font-size:13px;color:var(--brown);margin:4px 20px;line-height:1.5"></p>
     <button class="cta" id="confirm" disabled onclick="book()">Потвърди записването</button>
   </section>
 
-  <!-- DONE -->
   <section class="screen" id="s-done">
     <div class="done">
       <div class="ok"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#3D664C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
@@ -216,24 +202,23 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
     <button class="cta ghost" onclick="go('map')">Обратно към картата</button>
   </section>
 
-  <!-- EVENTS -->
   <section class="screen" id="s-events">
     <div class="top"><div class="logo">Събития</div><div class="demo">ДЕМО</div></div>
-    <div class="chips"><button class="chip on">Този уикенд</button><button class="chip">Следваща седмица</button><button class="chip">Безплатни</button></div>
+    <div class="chips" id="evf"></div>
     <div id="events"></div>
   </section>
 
-  <!-- MY (parent) -->
   <section class="screen" id="s-my">
     <div class="top"><div class="logo">Моите</div><div class="demo">ДЕМО</div></div>
+    <div class="parent"><div class="av" style="background:var(--rose-soft)">Е</div><div><b>Елена Петрова</b><div style="font-size:13px;color:var(--brown)">примерен родителски профил · 3 деца</div></div></div>
     <div class="chips" id="kidTabs"></div>
     <div id="myList"></div>
   </section>
 
-  <!-- BUSINESS -->
   <section class="screen" id="s-biz">
-    <div class="top"><div class="logo">Ателие „Лисичка“</div><div class="demo">БИЗНЕС</div></div>
-    <div class="week" id="week"></div>
+    <div class="top"><div class="logo">Бизнес кабинет</div><div class="demo">БИЗНЕС</div></div>
+    <div class="sub">Избери кое място гледаш (в истинската версия всеки бизнес вижда само своето):</div>
+    <div class="bizpick" id="bizPick"></div>
     <div id="bizList"></div>
   </section>
 
@@ -248,134 +233,200 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 </div>
 
 <script>
-// ───── demo data (fictional) ─────
-const PLACE = {name:'Ателие „Лисичка“', cat:'arts', lngLat:[23.3205,42.6795], ages:[4,10], stroller:true, transitMin:4, weekend:true};
-const SESSIONS = [
-  {id:1, day:'Ср', date:'7 окт',  time:'17:30', title:'Рисуване с акварел', ages:'4–6 г.', cap:8, taken:5},
-  {id:2, day:'Чт', date:'8 окт',  time:'17:30', title:'Моделиране с глина', ages:'6–10 г.', cap:8, taken:7},
-  {id:3, day:'Сб', date:'10 окт', time:'11:00', title:'Есенни венчета',     ages:'4–10 г.', cap:10, taken:4},
-];
-const KIDS = [{name:'Мария', age:5, color:'#F7E1E7'}, {name:'Иван', age:8, color:'#E3E8D3'}];
-const EVENTS = [
-  {d:'10', m:'ОКТ', title:'Есенни венчета', place:'Ателие „Лисичка“ · пример', meta:'Сб 11:00 · 4–10 г. · 15 €', sid:3},
-  {d:'11', m:'ОКТ', title:'Куклен театър в парка', place:'Примерно събитие', meta:'Нд 11:00 · 3+ г. · безплатно'},
-  {d:'14', m:'ОКТ', title:'Работилница за фенери', place:'Примерно събитие', meta:'Ср 17:00 · 5–9 г. · 12 €'},
-];
-let state = {cat:'all', f:new Set(), session:null, kid:null, bookings:[], confirmed:new Set()};
+// ───────────── ALL DATA IS FICTIONAL (for testing) ─────────────
+const CATS = [['all','Всички'],['arts','Изкуство'],['sport','Спорт'],['music','Музика'],['lang','Езици'],['stem','Наука и логика'],['speech','Логопед'],['psy','Психолог']];
+const CATNAME = Object.fromEntries(CATS);
+const AGES = [['all','Всички възрасти',0,99],['0-2','0–2 г.',0,2],['3-5','3–5 г.',3,5],['6-9','6–9 г.',6,9],['10+','10+ г.',10,99]];
 
-// ───── navigation ─────
+const PLACES = [
+ {id:'lisichka', name:'Ателие „Лисичка“', cat:'arts', area:'Лозенец', ll:[23.3205,42.6795], ages:[4,10], stroller:true, transit:'4 мин до метро', tmin:4, weekend:true, price:'15 € / занимание',
+  about:'Рисуване, моделиране и малки творчески проекти в групи до 8 деца.',
+  sessions:[['Ср','28 окт','17:30','Рисуване с акварел','4–6 г.',8,5],['Чт','29 окт','17:30','Моделиране с глина','6–10 г.',8,7],['Сб','31 окт','11:00','Есенни фенерчета','4–10 г.',10,4]]},
+ {id:'delfinche', name:'Клуб по плуване „Делфинче“', cat:'sport', area:'Младост', ll:[23.3780,42.6530], ages:[3,12], stroller:true, transit:'6 мин до метро', tmin:6, weekend:true, price:'18 € / занимание',
+  about:'Плуване за начинаещи в малки групи, с инструктор във водата.',
+  sessions:[['Вт','27 окт','18:00','Начинаещи','3–5 г.',6,4],['Сб','31 окт','10:00','Напреднали','6–12 г.',8,8],['Нд','1 ное','10:00','Начинаещи','3–5 г.',6,2]]},
+ {id:'notka', name:'Музикална къща „Нотка“', cat:'music', area:'Център', ll:[23.3270,42.6960], ages:[1,8], stroller:true, transit:'2 мин до трамвай', tmin:2, weekend:true, price:'12 € / занимание',
+  about:'Песни, ритъм и първи инструменти — заедно с родител за най-малките.',
+  sessions:[['Пн','26 окт','10:30','Музика с мама','1–3 г.',10,6],['Сб','31 окт','11:30','Малки барабанисти','4–8 г.',8,3]]},
+ {id:'littletalk', name:'Little Talk · английски за деца', cat:'lang', area:'Изток', ll:[23.3530,42.6720], ages:[3,10], stroller:false, transit:'5 мин до метро', tmin:5, weekend:false, price:'14 € / урок',
+  about:'Английски чрез игри и песни, групи до 6 деца.',
+  sessions:[['Пн','26 окт','17:00','Fun English','3–5 г.',6,5],['Ср','28 окт','17:00','Story Club','6–10 г.',6,3]]},
+ {id:'logoped', name:'Логопед Ива Петрова', cat:'speech', area:'Иван Вазов', ll:[23.3080,42.6820], ages:[2,12], stroller:true, transit:'3 мин до спирка', tmin:3, weekend:false, price:'30 € / сесия', verified:true, oneToOne:true,
+  about:'Индивидуални сесии за говор и произношение. Първа среща — оценка.',
+  sessions:[['Вт','27 окт','09:30','Индивидуална сесия','2–12 г.',1,0],['Вт','27 окт','11:00','Индивидуална сесия','2–12 г.',1,1],['Чт','29 окт','16:00','Индивидуална сесия','2–12 г.',1,0]]},
+ {id:'psiholog', name:'Детски психолог Мира Колева', cat:'psy', area:'Оборище', ll:[23.3420,42.6990], ages:[3,16], stroller:false, transit:'4 мин до метро', tmin:4, weekend:false, price:'40 € / сесия', verified:true, oneToOne:true,
+  about:'Консултации за деца и родители. Тиха, уютна стая.',
+  sessions:[['Ср','28 окт','15:00','Консултация','3–16 г.',1,0],['Пт','30 окт','10:00','Консултация','3–16 г.',1,0]]},
+ {id:'piruetche', name:'Танцово студио „Пируетче“', cat:'sport', area:'Люлин', ll:[23.2640,42.7160], ages:[4,12], stroller:true, transit:'3 мин до метро', tmin:3, weekend:true, price:'10 € / занимание',
+  about:'Балет и модерни танци за момичета и момчета.',
+  sessions:[['Вт','27 окт','17:30','Балет','4–6 г.',12,9],['Сб','31 окт','12:00','Модерни танци','7–12 г.',12,6]]},
+ {id:'otkrivateli', name:'Занималня „Малки откриватели“', cat:'stem', area:'Студентски град', ll:[23.3450,42.6540], ages:[6,12], stroller:false, transit:'7 мин до спирка', tmin:7, weekend:false, price:'13 € / занимание',
+  about:'Опити, роботи и задачи с логика след училище.',
+  sessions:[['Пн','26 окт','16:30','Лаборатория','6–9 г.',10,8],['Чт','29 окт','16:30','Роботика','9–12 г.',8,4]]},
+ {id:'puhche', name:'Бебешка гимнастика „Пухче“', cat:'sport', area:'Надежда', ll:[23.3010,42.7240], ages:[0,3], stroller:true, transit:'4 мин до спирка', tmin:4, weekend:true, price:'11 € / занимание',
+  about:'Движение и игри за бебета и прохождащи, заедно с родител.',
+  sessions:[['Пт','30 окт','10:00','Бебета 6–12 м.','0–1 г.',8,5],['Сб','31 окт','10:30','Прохождащи','1–3 г.',8,6]]},
+ {id:'peshka', name:'Шахматен клуб „Пешка“', cat:'stem', area:'Красно село', ll:[23.2950,42.6800], ages:[6,14], stroller:true, transit:'2 мин до метро', tmin:2, weekend:true, price:'10 € / занимание',
+  about:'Шах за начинаещи и турнири в събота.',
+  sessions:[['Ср','28 окт','17:00','Начинаещи','6–9 г.',12,7],['Сб','31 окт','10:00','Детски турнир','6–14 г.',24,15]]},
+];
+PLACES.forEach(p=>p.sessions=p.sessions.map((s,i)=>({id:p.id+'-'+i,day:s[0],date:s[1],time:s[2],title:s[3],ages:s[4],cap:s[5],taken:s[6]})));
+const P = id => PLACES.find(p=>p.id===id);
+
+const EVENTS = [
+ {d:'31',m:'ОКТ',title:'Есенни фенерчета',place:'lisichka',sid:'lisichka-2',meta:'Сб 11:00 · 4–10 г. · 15 €',tag:'weekend'},
+ {d:'31',m:'ОКТ',title:'Детски шахматен турнир',place:'peshka',sid:'peshka-1',meta:'Сб 10:00 · 6–14 г. · 10 €',tag:'weekend'},
+ {d:'1',m:'НОЕ',title:'Отворен урок по плуване',place:'delfinche',sid:'delfinche-2',meta:'Нд 10:00 · 3–5 г. · 18 €',tag:'weekend'},
+ {d:'26',m:'ОКТ',title:'Музика с мама',place:'notka',sid:'notka-0',meta:'Пн 10:30 · 1–3 г. · 12 €',tag:'week'},
+ {d:'29',m:'ОКТ',title:'Роботика след училище',place:'otkrivateli',sid:'otkrivateli-1',meta:'Чт 16:30 · 9–12 г. · 13 €',tag:'week'},
+];
+
+const KIDS = [{name:'Мария',age:5,color:'#F7E1E7'},{name:'Иван',age:8,color:'#E3E8D3'},{name:'Ема',age:2,color:'#EFF2BD'}];
+
+let state = {cat:'all', age:'all', f:new Set(), place:null, session:null, kid:null, bookings:[], confirmed:new Set(), biz:'lisichka'};
+const pins = {};
+
+// ───────────── navigation ─────────────
 function go(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));
   document.getElementById('s-'+id).classList.add('on');
-  document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('on', b.dataset.t===id || (id!=='events'&&id!=='my'&&id!=='biz'&&b.dataset.t==='map')));
+  const tab = ['events','my','biz'].includes(id) ? id : 'map';
+  document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('on', b.dataset.t===tab));
   document.getElementById('s-'+id).scrollTop=0;
   if(id==='map' && window.map) setTimeout(()=>map.resize(),50);
-  if(id==='book') renderBook(); if(id==='my') renderMy(); if(id==='biz') renderBiz();
+  if(id==='place') renderPlace(); if(id==='book') renderBook(); if(id==='my') renderMy(); if(id==='biz') renderBiz();
 }
 function toast(t){const el=document.getElementById('toast');el.textContent=t;el.classList.add('on');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('on'),3200)}
+function openPlace(id, sid){ state.place=id; state.session=sid||null; go('place'); }
+const left = s => s.cap - s.taken - state.bookings.filter(b=>b.sid===s.id).length;
 
-// ───── explore list + filters ─────
-function matches(){
-  if(state.cat!=='all' && state.cat!==PLACE.cat) return false;
-  if(state.f.has('age') && !(PLACE.ages[0]<=6 && PLACE.ages[1]>=4)) return false;
-  if(state.f.has('stroller') && !PLACE.stroller) return false;
-  if(state.f.has('transit') && PLACE.transitMin>5) return false;
-  if(state.f.has('weekend') && !PLACE.weekend) return false;
+// ───────────── explore: chips, filters, list, pins ─────────────
+function chips(el, items, cur, key){
+  document.getElementById(el).innerHTML = items.map(([v,l])=>`<button class="chip ${cur===v?'on':''}" data-v="${v}">${l}</button>`).join('');
+  document.getElementById(el).onclick=e=>{const b=e.target.closest('.chip');if(!b)return;state[key]=b.dataset.v;renderExplore()};
+}
+function matches(p){
+  if(state.cat!=='all' && p.cat!==state.cat) return false;
+  const a = AGES.find(x=>x[0]===state.age); if(state.age!=='all' && (p.ages[1]<a[2] || p.ages[0]>a[3])) return false;
+  if(state.f.has('stroller') && !p.stroller) return false;
+  if(state.f.has('transit') && p.tmin>5) return false;
+  if(state.f.has('weekend') && !p.weekend) return false;
+  if(state.f.has('verified') && !p.verified) return false;
   return true;
 }
-function renderList(){
-  const ok = matches();
-  document.getElementById('count').textContent = ok ? '1 МЯСТО · ПРИМЕРНО' : '0 МЕСТА';
-  document.getElementById('list').innerHTML = ok ? `
-    <button class="card" onclick="go('place')">
-      <div class="img"><svg width="64" height="64" viewBox="0 0 120 120" fill="none"><circle cx="60" cy="60" r="56" fill="#FFFFFF"/><path d="M38 78c6-20 16-34 22-40 6 6 16 20 22 40" stroke="#3D664C" stroke-width="6" stroke-linecap="round"/><circle cx="60" cy="52" r="7" fill="#EAB5C4"/></svg></div>
-      <div class="body"><h3>${PLACE.name}</h3>
-        <div class="meta"><span>Изкуство</span><span>4–10 г.</span><span>Лозенец</span></div>
-        <div class="badges"><span class="badge">4 мин до метро</span><span class="badge rose">Подходящо за количка</span><span class="badge lime">3 свободни часа</span></div>
-      </div></button>`
-    : `<div class="empty">${['speech','psy'].includes(state.cat)
-        ? 'Логопеди и психолози ще се появяват тук след проверка на документите им — с отметка „Проверен специалист“.'
-        : 'Няма места с тези филтри. Опитай да махнеш някой от тях.'}</div>`;
-  if(window.pin) pin.style.opacity = ok ? 1 : .25;
+function card(p){
+  const free = p.sessions.reduce((n,s)=>n+(left(s)>0?1:0),0);
+  return `<button class="card" onclick="openPlace('${p.id}')">
+    <div class="body"><h3>${p.name}</h3>
+      <div class="meta"><span>${CATNAME[p.cat]}</span><span>${p.ages[0]}–${p.ages[1]} г.</span><span>${p.area}</span><span>${p.price}</span></div>
+      <div class="badges">${p.verified?'<span class="verified">✓ Проверен специалист</span>':''}<span class="badge">${p.transit}</span>${p.stroller?'<span class="badge rose">Подходящо за количка</span>':''}<span class="badge lime">${free} ${free===1?'свободен час':'свободни часа'}</span></div>
+    </div></button>`;
 }
-document.getElementById('cat').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;
-  document.querySelectorAll('#cat .chip').forEach(c=>c.classList.remove('on'));b.classList.add('on');state.cat=b.dataset.v;renderList()};
-document.getElementById('flt').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;
-  b.classList.toggle('on');state.f.has(b.dataset.f)?state.f.delete(b.dataset.f):state.f.add(b.dataset.f);renderList()};
+function renderExplore(){
+  chips('cat',CATS,state.cat,'cat');
+  chips('age',AGES.map(a=>[a[0],a[1]]),state.age,'age');
+  const list = PLACES.filter(matches);
+  document.getElementById('count').textContent = `${list.length} ${list.length===1?'МЯСТО':'МЕСТА'} · ПРИМЕРНИ`;
+  document.getElementById('list').innerHTML = list.length ? list.map(card).join('') : `<div class="empty">Няма места с тези филтри. Опитай да махнеш някой от тях.</div>`;
+  PLACES.forEach(p=>{ if(pins[p.id]) pins[p.id].getElement().style.display = matches(p)?'flex':'none'; });
+}
+document.getElementById('flt').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;b.classList.toggle('on');
+  state.f.has(b.dataset.f)?state.f.delete(b.dataset.f):state.f.add(b.dataset.f);renderExplore()};
 
-// ───── place / sessions ─────
+// ───────────── place page ─────────────
+function renderPlace(){
+  const p=P(state.place);
+  document.getElementById('placeBody').innerHTML = `
+    <div class="hero"><div class="demo">ПРИМЕРЕН БИЗНЕС</div><b style="font-family:'Playfair Display',serif;font-size:56px;color:var(--forest)">${p.name.replace(/[„“]/g,'').split(' ').map(w=>w[0]).slice(0,2).join('')}</b></div>
+    <h2>${p.name}</h2>
+    <div class="badges" style="margin:0 20px">${p.verified?'<span class="verified">✓ Проверен специалист</span>':''}<span class="badge">${CATNAME[p.cat]}</span><span class="badge rose">${p.ages[0]}–${p.ages[1]} г.</span></div>
+    <p>${p.about}${p.verified?' Документите и квалификацията са проверени от платформата.':''}</p>
+    <div class="facts">
+      <div class="fact"><b>Къде</b><span>${p.area}</span></div>
+      <div class="fact"><b>Транспорт</b><span>${p.transit}</span></div>
+      <div class="fact"><b>Количка</b><span>${p.stroller?'Да':'Не е удобно'}</span></div>
+      <div class="fact"><b>Цена</b><span>${p.price}</span></div>
+    </div>`;
+  renderSessions();
+}
 function renderSessions(){
-  document.getElementById('sessions').innerHTML = SESSIONS.map(s=>{
-    const left=s.cap-s.taken-(state.bookings.filter(b=>b.sid===s.id).length);
-    return `<button class="session ${state.session===s.id?'sel':''}" onclick="pick(${s.id})">
+  const p=P(state.place);
+  document.getElementById('sessions').innerHTML = p.sessions.map(s=>{
+    const l=left(s), full=l<=0;
+    const label = p.oneToOne ? (full?'Зает':'Свободен') : (full?'Няма места':`${l} ${l===1?'място':'места'}`);
+    return `<button class="session ${state.session===s.id?'sel':''}" ${full?'disabled style="opacity:.45"':''} onclick="state.session='${s.id}';renderSessions()">
       <div><div class="d">${s.day}, ${s.date} · ${s.time}</div><div class="s">${s.title} · ${s.ages}</div></div>
-      <div class="left ${left<=2?'few':''}">${left} ${left===1?'място':'места'}</div></button>`}).join('');
+      <div class="left ${(!full&&l<=2)||p.oneToOne?'few':''}">${label}</div></button>`}).join('');
   document.getElementById('toBook').disabled = !state.session;
 }
-function pick(id){state.session=id;renderSessions()}
 
-// ───── booking ─────
+// ───────────── booking ─────────────
 function renderBook(){
+  const p=P(state.place), s=p.sessions.find(x=>x.id===state.session);
   document.getElementById('kids').innerHTML = KIDS.map((k,i)=>`
     <button class="kid ${state.kid===i?'sel':''}" onclick="state.kid=${i};renderBook()">
       <div class="av" style="background:${k.color}">${k.name[0]}</div>
       <div><b>${k.name}</b><div style="font-size:13px;color:var(--brown)">${k.age} г.</div></div></button>`).join('')
     + `<button class="kid" onclick="toast('Тук родителят добавя ново дете — име и възраст.')"><div class="av" style="background:var(--lime)">+</div><div><b>Добави дете</b></div></button>`;
-  const s=SESSIONS.find(x=>x.id===state.session);
-  document.getElementById('summary').innerHTML = s ? `
-    <div><span>Място</span><b>${PLACE.name}</b></div>
+  document.getElementById('summary').innerHTML = `
+    <div><span>Място</span><b>${p.name}</b></div>
     <div><span>Кога</span><b>${s.day}, ${s.date} · ${s.time}</b></div>
     <div><span>Занимание</span><b>${s.title}</b></div>
     <div><span>Дете</span><b>${state.kid!=null?KIDS[state.kid].name:'—'}</b></div>
-    <div><span>Цена</span><b>15 € · на място</b></div>` : '';
+    <div><span>Цена</span><b>${p.price}</b></div>`;
+  document.getElementById('payNote').textContent = 'Плащаш на място. Ще получиш напомняне ден преди заниманието.';
   document.getElementById('confirm').disabled = state.kid==null;
 }
 function book(){
-  const s=SESSIONS.find(x=>x.id===state.session), k=KIDS[state.kid];
-  state.bookings.push({sid:s.id, kid:state.kid, isNew:true});
-  document.getElementById('doneText').innerHTML = `<b>${k.name}</b> е записан(а) за „${s.title}“<br>${s.day}, ${s.date} от ${s.time}.<br><br>Ателието получи известие. Ще ти напомним ден преди заниманието.`;
-  state.session=null; state.kid=null; renderSessions(); renderList();
+  const p=P(state.place), s=p.sessions.find(x=>x.id===state.session), k=KIDS[state.kid];
+  state.bookings.push({place:p.id, sid:s.id, kid:state.kid});
+  document.getElementById('doneText').innerHTML = `<b>${k.name}</b> е записан(а) за „${s.title}“<br>в ${p.name}<br>${s.day}, ${s.date} от ${s.time}.<br><br>Мястото получи известие. Ще ти напомним ден преди.`;
+  state.biz=p.id; state.session=null; state.kid=null; renderExplore();
   go('done');
-  setTimeout(()=>toast('Известие до ателието: „Нова записка — '+k.name+', '+s.day+' '+s.time+'“'),900);
+  setTimeout(()=>toast(`Известие до „${p.name.replace(/[„“]/g,'')}“: ново записване — ${k.name}, ${s.day} ${s.time}`),900);
 }
 
-// ───── events ─────
-document.getElementById('events').innerHTML = EVENTS.map(e=>`
-  <button class="ev" onclick="${e.sid?`state.session=${e.sid};renderSessions();go('place')`:`toast('Примерно събитие — истинските ще идват от партньорите.')`}">
-    <div class="date"><b>${e.d}</b><small>${e.m}</small></div>
-    <div><h3>${e.title}</h3><div class="meta">${e.place}</div><div class="meta" style="margin-top:4px">${e.meta}</div></div></button>`).join('');
+// ───────────── events ─────────────
+let evTag='weekend';
+function renderEvents(){
+  document.getElementById('evf').innerHTML=[['weekend','Този уикенд'],['week','През седмицата'],['all','Всички']]
+    .map(([v,l])=>`<button class="chip ${evTag===v?'on':''}" onclick="evTag='${v}';renderEvents()">${l}</button>`).join('');
+  document.getElementById('events').innerHTML = EVENTS.filter(e=>evTag==='all'||e.tag===evTag).map(e=>`
+    <button class="ev" onclick="openPlace('${e.place}','${e.sid}')">
+      <div class="date"><b>${e.d}</b><small>${e.m}</small></div>
+      <div><h3>${e.title}</h3><div class="meta">${P(e.place).name} · пример</div><div class="meta" style="margin-top:4px">${e.meta}</div></div></button>`).join('');
+}
 
-// ───── parent: my bookings, per child ─────
+// ───────────── parent: per child ─────────────
 let myKid='all';
 function renderMy(){
   document.getElementById('kidTabs').innerHTML = [['all','Всички']].concat(KIDS.map((k,i)=>[String(i),k.name]))
     .map(([v,l])=>`<button class="chip ${myKid===v?'on':''}" onclick="myKid='${v}';renderMy()">${l}</button>`).join('');
   const list = state.bookings.filter(b=>myKid==='all'||String(b.kid)===myKid);
-  document.getElementById('myList').innerHTML = list.length ? list.map(b=>{const s=SESSIONS.find(x=>x.id===b.sid),k=KIDS[b.kid];
-    const ok=state.confirmed.has(b);
-    return `<div class="ev" style="cursor:default"><div class="date"><b>${s.date.split(' ')[0]}</b><small>ОКТ</small></div>
-      <div><h3>${s.title}</h3><div class="meta">${PLACE.name} · ${s.time}</div>
-      <div class="badges"><span class="badge rose">${k.name}</span><span class="badge ${ok?'':'lime'}">${ok?'Потвърдено от ателието':'Чака потвърждение'}</span><span class="badge">Напомняне ден преди</span></div></div></div>`}).join('')
-    : `<div class="empty">Още няма записвания. Отвори картата и запиши дете за занимание — ще се появи тук, отделно за всяко дете.</div>`;
+  document.getElementById('myList').innerHTML = list.length ? list.map(b=>{const p=P(b.place),s=p.sessions.find(x=>x.id===b.sid),k=KIDS[b.kid],ok=state.confirmed.has(b);
+    return `<div class="ev" style="cursor:default"><div class="date"><b>${s.date.split(' ')[0]}</b><small>${s.date.split(' ')[1].toUpperCase()}</small></div>
+      <div><h3>${s.title}</h3><div class="meta">${p.name} · ${s.time}</div>
+      <div class="badges"><span class="badge rose">${k.name}</span><span class="badge ${ok?'':'lime'}">${ok?'Потвърдено':'Чака потвърждение'}</span><span class="badge">Напомняне ден преди</span></div></div></div>`}).join('')
+    : `<div class="empty">Още няма записвания${myKid!=='all'?' за '+KIDS[+myKid].name:''}. Запиши дете от картата — ще се появи тук, отделно за всяко дете.</div>`;
 }
 
-// ───── business cabinet ─────
+// ───────────── business cabinet ─────────────
 function renderBiz(){
-  const days=[['Пн','5'],['Вт','6'],['Ср','7'],['Чт','8'],['Сб','10']];
-  document.getElementById('week').innerHTML = days.map(([d,n],i)=>`<div class="day ${i===2?'on':''}">${d}<b>${n}</b></div>`).join('');
-  document.getElementById('bizList').innerHTML = SESSIONS.map(s=>{
+  document.getElementById('bizPick').innerHTML = PLACES.map(p=>`<button class="chip ${state.biz===p.id?'on':''}" onclick="state.biz='${p.id}';renderBiz()">${p.name.replace(/[„“]/g,'')}</button>`).join('');
+  const p=P(state.biz);
+  document.getElementById('bizList').innerHTML = p.sessions.map(s=>{
     const bs=state.bookings.filter(b=>b.sid===s.id), taken=s.taken+bs.length;
-    return `<div class="slot"><div class="row"><div><div class="d" style="font-weight:700">${s.day}, ${s.date} · ${s.time}</div>
+    return `<div class="slot"><div class="row"><div><div style="font-weight:700">${s.day}, ${s.date} · ${s.time}</div>
       <div style="font-size:13px;color:var(--brown);margin-top:3px">${s.title} · ${s.ages}</div></div><b>${taken}/${s.cap}</b></div>
-      <div class="bar"><i style="width:${taken/s.cap*100}%"></i></div>
-      ${bs.map(b=>{const k=KIDS[b.kid],ok=state.confirmed.has(b);return `<div class="req"><div>${k.name}, ${k.age} г.${ok?'':'<span class="new">НОВО</span>'}</div>
-        ${ok?'<span class="badge">Потвърдено</span>':`<div style="display:flex;gap:6px"><button class="mini no" onclick="toast('Родителят ще получи известие и предложение за друг час.')">Друг час</button><button class="mini yes" onclick="confirmB(${state.bookings.indexOf(b)})">Потвърди</button></div>`}</div>`}).join('')}
+      <div class="bar"><i style="width:${Math.min(100,taken/s.cap*100)}%"></i></div>
+      ${bs.map(b=>{const k=KIDS[b.kid],ok=state.confirmed.has(b),i=state.bookings.indexOf(b);return `<div class="req"><div>${k.name}, ${k.age} г.${ok?'':'<span class="new">НОВО</span>'}</div>
+        ${ok?'<span class="badge">Потвърдено</span>':`<div style="display:flex;gap:6px"><button class="mini no" onclick="toast('Родителят ще получи известие и предложение за друг час.')">Друг час</button><button class="mini yes" onclick="confirmB(${i})">Потвърди</button></div>`}</div>`}).join('')}
     </div>`}).join('') + `<p class="empty" style="padding-top:8px">Записванията от родители се появяват тук с известие. Местата се обновяват автоматично.</p>`;
 }
 function confirmB(i){state.confirmed.add(state.bookings[i]);renderBiz();toast('Родителят получи известие: „Записването е потвърдено“')}
 
-// ───── map: custom-styled OpenStreetMap (OpenFreeMap tiles), recoloured to the brand palette ─────
-renderList(); renderSessions();
+// ───────────── map: OpenStreetMap (OpenFreeMap tiles), restyled before load ─────────────
+renderExplore(); renderEvents();
 const C={bg:'#F3F4F1',water:'#D4E6EE',park:'#E1EBD3',wood:'#D8E5C6',build:'#E9EAE6',buildLine:'#DFE0DB',landuse:'#F3F4F1',
   road:'#FFFFFF',major:'#FFFFFF',casing:'#E4E5E2',rail:'#DADBD7',border:'#C8C9C4',text:'#3D664C',textSoft:'#6B6F6A'};
 function brand(style){
@@ -397,19 +448,24 @@ function brand(style){
     } else if(l.type==='symbol'){
       p['text-color']=/highway|water/.test(id)?C.textSoft:C.text; p['text-halo-color']=C.bg;
       if(l.layout&&l.layout['text-field']) l.layout['text-field']=['coalesce',['get','name:bg'],['get','name']];
-      if(l.layout) l.layout['text-font']=l.layout['text-font']||['Noto Sans Regular'];
     }}
   return style;
 }
 fetch('https://tiles.openfreemap.org/styles/positron').then(r=>r.json()).then(style=>{
-window.map = new maplibregl.Map({container:'map', style:brand(style),
-  center:[23.322,42.686], zoom:12.8, attributionControl:{compact:true}, canvasContextAttributes:{preserveDrawingBuffer:true}, preserveDrawingBuffer:true});
-map.on('load',()=>{
-  const el=document.createElement('div'); el.className='pin';
-  el.innerHTML='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F6EFE3" stroke-width="2.4" stroke-linecap="round"><path d="M5 17c2-6 5-10 7-12 2 2 5 6 7 12"/><circle cx="12" cy="11" r="1.6" fill="#EAB5C4" stroke="none"/></svg>';
-  el.onclick=()=>go('place'); window.pin=el;
-  new maplibregl.Marker({element:el, anchor:'bottom'}).setLngLat(PLACE.lngLat).addTo(map);
-});
+  window.map = new maplibregl.Map({container:'map', style:brand(style), center:[23.322,42.690], zoom:11.4,
+    attributionControl:{compact:true}, canvasContextAttributes:{preserveDrawingBuffer:true}});
+  map.on('load',()=>{
+    const b=new maplibregl.LngLatBounds();
+    PLACES.forEach(p=>{
+      const el=document.createElement('div'); el.className='pin c-'+p.cat;
+      el.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round"><circle cx="12" cy="12" r="3.2" fill="#FFFFFF"/></svg>';
+      el.title=p.name; el.onclick=()=>openPlace(p.id);
+      pins[p.id]=new maplibregl.Marker({element:el,anchor:'bottom'}).setLngLat(p.ll).addTo(map);
+      b.extend(p.ll);
+    });
+    map.fitBounds(b,{padding:40,duration:0});
+    renderExplore();
+  });
 });
 </script>
 </body></html>
