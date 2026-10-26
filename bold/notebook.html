@@ -56,6 +56,23 @@ h1{font-weight:900;font-size:clamp(44px,8vw,120px);line-height:.9;letter-spacing
 .heropics .t{position:absolute;top:-11px;left:40%;width:80px;height:22px;opacity:.75;transform:rotate(-4deg)}
 @media(min-width:1101px){.sentence{max-width:640px}}
 @media(max-width:1100px){.heropics{display:none}}
+
+/* ── paper that grows with the child ── */
+body{transition:background-color .5s ease}
+body[data-paper="dots"]{--paper:#FFF7F4;--grid:#F1CFCF;--pen:#B4577A;--margin:transparent;
+  background-image:radial-gradient(var(--grid) 1.3px,transparent 1.6px);background-size:22px 22px}
+body[data-paper="sketch"]{--paper:#FFFFFF;--grid:#EEF0F6;--pen:#E0562B;--margin:transparent;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");background-size:160px 160px}
+body[data-paper="dots"] .w::before,body[data-paper="sketch"] .w::before{display:none}
+body[data-paper="dots"] .scr svg path{stroke:#F4A6B8}
+body[data-paper="sketch"] .scr svg path{stroke:#3FB9E0}
+body[data-paper="dots"] h1{letter-spacing:-.03em}
+.paperlabel{display:inline-block;font-family:Caveat;font-size:21px;color:var(--pen);margin-top:14px;transform:rotate(-1.5deg);transition:color .4s}
+.doodle{position:absolute;opacity:0;pointer-events:none;transition:opacity .5s;z-index:0}
+.d1{width:90px;left:4%;top:150px;transform:rotate(-8deg)}.d2{width:70px;right:6%;top:620px;transform:rotate(12deg)}.d3{width:150px;left:3%;top:760px}
+body[data-paper="sketch"] .doodle{opacity:.9}
+@media(max-width:1100px){.doodle{display:none}}
+nav,header,section{position:relative;z-index:1}
 /* results: taped index cards */
 .res{padding-top:60px;padding-bottom:30px}
 .rh{font-family:Caveat;font-size:30px;color:var(--pen)}
@@ -95,14 +112,17 @@ html,body{overflow-x:hidden}
   .dot{display:none}
 }
 </style></head><body>
+<svg class="doodle d1" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="22" fill="none" stroke="#F6C90E" stroke-width="6" stroke-linecap="round"/><path d="M60 18v-12M60 114v-12M18 60H6M114 60h-12M30 30l-8-8M98 98l-8-8M30 90l-8 8M98 22l-8 8" stroke="#F6C90E" stroke-width="6" stroke-linecap="round"/></svg>
+<svg class="doodle d2" viewBox="0 0 120 120" aria-hidden="true"><path d="M60 10l14 32 34 4-26 22 8 34-30-18-30 18 8-34-26-22 34-4z" fill="none" stroke="#3FB9E0" stroke-width="5" stroke-linejoin="round"/></svg>
+<svg class="doodle d3" viewBox="0 0 200 80" aria-hidden="true"><path d="M6 60c20-40 40 30 60-6s40 34 62 0 40 30 66-8" fill="none" stroke="#16B37E" stroke-width="6" stroke-linecap="round"/></svg>
 <div class="demo">концепция „Тетрадката“ — местата са измислени, снимките са примерни (Unsplash)</div>
 <nav><div class="w"><div class="logo">zani<span>тук</span></div><button>Вход</button></div></nav>
 
 <header class="w hero">
   <div class="heropics" aria-hidden="true">
-    <figure style="width:250px;left:130px;top:0;transform:rotate(4deg)"><span class="t" style="background:#FFB3C7"></span><img src="img/sareno.jpg" alt=""><figcaption>Русе, ателие</figcaption></figure>
-    <figure style="width:230px;left:0;top:170px;transform:rotate(-5deg)"><span class="t" style="background:#9FD8FF"></span><img src="img/delfinche.jpg" alt=""><figcaption>Плуване, Младост</figcaption></figure>
-    <figure style="width:210px;left:190px;top:250px;transform:rotate(2deg)"><span class="t" style="background:#FFE37A"></span><img src="img/notka.jpg" alt=""><figcaption>Пловдив, музика</figcaption></figure>
+    <figure style="width:250px;left:130px;top:0;transform:rotate(4deg)"><span class="t" style="background:#FFB3C7"></span><img id="hp0" src="img/sareno.jpg" alt=""><figcaption id="hc0">Русе, ателие</figcaption></figure>
+    <figure style="width:230px;left:0;top:170px;transform:rotate(-5deg)"><span class="t" style="background:#9FD8FF"></span><img id="hp1" src="img/delfinche.jpg" alt=""><figcaption id="hc1">Плуване, Младост</figcaption></figure>
+    <figure style="width:210px;left:190px;top:250px;transform:rotate(2deg)"><span class="t" style="background:#FFE37A"></span><img id="hp2" src="img/notka.jpg" alt=""><figcaption id="hc2">Пловдив, музика</figcaption></figure>
   </div>
   <span class="eyebrow">домашно за родители:</span>
   <h1>В събота<br><span class="scr"><span class="word" id="word">рисуваме</span><svg viewBox="0 0 400 40" preserveAspectRatio="none" aria-hidden="true"><path d="M6 26 C 60 10, 120 34, 180 18 S 300 8, 394 22"/></svg></span>.</h1>
@@ -113,12 +133,13 @@ html,body{overflow-x:hidden}
       <option value="all">нещо интересно</option><option value="arts">рисуване</option><option value="sport">спорт</option><option value="music">музика</option><option value="lang">английски</option><option value="stem">шах или роботика</option><option value="speech">логопед</option></select></span>
     за дете на
     <span class="blank"><select id="age" aria-label="Възраст">
-      <option value="2">2 години</option><option value="4">4 години</option><option value="5" selected>5 години</option><option value="7">7 години</option><option value="10">10 години</option></select></span>
+      <option value="1">1 година</option><option value="2">2 години</option><option value="3">3 години</option><option value="4">4 години</option><option value="5" selected>5 години</option><option value="6">6 години</option><option value="7">7 години</option><option value="10">10 години</option></select></span>
     в
     <span class="blank"><select id="area" aria-label="Град">
       <option value="all">цяла България</option><option>София</option><option>Пловдив</option><option>Варна</option><option>Бургас</option><option>Русе</option></select></span><span class="dot">.</span>
   </div>
   <button class="go" onclick="show(true)">Покажи ми</button>
+  <div><span class="paperlabel" id="paperlabel" aria-live="polite"></span></div>
 </header>
 
 <section class="w res">
@@ -133,7 +154,7 @@ html,body{overflow-x:hidden}
 </div></section>
 
 <script>
-const words=['рисуваме','плуваме','пеем','танцуваме','играем шах'];let wi=0;
+const WORDS={dots:['пляскаме','пеем','пълзим','играем'],sketch:['рисуваме','плуваме','пеем','танцуваме'],squares:['рисуваме','плуваме','играем шах','програмираме','танцуваме']};let words=WORDS.sketch,wi=0;
 const w=document.getElementById('word');
 if(!matchMedia('(prefers-reduced-motion: reduce)').matches)setInterval(()=>{wi=(wi+1)%words.length;w.textContent=words[wi];w.classList.remove('swap');void w.offsetWidth;w.classList.add('swap')},2200);
 const P=[
@@ -144,10 +165,19 @@ const P=[
  ['stem','Наука','Шахматен клуб „Пешка“','Бургас','Център',6,14,'10 €','турнир в събота от 10:00','#FFE37A','peshka'],
  ['sport','Спорт','Танцово студио „Пируетче“','Пловдив','Тракия',4,12,'10 €','2 мин от спирката','#FFB3C7','piruetche'],
  ['arts','Изкуство','Ателие „Шарено“','Русе','Център',4,9,'12 €','до парка, влиза количка','#A6EBCB','sareno'],
+ ['sport','Бебешко движение','„Пухче“ · игри за прохождащи','София','Надежда',1,3,'11 €','с родител, меки постелки','#FFC9D6','puhche'],
+ ['music','Сензорна игра','„Мъничета“ · кубчета и звуци','Варна','Чайка',1,3,'13 €','малки групи до 6 бебета','#C9E7FF','mancheta'],
  ['speech','Логопед','Ива Петрова','София','Лозенец',2,12,'30 €','проверен специалист ✓ документите са видени','#9FD8FF','iva']];
 const CC={arts:'#E23A7A',sport:'#16B37E',music:'#FF7A1A',lang:'#2340D8',stem:'#8A5A00',speech:'#2340D8'};
 const booked=new Set();
+const PAPER=a=>a<=3?['dots','за най-малките — мека хартия на точки']:a<=6?['sketch','за предучилищна възраст — лист за рисуване']:['squares','за училищна възраст — тетрадка на квадратчета'];
 function show(scroll){const c=cat.value,a=+age.value,ar=area.value;
+ const pp=PAPER(a);document.body.dataset.paper=pp[0];document.getElementById('paperlabel').textContent='↑ хартията се сменя с възрастта: '+pp[1];
+ if(words!==WORDS[pp[0]]){words=WORDS[pp[0]];wi=0;w.textContent=words[0];}
+ const HP={dots:[['puhche','Пухче, прохождащи'],['mancheta','Варна, сензорна игра'],['notka','Пловдив, музика']],
+   sketch:[['sareno','Русе, ателие'],['delfinche','Плуване, Младост'],['notka','Пловдив, музика']],
+   squares:[['peshka','Бургас, шах'],['littletalk','Варна, английски'],['piruetche','Пловдив, танци']]}[pp[0]];
+ HP.forEach((h,i)=>{const im=document.getElementById('hp'+i);if(im){im.src='img/'+h[0]+'.jpg';document.getElementById('hc'+i).textContent=h[1]}});
  const list=P.filter(p=>(c==='all'||p[0]===c)&&a>=p[5]&&a<=p[6]&&(ar==='all'||p[3]===ar));
  document.getElementById('rh').textContent=list.length?`${list.length} ${list.length===1?'идея':'идеи'} за ${a}-годишно${ar==='all'?'':' в '+ar}:`:'';
  document.getElementById('cards').innerHTML=list.length?list.map(p=>{const id=p[2],b=booked.has(id);const spec=p[0]==='speech';
@@ -159,6 +189,7 @@ function show(scroll){const c=cat.value,a=+age.value,ar=area.value;
    :'<p class="empty">Няма точно такова място… пробвай друг град или „нещо интересно“.</p>';
  if(scroll)document.getElementById('rh').scrollIntoView({behavior:'smooth',block:'start'})}
 function bk(id){booked.has(id)?booked.delete(id):booked.add(id);show(false)}
+{const q=new URLSearchParams(location.search).get('age');if(q&&[...age.options].some(o=>o.value===q))age.value=q;}
 ['cat','age','area'].forEach(i=>document.getElementById(i).onchange=()=>show(false));
 show(false);
 </script></body></html>
