@@ -8,5 +8,3 @@ peshka.jpg: https://unsplash.com/photos/1725818660598-43b9012a8168
 piruetche.jpg: https://unsplash.com/photos/1685339009948-d807094b1457
 iva.jpg: https://unsplash.com/photos/1573497019236-17f8177b81e8
 iva2.jpg: https://unsplash.com/photos/1494790108377-be9c29b29330
-puhche.jpg: https://unsplash.com/photos/1600880291319-1a7499c191e8
-mancheta.jpg: https://unsplash.com/photos/1772419130717-e0630e3e4f28
