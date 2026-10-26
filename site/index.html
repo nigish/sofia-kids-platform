@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="bg"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zani · детски занимания в София (прототип)</title>
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+:root{--acc:#2C6E4F;--acc-dk:#1F513A;--acc-soft:#EAF1EC;--ink:#1E2A22;--muted:#6B746F;--line:#E8EAE7;--bg2:#F7F8F6;--rose:#F4D9DF;--blue:#2F5A7A}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,sans-serif;color:var(--ink);background:#fff;line-height:1.5}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.demo-bar{background:#EFF2BD;text-align:center;font-size:13px;font-weight:600;padding:8px 16px}
+
+/* nav */
+nav{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:20px}
+.logo{font-weight:800;font-size:24px;letter-spacing:-.6px}.logo b{color:var(--acc)}
+.links{display:flex;gap:28px;font-size:15px;font-weight:500;color:var(--muted)}
+.links a:hover{color:var(--ink)}
+.navbtns{display:flex;gap:10px}
+.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:24px;padding:11px 20px;font-weight:600;font-size:15px}
+.btn.pri{background:var(--acc);color:#fff}.btn.pri:hover{background:var(--acc-dk)}
+.btn.sec{border:1px solid var(--line)}.btn.sec:hover{border-color:var(--ink)}
+@media(max-width:860px){.links,.navbtns .sec{display:none}}
+
+/* hero */
+.hero{padding:64px 0 40px}
+.hero h1{font-size:clamp(34px,5vw,58px);line-height:1.08;letter-spacing:-1.8px;font-weight:800;max-width:760px}
+.hero h1 span{color:var(--acc)}
+.hero p.lead{font-size:19px;color:var(--muted);margin-top:16px;max-width:620px}
+.search{margin-top:30px;display:flex;align-items:stretch;border:1px solid var(--line);border-radius:40px;box-shadow:0 10px 30px rgba(30,42,34,.08);max-width:880px;background:#fff}
+.search .f{flex:1;padding:14px 22px;border-right:1px solid var(--line);min-width:0}
+.search .f:last-of-type{border-right:0}
+.search label{display:block;font-size:12px;font-weight:700}
+.search select,.search input{border:0;font:inherit;font-size:15px;color:var(--muted);width:100%;background:none;outline:none;margin-top:2px}
+.search .go{margin:7px;border-radius:32px;background:var(--acc);color:#fff;font-weight:700;padding:0 26px}
+@media(max-width:760px){.search{flex-direction:column;border-radius:24px}.search .f{border-right:0;border-bottom:1px solid var(--line)}.search .go{padding:14px}}
+.trust{display:flex;flex-wrap:wrap;gap:22px;margin-top:22px;font-size:14px;color:var(--muted)}
+.trust span::before{content:"✓";color:var(--acc);font-weight:800;margin-right:6px}
+
+/* sections */
+section{padding:56px 0}
+.sh{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:22px;flex-wrap:wrap}
+.sh h2{font-size:32px;letter-spacing:-.8px;font-weight:800}
+.sh p{color:var(--muted);margin-top:4px}
+.sh a{color:var(--acc);font-weight:600}
+.alt{background:var(--bg2)}
+
+/* categories */
+.cats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+.chip{border:1px solid var(--line);border-radius:22px;padding:9px 16px;font-size:14px;font-weight:600;background:#fff}
+.chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px}
+.card{display:block;border-radius:18px;transition:transform .15s}
+.card:hover{transform:translateY(-3px)}
+.card .img{height:170px;border-radius:16px;position:relative;display:flex;align-items:center;justify-content:center;font-size:42px;font-weight:800;color:rgba(30,42,34,.25)}
+.ver{position:absolute;top:12px;left:12px;background:#fff;border-radius:12px;font-size:12px;font-weight:700;padding:4px 10px;color:var(--acc)}
+.ver.spec{color:var(--blue)}
+.card .row{display:flex;justify-content:space-between;gap:10px;margin-top:12px;font-weight:700}.card .row span:last-child{white-space:nowrap}
+.card .sub{font-size:14px;color:var(--muted);margin-top:2px}
+.card .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.tag{font-size:12px;font-weight:600;background:var(--acc-soft);color:var(--acc);border-radius:10px;padding:3px 8px}
+
+/* this week (calendar) */
+.days{display:flex;gap:10px;margin-bottom:18px;overflow-x:auto}
+.day{min-width:76px;border:1px solid var(--line);border-radius:16px;padding:10px 0;text-align:center;font-size:12px;font-weight:600;color:var(--muted);background:#fff}
+.day b{display:block;font-size:22px;color:var(--ink)}
+.day.on{background:var(--ink);border-color:var(--ink);color:#c8cdc9}.day.on b{color:#fff}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.slot{display:flex;gap:16px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 18px;border-left:5px solid var(--c)}
+.slot .t{font-weight:800;font-size:17px;width:54px}
+.slot .i{flex:1}.slot .i b{display:block}.slot .i span{font-size:13px;color:var(--muted)}
+.slot a{background:var(--ink);color:#fff;border-radius:16px;padding:8px 14px;font-size:13px;font-weight:700;white-space:nowrap}
+
+/* map */
+.mapgrid{display:grid;grid-template-columns:1.5fr 1fr;gap:24px;align-items:stretch}
+#map{height:440px;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:#F3F4F1}
+.feat{display:flex;flex-direction:column;gap:14px}
+.feat div{border:1px solid var(--line);border-radius:16px;padding:18px;background:#fff}
+.feat b{display:block;font-size:16px}.feat span{font-size:14px;color:var(--muted)}
+.pin{width:34px;height:34px;border-radius:50% 50% 50% 6px;transform:rotate(-45deg);border:3px solid #fff;box-shadow:0 5px 12px rgba(0,0,0,.25);cursor:pointer}
+@media(max-width:860px){.mapgrid{grid-template-columns:1fr}#map{height:340px}}
+
+/* how */
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.how div{padding:26px;border-radius:18px;background:#fff;border:1px solid var(--line)}
+.how .n{width:38px;height:38px;border-radius:50%;background:var(--acc-soft);color:var(--acc);font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.how b{font-size:18px}.how p{color:var(--muted);margin-top:6px;font-size:15px}
+@media(max-width:860px){.how{grid-template-columns:1fr}}
+
+/* business */
+.biz{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;background:var(--ink);color:#fff;border-radius:28px;padding:48px}
+.biz h2{font-size:34px;letter-spacing:-.8px;line-height:1.15}
+.biz ul{list-style:none;margin:20px 0 26px;display:flex;flex-direction:column;gap:10px;color:#cfd6d1}
+.biz li::before{content:"✓";color:#8FD1AE;font-weight:800;margin-right:10px}
+.biz .btn.pri{background:#fff;color:var(--ink)}
+.mock{background:#fff;color:var(--ink);border-radius:18px;padding:18px}
+.mock .r{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+.mock .r:last-child{border:0}
+.bar{height:7px;border-radius:5px;background:var(--line);margin-top:6px;width:140px;overflow:hidden}.bar i{display:block;height:100%;background:var(--acc)}
+.new{font-size:11px;font-weight:700;background:var(--rose);border-radius:8px;padding:2px 7px;margin-left:6px}
+@media(max-width:860px){.biz{grid-template-columns:1fr;padding:28px}}
+
+/* blog */
+.posts{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.post .img{height:180px;border-radius:16px}
+.post small{display:block;margin-top:12px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--acc)}
+.post b{display:block;font-size:18px;margin-top:4px;line-height:1.3}
+@media(max-width:860px){.posts{grid-template-columns:1fr}}
+
+footer{border-top:1px solid var(--line);padding:40px 0;color:var(--muted);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:14px 20px;border-radius:16px;font-size:14px;opacity:0;visibility:hidden;transition:all .3s;z-index:50;max-width:90vw}
+.toast.on{opacity:1;visibility:visible;transform:translateX(-50%)}
+</style>
+</head>
+<body>
+<div class="demo-bar">Прототип — всички места, събития и профили са измислени</div>
+
+<nav><div class="wrap">
+  <a href="#" class="logo">zani<b>.</b></a>
+  <div class="links"><a href="#places">Места</a><a href="#week">Тази седмица</a><a href="#map-sec">Карта</a><a href="#blog">Блог</a><a href="#business">За бизнеса</a></div>
+  <div class="navbtns"><a class="btn sec" href="#business">Добави своето място</a><a class="btn pri" href="../prototype/">Вход</a></div>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <h1>Всички детски занимания в София — <span>намери и запиши</span> за минута.</h1>
+  <p class="lead">Изкуство, спорт, музика, езици и проверени специалисти. Виж свободните часове и запиши детето си директно — без обаждания и съобщения.</p>
+  <form class="search" onsubmit="event.preventDefault();doSearch()">
+    <div class="f"><label>Какво</label><select id="qCat"><option value="all">Всички занимания</option><option value="arts">Изкуство</option><option value="sport">Спорт</option><option value="music">Музика</option><option value="lang">Езици</option><option value="stem">Наука и логика</option><option value="speech">Логопед</option><option value="psy">Психолог</option></select></div>
+    <div class="f"><label>Възраст</label><select id="qAge"><option value="all">Всяка възраст</option><option value="0-2">0–2 г.</option><option value="3-5">3–5 г.</option><option value="6-9">6–9 г.</option><option value="10-99">10+ г.</option></select></div>
+    <div class="f"><label>Къде</label><select><option>Цяла София</option><option>Лозенец</option><option>Младост</option><option>Център</option><option>Люлин</option><option>Изток</option></select></div>
+    <button class="go">Търси</button>
+  </form>
+  <div class="trust"><span>Свободни часове в реално време</span><span>Проверени логопеди и психолози</span><span>Филтър „подходящо за количка“</span><span>Напомняне преди всяко занимание</span></div>
+</div></header>
+
+<section id="places"><div class="wrap">
+  <div class="sh"><div><h2>Популярни места</h2><p>Подбрани занимания за всяка възраст</p></div><a href="../prototype/">Виж всички →</a></div>
+  <div class="cats" id="cats"></div>
+  <div class="cards" id="cards"></div>
+</div></section>
+
+<section id="week" class="alt"><div class="wrap">
+  <div class="sh"><div><h2>Какво има тази седмица</h2><p>Избери ден и запиши с един клик</p></div></div>
+  <div class="days" id="days"></div>
+  <div class="slots" id="slots"></div>
+</div></section>
+
+<section id="map-sec"><div class="wrap">
+  <div class="sh"><div><h2>Близо до теб</h2><p>Карта на София, направена за родители</p></div></div>
+  <div class="mapgrid">
+    <div id="map"></div>
+    <div class="feat">
+      <div><b>Колко е далеч от спирката</b><span>Пресмятаме автоматично минутите пеша до метро, трамвай или автобус.</span></div>
+      <div><b>Подходящо за количка</b><span>Знаеш предварително дали има стълби, асансьор и място за количката.</span></div>
+      <div><b>Филтри по възраст</b><span>Виждаш само заниманията, подходящи за твоето дете.</span></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="alt"><div class="wrap">
+  <div class="sh"><div><h2>Как работи</h2></div></div>
+  <div class="how">
+    <div><div class="n">1</div><b>Намери</b><p>Търси по възраст, квартал и вид занимание — или разгледай картата.</p></div>
+    <div><div class="n">2</div><b>Запиши</b><p>Избери свободен час и детето. Мястото получава известие веднага.</p></div>
+    <div><div class="n">3</div><b>Следи всичко</b><p>Отделен календар за всяко дете, с напомняне ден преди заниманието.</p></div>
+  </div>
+</div></section>
+
+<section id="business"><div class="wrap">
+  <div class="biz">
+    <div>
+      <h2>Имаш занималня, студио или практика?</h2>
+      <ul>
+        <li>Безплатна страница на картата и в търсенето</li>
+        <li>Онлайн календар със свободни часове</li>
+        <li>Записвания без телефонни обаждания</li>
+        <li>Напомняния за родителите — по-малко пропуснати часове</li>
+      </ul>
+      <button class="btn pri" onclick="toast('Тук бизнесът ще се регистрира. В прототипа виж „Бизнес“ таба.')">Добави своето място безплатно</button>
+    </div>
+    <div class="mock">
+      <div style="font-weight:800;margin-bottom:6px">Ателие „Лисичка“ · тази седмица</div>
+      <div class="r"><div>Ср 17:30 · Акварел<div class="bar"><i style="width:75%"></i></div></div><b>6/8</b></div>
+      <div class="r"><div>Чт 17:30 · Глина<div class="bar"><i style="width:88%"></i></div></div><b>7/8</b></div>
+      <div class="r"><div>Мария, 5 г.<span class="new">НОВО</span></div><span class="tag">Потвърди</span></div>
+    </div>
+  </div>
+</div></section>
+
+<section id="blog" class="alt"><div class="wrap">
+  <div class="sh"><div><h2>От блога</h2><p>Съвети и седмични обзори от Moms of Sofia</p></div><a href="#" onclick="toast('Блогът ще е на /blog — добър за SEO.');return false">Всички статии →</a></div>
+  <div class="posts">
+    <a class="post" href="#" onclick="return false"><div class="img" style="background:linear-gradient(135deg,#F4D9DF,#E8EFD9)"></div><small>Седмичен обзор</small><b>12 есенни занимания за децата в София</b></a>
+    <a class="post" href="#" onclick="return false"><div class="img" style="background:linear-gradient(135deg,#D7E8F3,#E3F0E8)"></div><small>Съвети</small><b>Как да изберем логопед: 6 въпроса за първата среща</b></a>
+    <a class="post" href="#" onclick="return false"><div class="img" style="background:linear-gradient(135deg,#E5DCF3,#F3E9D9)"></div><small>Квартали</small><b>Къде да заведем децата в Лозенец</b></a>
+  </div>
+</div></section>
+
+<footer><div class="wrap"><div><b style="color:var(--ink)">zani.</b> · детски занимания в София · прототип</div><div>Направено с Moms of Sofia</div></div></footer>
+<div class="toast" id="toast"></div>
+
+<script>
+const CN={all:'Всички',arts:'Изкуство',sport:'Спорт',music:'Музика',lang:'Езици',stem:'Наука и логика',speech:'Логопед',psy:'Психолог'};
+const PL=[
+ {n:'Ателие „Лисичка“',c:'arts',a:[4,10],ar:'Лозенец',p:'15 €',ll:[23.3205,42.6795],g:'#F4D9DF,#E8EFD9',t:['4 мин до метро','Количка']},
+ {n:'Клуб по плуване „Делфинче“',c:'sport',a:[3,12],ar:'Младост',p:'18 €',ll:[23.378,42.653],g:'#D7E8F3,#E3F0E8',t:['Уикенд','Количка']},
+ {n:'Музикална къща „Нотка“',c:'music',a:[1,8],ar:'Център',p:'12 €',ll:[23.327,42.696],g:'#E5DCF3,#F3E9D9',t:['2 мин до трамвай']},
+ {n:'Little Talk · английски',c:'lang',a:[3,10],ar:'Изток',p:'14 €',ll:[23.353,42.672],g:'#FFF1CC,#F3E9D9',t:['Групи до 6']},
+ {n:'Логопед Ива Петрова',c:'speech',a:[2,12],ar:'Иван Вазов',p:'30 €',ll:[23.308,42.682],g:'#DDEAF3,#EEF3E6',t:['Индивидуално'],v:1},
+ {n:'Детски психолог Мира Колева',c:'psy',a:[3,16],ar:'Оборище',p:'40 €',ll:[23.342,42.699],g:'#E3ECF3,#F1EEE6',t:['Индивидуално'],v:1},
+ {n:'Танцово студио „Пируетче“',c:'sport',a:[4,12],ar:'Люлин',p:'10 €',ll:[23.264,42.716],g:'#FBE3D9,#F4D9DF',t:['3 мин до метро']},
+ {n:'Шахматен клуб „Пешка“',c:'stem',a:[6,14],ar:'Красно село',p:'10 €',ll:[23.295,42.68],g:'#ECE6DA,#E3F0E8',t:['Турнир в събота']},
+];
+const PINC={arts:'#C77D8F',sport:'#2C6E4F',music:'#8C6BB1',lang:'#D08A3E',stem:'#7A5B47',speech:'#2F5A7A',psy:'#2F5A7A'};
+let cat='all', age='all', day=0;
+const ini=n=>n.replace(/[„“·]/g,'').split(' ').filter(Boolean).map(w=>w[0]).slice(0,2).join('');
+function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('on');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('on'),3000)}
+function renderCards(){
+  document.getElementById('cats').innerHTML=Object.entries(CN).map(([k,v])=>`<button class="chip ${cat===k?'on':''}" onclick="cat='${k}';renderCards()">${v}</button>`).join('');
+  const [lo,hi]=age==='all'?[0,99]:age.split('-').map(Number);
+  const list=PL.filter(p=>(cat==='all'||p.c===cat)&&p.a[1]>=lo&&p.a[0]<=hi);
+  document.getElementById('cards').innerHTML=list.length?list.map(p=>`
+    <a class="card" href="../prototype/"><div class="img" style="background:linear-gradient(135deg,${p.g})">${ini(p.n)}<span class="ver ${p.v?'spec':''}">${p.v?'✓ Проверен специалист':'✓ Проверено място'}</span></div>
+    <div class="row"><span>${p.n}</span><span>${p.p}</span></div>
+    <div class="sub">${CN[p.c]} · ${p.a[0]}–${p.a[1]} г. · ${p.ar}</div>
+    <div class="tags">${p.t.map(t=>`<span class="tag">${t}</span>`).join('')}</div></a>`).join('')
+    :`<p style="color:var(--muted)">Няма места с тези филтри.</p>`;
+}
+function doSearch(){cat=document.getElementById('qCat').value;age=document.getElementById('qAge').value;renderCards();document.getElementById('places').scrollIntoView({behavior:'smooth'})}
+const DAYS=[['Пн',26],['Вт',27],['Ср',28],['Чт',29],['Пт',30],['Сб',31],['Нд',1]];
+const SL={0:[['10:30','Музика с мама','„Нотка“ · 1–3 г.','#8C6BB1'],['16:30','Лаборатория','„Малки откриватели“ · 6–9 г.','#7A5B47']],
+ 1:[['09:30','Логопед — свободен час','Ива Петрова · 2–12 г.','#2F5A7A'],['18:00','Плуване начинаещи','„Делфинче“ · 3–5 г.','#2C6E4F']],
+ 2:[['15:00','Консултация','Мира Колева · 3–16 г.','#2F5A7A'],['17:30','Рисуване с акварел','„Лисичка“ · 4–6 г.','#C77D8F']],
+ 3:[['16:30','Роботика','„Малки откриватели“ · 9–12 г.','#7A5B47'],['17:30','Моделиране с глина','„Лисичка“ · 6–10 г.','#C77D8F']],
+ 4:[['10:00','Бебешка гимнастика','„Пухче“ · 0–1 г.','#2C6E4F']],
+ 5:[['10:00','Детски шахматен турнир','„Пешка“ · 6–14 г.','#7A5B47'],['11:00','Есенни фенерчета','„Лисичка“ · 4–10 г.','#C77D8F'],['11:30','Малки барабанисти','„Нотка“ · 4–8 г.','#8C6BB1']],
+ 6:[['10:00','Отворен урок по плуване','„Делфинче“ · 3–5 г.','#2C6E4F']]};
+function renderWeek(){
+  document.getElementById('days').innerHTML=DAYS.map(([d,n],i)=>`<button class="day ${day===i?'on':''}" onclick="day=${i};renderWeek()">${d}<b>${n}</b></button>`).join('');
+  document.getElementById('slots').innerHTML=(SL[day]||[]).map(s=>`<div class="slot" style="--c:${s[3]}"><div class="t">${s[0]}</div><div class="i"><b>${s[1]}</b><span>${s[2]}</span></div><a href="../prototype/">Запиши</a></div>`).join('');
+}
+renderCards();renderWeek();
+
+// map: OpenStreetMap via OpenFreeMap, restyled light
+const C={bg:'#F3F4F1',water:'#D4E6EE',park:'#E1EBD3',wood:'#D8E5C6',build:'#E9EAE6',land:'#F3F4F1',road:'#FFFFFF',casing:'#E4E5E2',rail:'#DADBD7',border:'#C8C9C4',text:'#2C6E4F',soft:'#6B6F6A'};
+function brand(st){for(const l of st.layers){const id=l.id,p=(l.paint=l.paint||{});
+  if(l.type==='background')p['background-color']=C.bg;
+  else if(l.type==='fill'){p['fill-color']=/water/.test(id)?C.water:/park/.test(id)?C.park:/wood|grass|landcover/.test(id)?C.wood:/building/.test(id)?C.build:C.land}
+  else if(l.type==='line'){if(/water/.test(id))p['line-color']=C.water;else if(/casing/.test(id))p['line-color']=C.casing;else if(/rail/.test(id))p['line-color']=/dash/.test(id)?C.bg:C.rail;else if(/highway|road|path|minor|major|motorway|trunk|primary/.test(id))p['line-color']=C.road;else if(/boundary/.test(id))p['line-color']=C.border}
+  else if(l.type==='symbol'){p['text-color']=/highway|water/.test(id)?C.soft:C.text;p['text-halo-color']=C.bg;if(l.layout&&l.layout['text-field'])l.layout['text-field']=['coalesce',['get','name:bg'],['get','name']]}}
+  return st}
+fetch('https://tiles.openfreemap.org/styles/positron').then(r=>r.json()).then(st=>{
+  const map=new maplibregl.Map({container:'map',style:brand(st),center:[23.322,42.69],zoom:11.3,scrollZoom:false,attributionControl:{compact:true}});
+  map.addControl(new maplibregl.NavigationControl({showCompass:false}),'top-right');
+  map.on('load',()=>{const b=new maplibregl.LngLatBounds();PL.forEach(p=>{const el=document.createElement('div');el.className='pin';el.style.background=PINC[p.c];el.title=p.n;
+    el.onclick=()=>toast(`${p.n} · ${CN[p.c]} · ${p.a[0]}–${p.a[1]} г. · ${p.p}`);
+    new maplibregl.Marker({element:el,anchor:'bottom'}).setLngLat(p.ll).addTo(map);b.extend(p.ll)});map.fitBounds(b,{padding:50,duration:0})});
+});
+</script>
+</body></html>
