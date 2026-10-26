@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Концепция 5 · Родители от квартала</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+:root{--bg:#FFFDF9;--ink:#202423;--coral:#FF6B57;--coral-soft:#FFE5E0;--mint:#2BB39A;--mint-soft:#DDF5EF;--muted:#6E7472;--line:#EEEAE3}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}.w{max-width:1140px;margin:0 auto;padding:0 24px}
+.demo{background:var(--mint-soft);color:#1E7F6D;text-align:center;font-size:12.5px;font-weight:600;padding:7px}
+nav .w{display:flex;justify-content:space-between;align-items:center;height:72px}
+.logo{font-weight:800;font-size:24px}.logo span{color:var(--coral)}
+.hood{border:1px solid var(--line);border-radius:20px;padding:8px 14px;font-size:14px;font-weight:600;background:#fff}
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center;padding:50px 0 40px}
+@media(max-width:900px){.hero{grid-template-columns:1fr}}
+.hero h1{font-size:clamp(34px,4.8vw,56px);line-height:1.08;letter-spacing:-1.2px;font-weight:800}
+.hero h1 span{color:var(--coral)}
+.hero p{color:var(--muted);font-size:18px;margin-top:14px}
+.faces{display:flex;align-items:center;margin-top:24px}
+.faces i{width:40px;height:40px;border-radius:50%;border:3px solid var(--bg);margin-left:-10px;display:block}
+.faces i:first-child{margin-left:0}
+.faces span{margin-left:12px;font-size:14px;color:var(--muted)}.faces b{color:var(--ink)}
+.cta{margin-top:24px;display:inline-block;background:var(--coral);color:#fff;border-radius:16px;padding:14px 22px;font-weight:700}
+.feed{background:#fff;border:1px solid var(--line);border-radius:26px;padding:20px;box-shadow:0 18px 40px rgba(32,36,35,.06)}
+.feed h3{font-size:15px;display:flex;justify-content:space-between}.feed h3 em{font-style:normal;color:var(--mint);font-size:12px;font-weight:700}
+.post{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
+.post:last-child{border:0}
+.post i{flex:none;width:38px;height:38px;border-radius:50%;display:block}
+.post p{font-size:14px}.post p b{font-weight:700}
+.post .card{margin-top:8px;border-radius:14px;background:var(--bg);border:1px solid var(--line);padding:10px 12px;display:flex;justify-content:space-between;align-items:center;font-size:13px}
+.post .card a{color:var(--coral);font-weight:700;text-decoration:none}
+.post small{display:block;font-size:12px;color:var(--muted);margin-top:4px}
+.sec{padding:52px 0}.sec h2{font-size:32px;font-weight:800;letter-spacing:-.6px}.sec .l{color:var(--muted)}
+.tops{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:22px}
+@media(max-width:900px){.tops{grid-template-columns:1fr 1fr}}
+.top{background:#fff;border:1px solid var(--line);border-radius:20px;padding:16px}
+.top .im{height:110px;border-radius:14px}
+.top .rank{display:inline-block;margin-top:10px;font-size:12px;font-weight:800;color:var(--coral);background:var(--coral-soft);border-radius:8px;padding:2px 8px}
+.top b{display:block;margin-top:6px}.top span{font-size:13px;color:var(--muted)}
+.chips{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.chips button{border:1px solid var(--line);border-radius:18px;padding:8px 14px;font-size:14px;font-weight:600;background:#fff}
+.chips button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+</style></head><body>
+<div class="demo">Концепция 5 · всички хора, отзиви и места са измислени</div>
+<nav><div class="w"><div class="logo">zani<span>.</span></div><button class="hood">Лозенец ▾</button></div></nav>
+<header class="w hero">
+  <div>
+    <h1>Къде водят децата си <span>родителите от твоя квартал?</span></h1>
+    <p>Най-добрите препоръки идват от други родители. Виж какво записват семействата около теб тази седмица — и се присъедини.</p>
+    <div class="faces"><i style="background:#FFD3C9"></i><i style="background:#CBEDE4"></i><i style="background:#FFE7A8"></i><i style="background:#D9D3F7"></i><span><b>312 родители</b> от Лозенец използват Zani</span></div>
+    <a class="cta" href="#">Виж какво е популярно наблизо</a>
+  </div>
+  <div class="feed"><h3>Тази седмица в Лозенец <em>● на живо</em></h3>
+    <div class="post"><i style="background:#FFD3C9"></i><div><p><b>Мама на Ема</b> записа дъщеря си за рисуване</p>
+      <div class="card"><span>Ателие „Лисичка“ · 4–10 г.</span><a href="#">Виж</a></div><small>преди 12 мин · 3 приятелки също ходят</small></div></div>
+    <div class="post"><i style="background:#CBEDE4"></i><div><p><b>Татко на Борис</b> остави отзив ★★★★★</p>
+      <div class="card"><span>„Много търпелива логопедка.“</span><a href="#">Чети</a></div><small>преди 1 час</small></div></div>
+    <div class="post"><i style="background:#FFE7A8"></i><div><p><b>5 семейства</b> отиват на есенната работилница в събота</p>
+      <div class="card"><span>Сб 11:00 · остават 4 места</span><a href="#">Запиши</a></div><small>популярно в квартала</small></div></div>
+  </div>
+</header>
+<section class="sec"><div class="w">
+  <h2>Най-обичани в Лозенец</h2><p class="l">По брой записвания и отзиви от родители — не по реклама.</p>
+  <div class="chips" id="ch"><button class="on">Всички</button><button>0–3 г.</button><button>4–6 г.</button><button>7+ г.</button></div>
+  <div class="tops">
+    <div class="top"><div class="im" style="background:#FFE5E0"></div><span class="rank">№1</span><b>Ателие „Лисичка“</b><span>Изкуство · 128 семейства</span></div>
+    <div class="top"><div class="im" style="background:#DDF5EF"></div><span class="rank">№2</span><b>„Делфинче“</b><span>Плуване · 96 семейства</span></div>
+    <div class="top"><div class="im" style="background:#FFF1CC"></div><span class="rank">№3</span><b>„Нотка“</b><span>Музика · 81 семейства</span></div>
+    <div class="top"><div class="im" style="background:#E9E5FA"></div><span class="rank">№4</span><b>Логопед Ива Петрова</b><span>Проверен специалист · 44 семейства</span></div>
+  </div>
+</div></section>
+<script>document.getElementById('ch').onclick=e=>{const b=e.target.closest('button');if(!b)return;document.querySelectorAll('#ch button').forEach(x=>x.classList.remove('on'));b.classList.add('on')}</script>
+</body></html>

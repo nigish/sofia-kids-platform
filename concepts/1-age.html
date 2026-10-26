@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Концепция 1 · Първо възрастта</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap');
+:root{--sand:#FBF6EF;--ink:#1D2B2A;--teal:#0F5C5A;--teal-soft:#DCEDEA;--clay:#D9744A;--muted:#6E7775;--line:#ECE4D8}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:Inter,sans-serif;background:var(--sand);color:var(--ink);line-height:1.5}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}.w{max-width:1120px;margin:0 auto;padding:0 24px}
+.demo{background:var(--ink);color:#fff;text-align:center;font-size:12.5px;padding:7px}
+nav .w{display:flex;justify-content:space-between;align-items:center;height:72px}
+.logo{font-family:Fraunces,serif;font-size:26px;font-weight:700}.logo i{color:var(--clay);font-style:normal}
+nav a{font-size:15px;color:var(--muted);margin-left:26px;text-decoration:none}
+.hero{padding:56px 0 30px;text-align:center}
+.hero h1{font-family:Fraunces,serif;font-size:clamp(36px,5.4vw,64px);line-height:1.05;letter-spacing:-1px}
+.hero p{color:var(--muted);font-size:19px;margin:14px auto 0;max-width:560px}
+.ages{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:38px auto 0;max-width:900px}
+.age{background:#fff;border:2px solid var(--line);border-radius:22px;padding:22px 10px 18px;transition:.15s}
+.age:hover{border-color:var(--teal);transform:translateY(-3px)}
+.age.on{background:var(--teal);border-color:var(--teal);color:#fff}
+.age .ill{width:54px;height:54px;border-radius:50%;margin:0 auto 12px;background:var(--teal-soft)}
+.age.on .ill{background:rgba(255,255,255,.2)}
+.age b{display:block;font-family:Fraunces,serif;font-size:22px}.age span{font-size:13px;color:var(--muted)}.age.on span{color:#cfe6e2}
+@media(max-width:760px){.ages{grid-template-columns:repeat(2,1fr)}}
+.res{padding:46px 0 60px}
+.res h2{font-family:Fraunces,serif;font-size:32px}.res .lead{color:var(--muted);margin-top:4px}
+.tip{margin-top:18px;background:var(--teal-soft);border-radius:18px;padding:16px 20px;font-size:15px;color:var(--teal)}
+.tip b{color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:22px}
+@media(max-width:860px){.grid{grid-template-columns:1fr}}
+.c{background:#fff;border-radius:22px;overflow:hidden;border:1px solid var(--line)}
+.c .im{height:150px}
+.c .b{padding:16px 18px 18px}.c .k{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--clay)}
+.c h3{font-size:18px;margin:4px 0}.c p{font-size:14px;color:var(--muted)}
+.c .f{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+.c .f b{font-size:15px}.c .f a{background:var(--ink);color:#fff;border-radius:14px;padding:8px 14px;font-size:13px;font-weight:600;text-decoration:none}
+.why{background:#fff;border-top:1px solid var(--line);padding:50px 0}
+.why .w{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+.why b{font-family:Fraunces,serif;font-size:20px;display:block}.why p{color:var(--muted);margin-top:6px;font-size:15px}
+@media(max-width:760px){.why .w{grid-template-columns:1fr}}
+</style></head><body>
+<div class="demo">Концепция 1 · всички места са измислени</div>
+<nav><div class="w"><div class="logo">zani<i>.</i></div><div><a href="#">Как работи</a><a href="#">За бизнеса</a><a href="#">Вход</a></div></div></nav>
+<header class="hero"><div class="w">
+  <h1>На колко години е<br>твоето дете?</h1>
+  <p>Започни оттук. Ще ти покажем само заниманията, които са подходящи точно за тази възраст — нищо излишно.</p>
+  <div class="ages" id="ages"></div>
+</div></header>
+<section class="res"><div class="w">
+  <h2 id="rt"></h2><p class="lead" id="rl"></p>
+  <div class="tip" id="tip"></div>
+  <div class="grid" id="grid"></div>
+</div></section>
+<section class="why"><div class="w">
+  <div><b>Без безкрайни списъци</b><p>Подбираме най-подходящите места за възрастта, за да не губиш вечери в търсене.</p></div>
+  <div><b>Какво е нормално сега</b><p>Кратки съвети какво развива детето на тази възраст — и кои занимания помагат.</p></div>
+  <div><b>Расте с детето</b><p>С всеки рожден ден препоръките се променят сами.</p></div>
+</div></section>
+<script>
+const A=[
+ {k:'0-1',t:'0–1',s:'бебе',tip:'<b>На тази възраст</b> най-ценното е движение и музика заедно с теб — групите са малки и спокойни.',
+  c:[['Бебешка гимнастика','„Пухче“ · Надежда','11 €','#F6E3D6'],['Музика с мама','„Нотка“ · Център','12 €','#E3E8F4'],['Сензорна игра','„Мъничета“ · Лозенец','14 €','#E1EEE2']]},
+ {k:'1-3',t:'1–3',s:'прохождащо',tip:'<b>Сега</b> детето учи чрез повторение и подражание — търси занимания с родител, около 45 минути.',
+  c:[['Малки музиканти','„Нотка“ · Център','12 €','#E3E8F4'],['Игри с пясък и вода','„Мъничета“ · Лозенец','14 €','#E1EEE2'],['Първи стъпки в танца','„Пируетче“ · Люлин','10 €','#F6E3D6']]},
+ {k:'4-6',t:'4–6',s:'детска градина',tip:'<b>Това е възрастта</b>, в която децата обичат да опитват всичко — пробни часове са най-добрият старт.',
+  c:[['Рисуване с акварел','Ателие „Лисичка“ · Лозенец','15 €','#F6E3D6'],['Плуване начинаещи','„Делфинче“ · Младост','18 €','#DDEAF3'],['Английски с песни','Little Talk · Изток','14 €','#F4EED8']]},
+ {k:'7-10',t:'7–10',s:'начално училище',tip:'<b>След училище</b> помагат занимания с ясна цел — спорт, шах, роботика, езици.',
+  c:[['Роботика','„Малки откриватели“ · Студентски','13 €','#E1EEE2'],['Шах за начинаещи','„Пешка“ · Красно село','10 €','#F4EED8'],['Модерни танци','„Пируетче“ · Люлин','10 €','#F6E3D6']]},
+ {k:'11+',t:'11+',s:'тийнейджър',tip:'<b>Тийнейджърите</b> избират сами — покажи им 2–3 възможности и ги остави да решат.',
+  c:[['Турнир по шах','„Пешка“ · Красно село','10 €','#F4EED8'],['Програмиране','„Малки откриватели“','16 €','#E1EEE2'],['Консултация с психолог','Мира Колева · проверен','40 €','#DDEAF3']]}];
+let cur=2;
+function r(){
+ document.getElementById('ages').innerHTML=A.map((a,i)=>`<button class="age ${i===cur?'on':''}" onclick="cur=${i};r()"><div class="ill"></div><b>${a.t}</b><span>${a.s}</span></button>`).join('');
+ const a=A[cur];document.getElementById('rt').textContent=`Подходящо за ${a.t} г.`;document.getElementById('rl').textContent='3 от 48 места, подбрани за тази възраст';
+ document.getElementById('tip').innerHTML=a.tip;
+ document.getElementById('grid').innerHTML=a.c.map(c=>`<div class="c"><div class="im" style="background:${c[3]}"></div><div class="b"><div class="k">${a.t} г.</div><h3>${c[0]}</h3><p>${c[1]}</p><div class="f"><b>${c[2]}</b><a href="#">Виж часове</a></div></div></div>`).join('');
+}r();
+</script></body></html>
