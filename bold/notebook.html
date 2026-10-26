@@ -65,6 +65,20 @@ h1{font-weight:900;font-size:clamp(44px,8vw,120px);line-height:.9;letter-spacing
 .mg em{font-family:Caveat;font-style:normal;font-size:22px;color:var(--pen);display:block;margin-top:6px}
 @media(max-width:820px){.mg{grid-template-columns:1fr}.w{padding-left:56px}.w::before{left:30px}}
 @media (prefers-reduced-motion:reduce){.card{transform:none!important}}
+html,body{overflow-x:hidden}
+@media(max-width:600px){
+  .w{padding-left:46px;padding-right:18px}.w::before{left:26px}
+  nav .w{height:68px}.logo{font-size:24px}nav button{padding:9px 16px}
+  h1{font-size:clamp(52px,16vw,72px)}
+  .sentence{font-size:21px;line-height:1.5;margin-top:26px}
+  .blank{display:block;margin:2px 0 10px}
+  .blank select{width:100%;font-size:1.55em;padding-right:30px}
+  .go{width:100%;justify-content:center;padding:17px}
+  .cards{grid-template-columns:1fr;gap:30px}
+  .card:nth-child(3n+1){transform:rotate(-.8deg)}.card:nth-child(3n+2){transform:rotate(.6deg)}
+  .res{padding-top:44px}
+  .dot{display:none}
+}
 </style></head><body>
 <div class="demo">концепция „Тетрадката“ — всички места са измислени</div>
 <nav><div class="w"><div class="logo">zani<span>тук</span></div><button>Вход</button></div></nav>
@@ -81,8 +95,8 @@ h1{font-weight:900;font-size:clamp(44px,8vw,120px);line-height:.9;letter-spacing
     <span class="blank"><select id="age" aria-label="Възраст">
       <option value="2">2 години</option><option value="4">4 години</option><option value="5" selected>5 години</option><option value="7">7 години</option><option value="10">10 години</option></select></span>
     в
-    <span class="blank"><select id="area" aria-label="Квартал">
-      <option value="all">цяла София</option><option>Лозенец</option><option>Младост</option><option>Център</option><option>Люлин</option><option>Изток</option></select></span>.
+    <span class="blank"><select id="area" aria-label="Град">
+      <option value="all">цяла България</option><option>София</option><option>Пловдив</option><option>Варна</option><option>Бургас</option><option>Русе</option></select></span><span class="dot">.</span>
   </div>
   <button class="go" onclick="show(true)">Покажи ми</button>
 </header>
@@ -94,7 +108,7 @@ h1{font-weight:900;font-size:clamp(44px,8vw,120px);line-height:.9;letter-spacing
 
 <section class="w margins"><div class="mg">
   <div><b>Свободните часове са истински</b>Виждаш колко места остават и записваш без обаждане.<em>← и без чакане „ще ви върнем отговор“</em></div>
-  <div><b>Бележки в полето</b>Колко минути е от спирката и дали влиза количка — написано до всяко място.</div>
+  <div><b>Бележки в полето</b>Колко минути е от спирката и дали влиза количка — написано до всяко място, във всеки град.</div>
   <div><b>Отделна тетрадка за всяко дете</b>Записванията, напомнянията и отзивите — на едно място.<em>за 3 деца = 3 тетрадки</em></div>
 </div></section>
 
@@ -103,22 +117,23 @@ const words=['рисуваме','плуваме','пеем','танцуваме'
 const w=document.getElementById('word');
 if(!matchMedia('(prefers-reduced-motion: reduce)').matches)setInterval(()=>{wi=(wi+1)%words.length;w.textContent=words[wi];w.classList.remove('swap');void w.offsetWidth;w.classList.add('swap')},2200);
 const P=[
- ['arts','Изкуство','Ателие „Лисичка“','Лозенец',4,10,'15 €','4 мин до метрото, влиза количка','#FFB3C7'],
- ['sport','Спорт','Плуване „Делфинче“','Младост',3,12,'18 €','остават само 2 места в събота!','#9FD8FF'],
- ['music','Музика','Музикална къща „Нотка“','Център',1,8,'12 €','с мама или татко до 3 г.','#FFE37A'],
- ['lang','Езици','Little Talk · английски','Изток',3,10,'14 €','групи до 6 деца','#A6EBCB'],
- ['stem','Наука','Шахматен клуб „Пешка“','Център',6,14,'10 €','турнир в събота от 10:00','#FFE37A'],
- ['sport','Спорт','Танцово студио „Пируетче“','Люлин',4,12,'10 €','3 мин от метрото','#FFB3C7'],
- ['speech','Логопед','Ива Петрова · проверен специалист','Лозенец',2,12,'30 €','документите са проверени ✓','#9FD8FF']];
+ ['arts','Изкуство','Ателие „Лисичка“','София','Лозенец',4,10,'15 €','4 мин до метрото, влиза количка','#FFB3C7'],
+ ['sport','Спорт','Плуване „Делфинче“','София','Младост',3,12,'18 €','остават само 2 места в събота!','#9FD8FF'],
+ ['music','Музика','Музикална къща „Нотка“','Пловдив','Капана',1,8,'12 €','с мама или татко до 3 г.','#FFE37A'],
+ ['lang','Езици','Little Talk · английски','Варна','Левски',3,10,'14 €','групи до 6 деца','#A6EBCB'],
+ ['stem','Наука','Шахматен клуб „Пешка“','Бургас','Център',6,14,'10 €','турнир в събота от 10:00','#FFE37A'],
+ ['sport','Спорт','Танцово студио „Пируетче“','Пловдив','Тракия',4,12,'10 €','2 мин от спирката','#FFB3C7'],
+ ['arts','Изкуство','Ателие „Шарено“','Русе','Център',4,9,'12 €','до парка, влиза количка','#A6EBCB'],
+ ['speech','Логопед','Ива Петрова · проверен специалист','София','Лозенец',2,12,'30 €','документите са проверени ✓','#9FD8FF']];
 const CC={arts:'#E23A7A',sport:'#16B37E',music:'#FF7A1A',lang:'#2340D8',stem:'#8A5A00',speech:'#2340D8'};
 const booked=new Set();
 function show(scroll){const c=cat.value,a=+age.value,ar=area.value;
- const list=P.filter(p=>(c==='all'||p[0]===c)&&a>=p[4]&&a<=p[5]&&(ar==='all'||p[3]===ar));
+ const list=P.filter(p=>(c==='all'||p[0]===c)&&a>=p[5]&&a<=p[6]&&(ar==='all'||p[3]===ar));
  document.getElementById('rh').textContent=list.length?`${list.length} ${list.length===1?'идея':'идеи'} за ${a}-годишно${ar==='all'?'':' в '+ar}:`:'';
- document.getElementById('cards').innerHTML=list.length?list.map(p=>{const id=p[2],b=booked.has(id);return `<article class="card"><span class="tape" style="background:${p[8]}"></span>
-   <div class="cat" style="color:${CC[p[0]]}">${p[1]}</div><h3>${p[2]}</h3><div class="m">${p[3]} · ${p[4]}–${p[5]} г.</div>
-   <div class="note">${p[7]}</div><div class="f"><b>${p[6]}</b><button aria-pressed="${b}" onclick="bk('${id}')">${b?'Записано':'Виж часове'}</button></div></article>`}).join('')
-   :'<p class="empty">Няма точно такова място… пробвай друг квартал или „нещо интересно“.</p>';
+ document.getElementById('cards').innerHTML=list.length?list.map(p=>{const id=p[2],b=booked.has(id);return `<article class="card"><span class="tape" style="background:${p[9]}"></span>
+   <div class="cat" style="color:${CC[p[0]]}">${p[1]}</div><h3>${p[2]}</h3><div class="m">${p[3]} · ${p[4]} · ${p[5]}–${p[6]} г.</div>
+   <div class="note">${p[8]}</div><div class="f"><b>${p[7]}</b><button aria-pressed="${b}" onclick="bk('${id}')">${b?'Записано':'Виж часове'}</button></div></article>`}).join('')
+   :'<p class="empty">Няма точно такова място… пробвай друг град или „нещо интересно“.</p>';
  if(scroll)document.getElementById('rh').scrollIntoView({behavior:'smooth',block:'start'})}
 function bk(id){booked.has(id)?booked.delete(id):booked.add(id);show(false)}
 ['cat','age','area'].forEach(i=>document.getElementById(i).onchange=()=>show(false));
