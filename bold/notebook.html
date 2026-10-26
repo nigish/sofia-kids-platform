@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zani · Тетрадката</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;700;900&family=Caveat:wght@600;700&display=swap');
+:root{--paper:#FFFFFF;--grid:#DCE6FB;--margin:#F28B9A;--ink:#121633;--pen:#2340D8;--muted:#5A6185;
+  --c1:#FF7A1A;--c2:#16B37E;--c3:#E23A7A;--c4:#F6C90E}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);line-height:1.45;
+  background-color:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:26px 26px}
+button,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--pen);outline-offset:3px;border-radius:6px}
+.w{max-width:1200px;margin:0 auto;padding:0 28px 0 76px;position:relative}
+.w::before{content:"";position:absolute;left:44px;top:0;bottom:0;width:2px;background:var(--margin);opacity:.7}
+.demo{font-family:Caveat;font-size:19px;text-align:center;padding:4px;color:var(--pen);background:rgba(255,255,255,.9)}
+nav .w{display:flex;justify-content:space-between;align-items:center;height:80px}
+.logo{font-weight:900;font-size:28px;letter-spacing:-1.2px}
+.logo span{font-family:Caveat;font-weight:700;color:var(--c3);font-size:32px;margin-left:2px}
+nav button{background:var(--ink);color:#fff;border:0;border-radius:999px;padding:11px 20px;font-weight:700;cursor:pointer}
+
+.hero{padding-top:30px;padding-bottom:10px}
+.eyebrow{font-family:Caveat;font-size:26px;color:var(--pen);transform:rotate(-2deg);display:inline-block}
+h1{font-weight:900;font-size:clamp(44px,8vw,120px);line-height:.9;letter-spacing:-.045em;margin-top:6px}
+.scr{position:relative;display:inline-block;white-space:nowrap}
+.scr svg{position:absolute;left:-4%;bottom:-.12em;width:108%;height:.42em;overflow:visible}
+.scr svg path{fill:none;stroke:var(--c1);stroke-width:10;stroke-linecap:round;stroke-linejoin:round}
+.word{color:var(--pen);display:inline-block}
+@media (prefers-reduced-motion:no-preference){
+  .scr svg path{stroke-dasharray:900;stroke-dashoffset:900;animation:scribble .9s .3s ease-out forwards}
+  .word.swap{animation:pop .35s ease}
+}
+@keyframes scribble{to{stroke-dashoffset:0}}
+@keyframes pop{from{transform:translateY(.2em) rotate(-3deg);opacity:0}to{transform:none;opacity:1}}
+
+/* fill-in sentence */
+.sentence{margin-top:36px;font-size:clamp(22px,2.6vw,34px);font-weight:700;line-height:1.9;max-width:1000px}
+.blank{display:inline-block;position:relative}
+.blank select{appearance:none;-webkit-appearance:none;border:0;background:transparent;font-family:Caveat;font-weight:700;font-size:1.35em;color:var(--pen);
+  padding:0 26px 0 6px;border-bottom:3px solid var(--pen);cursor:pointer;line-height:1.1}
+.blank::after{content:"▾";position:absolute;right:4px;top:.35em;color:var(--pen);font-size:.7em;pointer-events:none}
+.go{margin-top:20px;display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:#fff;border:0;border-radius:999px;padding:16px 26px;font-weight:700;font-size:17px;cursor:pointer}
+
+/* results: taped index cards */
+.res{padding-top:60px;padding-bottom:30px}
+.rh{font-family:Caveat;font-size:30px;color:var(--pen)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:34px 28px;margin-top:22px}
+.card{position:relative;background:#FFFDF6;border-radius:4px;padding:26px 22px 20px;box-shadow:0 1px 2px rgba(18,22,51,.08),0 12px 24px rgba(18,22,51,.08)}
+.card:nth-child(3n+1){transform:rotate(-1.4deg)}.card:nth-child(3n+2){transform:rotate(1deg)}.card:nth-child(3n){transform:rotate(-.4deg)}
+.card .tape{position:absolute;top:-12px;left:50%;width:96px;height:24px;transform:translateX(-50%) rotate(-3deg);opacity:.75}
+.card .cat{font-family:Caveat;font-size:22px;font-weight:700}
+.card h3{font-weight:900;font-size:23px;letter-spacing:-.6px;line-height:1.1;margin-top:2px}
+.card .m{color:var(--muted);font-size:14.5px;margin-top:6px}
+.note{font-family:Caveat;font-size:21px;color:var(--c3);margin-top:12px;line-height:1.1}
+.card .f{display:flex;justify-content:space-between;align-items:center;margin-top:16px;border-top:2px dashed var(--grid);padding-top:14px}
+.card .f b{font-size:18px}
+.card .f button{border:2px solid var(--ink);background:#fff;border-radius:999px;padding:7px 14px;font-weight:700;cursor:pointer}
+.card .f button[aria-pressed="true"]{background:var(--c2);border-color:var(--c2);color:#fff}
+.empty{font-family:Caveat;font-size:28px;color:var(--muted)}
+
+.margins{padding-top:40px;padding-bottom:80px}
+.mg{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+.mg div{font-size:17px;font-weight:500}
+.mg b{display:block;font-weight:900;font-size:24px;letter-spacing:-.6px;margin-bottom:6px}
+.mg em{font-family:Caveat;font-style:normal;font-size:22px;color:var(--pen);display:block;margin-top:6px}
+@media(max-width:820px){.mg{grid-template-columns:1fr}.w{padding-left:56px}.w::before{left:30px}}
+@media (prefers-reduced-motion:reduce){.card{transform:none!important}}
+</style></head><body>
+<div class="demo">концепция „Тетрадката“ — всички места са измислени</div>
+<nav><div class="w"><div class="logo">zani<span>тук</span></div><button>Вход</button></div></nav>
+
+<header class="w hero">
+  <span class="eyebrow">домашно за родители:</span>
+  <h1>В събота<br><span class="scr"><span class="word" id="word">рисуваме</span><svg viewBox="0 0 400 40" preserveAspectRatio="none" aria-hidden="true"><path d="M6 26 C 60 10, 120 34, 180 18 S 300 8, 394 22"/></svg></span>.</h1>
+
+  <div class="sentence" aria-label="Търсене">
+    Търся
+    <span class="blank"><select id="cat" aria-label="Вид занимание">
+      <option value="all">нещо интересно</option><option value="arts">рисуване</option><option value="sport">спорт</option><option value="music">музика</option><option value="lang">английски</option><option value="stem">шах или роботика</option><option value="speech">логопед</option></select></span>
+    за дете на
+    <span class="blank"><select id="age" aria-label="Възраст">
+      <option value="2">2 години</option><option value="4">4 години</option><option value="5" selected>5 години</option><option value="7">7 години</option><option value="10">10 години</option></select></span>
+    в
+    <span class="blank"><select id="area" aria-label="Квартал">
+      <option value="all">цяла София</option><option>Лозенец</option><option>Младост</option><option>Център</option><option>Люлин</option><option>Изток</option></select></span>.
+  </div>
+  <button class="go" onclick="show(true)">Покажи ми</button>
+</header>
+
+<section class="w res">
+  <div class="rh" id="rh"></div>
+  <div class="cards" id="cards"></div>
+</section>
+
+<section class="w margins"><div class="mg">
+  <div><b>Свободните часове са истински</b>Виждаш колко места остават и записваш без обаждане.<em>← и без чакане „ще ви върнем отговор“</em></div>
+  <div><b>Бележки в полето</b>Колко минути е от спирката и дали влиза количка — написано до всяко място.</div>
+  <div><b>Отделна тетрадка за всяко дете</b>Записванията, напомнянията и отзивите — на едно място.<em>за 3 деца = 3 тетрадки</em></div>
+</div></section>
+
+<script>
+const words=['рисуваме','плуваме','пеем','танцуваме','играем шах'];let wi=0;
+const w=document.getElementById('word');
+if(!matchMedia('(prefers-reduced-motion: reduce)').matches)setInterval(()=>{wi=(wi+1)%words.length;w.textContent=words[wi];w.classList.remove('swap');void w.offsetWidth;w.classList.add('swap')},2200);
+const P=[
+ ['arts','Изкуство','Ателие „Лисичка“','Лозенец',4,10,'15 €','4 мин до метрото, влиза количка','#FFB3C7'],
+ ['sport','Спорт','Плуване „Делфинче“','Младост',3,12,'18 €','остават само 2 места в събота!','#9FD8FF'],
+ ['music','Музика','Музикална къща „Нотка“','Център',1,8,'12 €','с мама или татко до 3 г.','#FFE37A'],
+ ['lang','Езици','Little Talk · английски','Изток',3,10,'14 €','групи до 6 деца','#A6EBCB'],
+ ['stem','Наука','Шахматен клуб „Пешка“','Център',6,14,'10 €','турнир в събота от 10:00','#FFE37A'],
+ ['sport','Спорт','Танцово студио „Пируетче“','Люлин',4,12,'10 €','3 мин от метрото','#FFB3C7'],
+ ['speech','Логопед','Ива Петрова · проверен специалист','Лозенец',2,12,'30 €','документите са проверени ✓','#9FD8FF']];
+const CC={arts:'#E23A7A',sport:'#16B37E',music:'#FF7A1A',lang:'#2340D8',stem:'#8A5A00',speech:'#2340D8'};
+const booked=new Set();
+function show(scroll){const c=cat.value,a=+age.value,ar=area.value;
+ const list=P.filter(p=>(c==='all'||p[0]===c)&&a>=p[4]&&a<=p[5]&&(ar==='all'||p[3]===ar));
+ document.getElementById('rh').textContent=list.length?`${list.length} ${list.length===1?'идея':'идеи'} за ${a}-годишно${ar==='all'?'':' в '+ar}:`:'';
+ document.getElementById('cards').innerHTML=list.length?list.map(p=>{const id=p[2],b=booked.has(id);return `<article class="card"><span class="tape" style="background:${p[8]}"></span>
+   <div class="cat" style="color:${CC[p[0]]}">${p[1]}</div><h3>${p[2]}</h3><div class="m">${p[3]} · ${p[4]}–${p[5]} г.</div>
+   <div class="note">${p[7]}</div><div class="f"><b>${p[6]}</b><button aria-pressed="${b}" onclick="bk('${id}')">${b?'Записано':'Виж часове'}</button></div></article>`}).join('')
+   :'<p class="empty">Няма точно такова място… пробвай друг квартал или „нещо интересно“.</p>';
+ if(scroll)document.getElementById('rh').scrollIntoView({behavior:'smooth',block:'start'})}
+function bk(id){booked.has(id)?booked.delete(id):booked.add(id);show(false)}
+['cat','age','area'].forEach(i=>document.getElementById(i).onchange=()=>show(false));
+show(false);
+</script></body></html>

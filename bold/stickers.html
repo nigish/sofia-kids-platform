@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zani · Седмицата на хладилника</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Manrope:wght@500;600;700;800&display=swap');
+:root{--cobalt:#2B3BE6;--cobalt-dk:#1C27B0;--ink:#0F1340;--white:#FFFFFF;--tomato:#FF5A36;--sun:#FFD23F;--mint:#3DDC97;--pink:#FF9ECF;--sky:#9AD8FF}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Manrope,system-ui,sans-serif;background:var(--cobalt);color:var(--white);line-height:1.5;overflow-x:hidden}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:3px solid var(--sun);outline-offset:3px;border-radius:10px}
+.w{max-width:1240px;margin:0 auto;padding:0 28px}
+.demo{text-align:center;font-size:12px;font-weight:700;padding:7px;background:var(--cobalt-dk);color:#B9C0FF;letter-spacing:.5px}
+nav .w{display:flex;align-items:center;justify-content:space-between;height:78px}
+.logo{font-family:'Dela Gothic One';font-size:28px;letter-spacing:-1px}
+.logo span{color:var(--sun)}
+nav button{background:var(--white);color:var(--ink);border-radius:999px;padding:11px 20px;font-weight:800}
+
+.hero{padding:24px 0 0;display:grid;grid-template-columns:1fr;gap:10px}
+.hero h1{font-family:'Dela Gothic One';font-weight:400;font-size:clamp(42px,7.5vw,112px);line-height:.92;letter-spacing:-2px}
+.hero h1 em{font-style:normal;color:var(--sun)}
+.hero p{font-size:19px;color:#D7DBFF;max-width:640px;margin-top:14px;font-weight:600}
+
+/* the fridge */
+.fridge{margin:34px 0 0;background:#F4F6FF;border-radius:34px 34px 0 0;padding:28px 28px 60px;color:var(--ink);position:relative;
+  box-shadow:inset 0 -30px 60px rgba(43,59,230,.06)}
+.fridge .handle{position:absolute;right:26px;top:40px;width:12px;height:140px;border-radius:12px;background:linear-gradient(#DADFF5,#C4CBEA)}
+.fh{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-right:30px}
+.fh b{font-family:'Dela Gothic One';font-weight:400;font-size:26px}
+.kids{display:flex;gap:8px}
+.kids button{border:2px solid var(--ink);border-radius:999px;padding:7px 14px;font-weight:800;font-size:14px}
+.kids button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin-top:20px;margin-right:30px}
+.day{min-height:170px;border:2.5px dashed #C9CFEF;border-radius:20px;padding:10px;display:flex;flex-direction:column;gap:8px;transition:.15s;background:#fff}
+.day .dn{font-weight:800;font-size:13px;color:#6C72A8;display:flex;justify-content:space-between}
+.day .dn b{color:var(--ink);font-size:16px}
+.day.over,.day.target{border-color:var(--cobalt);background:#EEF0FF}
+.placed{border-radius:14px;padding:8px 10px;font-size:12.5px;font-weight:800;line-height:1.25;color:var(--ink);border:3px solid #fff;box-shadow:0 3px 0 rgba(15,19,64,.15)}
+.placed small{display:block;font-weight:700;opacity:.75}
+@media(max-width:900px){.week{grid-template-columns:repeat(2,1fr)}}
+
+.tray{margin-top:28px}
+.tray h3{font-weight:800;font-size:15px;color:#6C72A8;margin-bottom:12px}
+.stickers{display:flex;flex-wrap:wrap;gap:16px}
+.st{position:relative;border:5px solid #fff;border-radius:22px;padding:14px 16px 12px;color:var(--ink);font-weight:800;box-shadow:0 8px 0 rgba(15,19,64,.12),0 14px 24px rgba(15,19,64,.12);
+  cursor:grab;user-select:none;touch-action:none;transition:transform .15s;min-width:170px;text-align:left}
+.st:nth-child(odd){transform:rotate(-3deg)}.st:nth-child(even){transform:rotate(2.5deg)}
+.st:hover{transform:rotate(0) scale(1.04)}
+.st[aria-pressed="true"]{outline:4px solid var(--ink);outline-offset:2px}
+.st .big{display:block;font-family:'Dela Gothic One';font-weight:400;font-size:20px;line-height:1.05}
+.st .meta{display:block;font-size:12.5px;margin-top:6px;font-weight:700;opacity:.8}
+.st .when{position:absolute;top:-14px;right:12px;background:var(--ink);color:#fff;border-radius:999px;font-size:11.5px;padding:3px 9px}
+.ghost{position:fixed;pointer-events:none;z-index:99;transform:rotate(-6deg) scale(1.05);opacity:.95}
+.hint{margin-top:16px;font-size:13.5px;color:#6C72A8;font-weight:700}
+
+.three{background:var(--ink);padding:70px 0 50px}
+.three .w{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.three b{font-family:'Dela Gothic One';font-weight:400;font-size:40px;display:block;line-height:1}
+.three b.a{color:var(--sun)}.three b.b{color:var(--mint)}.three b.c{color:var(--pink)}
+.three p{color:#B9BDDF;margin-top:10px;font-weight:600}
+@media(max-width:820px){.three .w{grid-template-columns:1fr}}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:var(--ink);color:#fff;padding:14px 20px;border-radius:18px;font-weight:700;opacity:0;visibility:hidden;transition:.25s;z-index:100;border:3px solid var(--sun)}
+.toast.on{opacity:1;visibility:visible;transform:translate(-50%,0)}
+@media (prefers-reduced-motion:reduce){.st,.st:nth-child(odd),.st:nth-child(even){transform:none;transition:none}}
+</style></head><body>
+<div class="demo">КОНЦЕПЦИЯ · СЕДМИЦАТА НА ХЛАДИЛНИКА · ВСИЧКИ МЕСТА СА ИЗМИСЛЕНИ</div>
+<nav><div class="w"><div class="logo">zani<span>!</span></div><button>Вход</button></div></nav>
+
+<header class="w hero">
+  <h1>Залепи<br>заниманието.<br><em>Готово, записано.</em></h1>
+  <p>Седмицата на детето, както я държиш на хладилника — само че всеки стикер е истинско записване. Хвани стикер и го пусни върху ден.</p>
+</header>
+
+<div class="w">
+  <section class="fridge" aria-label="Седмицата">
+    <div class="handle" aria-hidden="true"></div>
+    <div class="fh"><b id="who">Седмицата на Мария</b><div class="kids" id="kids"></div></div>
+    <div class="week" id="week"></div>
+    <div class="tray"><h3>Свободни часове тази седмица, подходящи за <span id="age">5 г.</span></h3>
+      <div class="stickers" id="stickers"></div>
+      <p class="hint">На телефон или с клавиатура: избери стикер, после натисни деня.</p>
+    </div>
+  </section>
+</div>
+
+<section class="three"><div class="w">
+  <div><b class="a">Без обаждания</b><p>Виждаш свободните часове и записваш наведнъж. Мястото получава известие веднага.</p></div>
+  <div><b class="b">Стикер за всяко дете</b><p>Отделна седмица за всяко дете — и обща, когато искаш да видиш всичко.</p></div>
+  <div><b class="c">Напомняне вечерта</b><p>Едно кратко съобщение вечерта преди: кога, къде и какво да вземете.</p></div>
+</div></section>
+<footer style="background:var(--ink);color:#7D83B8;font-size:14px;padding:0 0 40px"><div class="w">zani · прототип за родители в София</div></footer>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const DAYS=[['Пн',26],['Вт',27],['Ср',28],['Чт',29],['Пт',30],['Сб',31],['Нд',1]];
+const KIDS={Мария:{a:'5 г.',s:[
+  ['Акварел','Ателие „Лисичка“','17:30',2,'#FF9ECF'],['Плуване','„Делфинче“','10:00',6,'#9AD8FF'],['Есенни фенерчета','Ателие „Лисичка“','11:00',5,'#FFD23F'],['Английски с песни','Little Talk','17:00',0,'#3DDC97']]},
+ Иван:{a:'8 г.',s:[['Роботика','„Малки откриватели“','16:30',3,'#3DDC97'],['Шахматен турнир','„Пешка“','10:00',5,'#FFD23F'],['Модерни танци','„Пируетче“','12:00',5,'#FF9ECF']]},
+ Ема:{a:'2 г.',s:[['Музика с мама','„Нотка“','10:30',0,'#FFD23F'],['Бебешка гимнастика','„Пухче“','10:00',4,'#9AD8FF']]}};
+let kid='Мария',sel=null;const board={Мария:{},Иван:{},Ема:{}};
+const $=id=>document.getElementById(id);
+function toast(t){const e=$('toast');e.textContent=t;e.classList.add('on');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('on'),2600)}
+function render(){
+  $('kids').innerHTML=Object.keys(KIDS).map(k=>`<button aria-pressed="${k===kid}" onclick="kid='${k}';sel=null;render()">${k}</button>`).join('');
+  $('who').textContent='Седмицата на '+kid;$('age').textContent=KIDS[kid].a;
+  $('week').innerHTML=DAYS.map((d,i)=>`<button class="day ${sel!==null?'target':''}" data-i="${i}" aria-label="${d[0]} ${d[1]}" onclick="dropSel(${i})"><span class="dn">${d[0]}<b>${d[1]}</b></span>${(board[kid][i]||[]).map(s=>`<span class="placed" style="background:${s[4]}">${s[0]}<small>${s[2]} · ${s[1]}</small></span>`).join('')}</button>`).join('');
+  const used=new Set(Object.values(board[kid]).flat().map(s=>s[0]));
+  $('stickers').innerHTML=KIDS[kid].s.map((s,i)=>used.has(s[0])?'':`<button class="st" data-i="${i}" aria-pressed="${sel===i}" style="background:${s[4]}" onclick="sel=sel===${i}?null:${i};render()"><span class="when">${DAYS[s[3]][0]} ${s[2]}</span><span class="big">${s[0]}</span><span class="meta">${s[1]}</span></button>`).join('')||'<p class="hint">Цялата седмица е подредена. Добра работа!</p>';
+  bindDrag();
+}
+function place(si,di){const s=KIDS[kid].s[si];if(s[3]!==di){toast(`„${s[0]}“ е в ${DAYS[s[3]][0]} от ${s[2]} — залепи го там.`);return}
+  (board[kid][di]=board[kid][di]||[]).push(s);sel=null;render();toast(`Записано: ${kid} · ${s[0]} · ${DAYS[di][0]} ${s[2]}`)}
+function dropSel(di){if(sel===null)return;place(sel,di)}
+function bindDrag(){document.querySelectorAll('.st').forEach(el=>{el.onpointerdown=e=>{
+  if(e.pointerType!=='mouse')return;const si=+el.dataset.i,r=el.getBoundingClientRect(),dx=e.clientX-r.left,dy=e.clientY-r.top;let g=null,moved=false;
+  const mv=ev=>{if(!moved&&Math.hypot(ev.clientX-e.clientX,ev.clientY-e.clientY)<6)return;
+    if(!g){moved=true;g=el.cloneNode(true);g.classList.add('ghost');g.style.width=r.width+'px';document.body.appendChild(g);el.style.opacity=.3}
+    g.style.left=(ev.clientX-dx)+'px';g.style.top=(ev.clientY-dy)+'px';
+    document.querySelectorAll('.day').forEach(d=>{const b=d.getBoundingClientRect();d.classList.toggle('over',ev.clientX>b.left&&ev.clientX<b.right&&ev.clientY>b.top&&ev.clientY<b.bottom)})};
+  const up=ev=>{removeEventListener('pointermove',mv);removeEventListener('pointerup',up);if(!g)return;
+    const d=document.querySelector('.day.over');g.remove();el.style.opacity='';document.querySelectorAll('.day').forEach(x=>x.classList.remove('over'));
+    if(d)place(si,+d.dataset.i)};
+  addEventListener('pointermove',mv);addEventListener('pointerup',up)}})}
+render();
+</script></body></html>
