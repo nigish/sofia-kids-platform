@@ -1,0 +1,70 @@
+<!doctype html><html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Концепция 3 · Майка на майка</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap');
+:root{--rose:#F7C6D3;--rose2:#E76F92;--rosebg:#FFF1F4;--peri:#8A9BF0;--perisoft:#E8ECFF;--navy:#1F2A56;--muted:#646A85}
+*{box-sizing:border-box;margin:0;padding:0}html,body{overflow-x:hidden}
+body{font-family:Manrope,sans-serif;color:var(--navy);background:#fff;line-height:1.5}
+a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+:focus-visible{outline:3px solid var(--rose2);outline-offset:3px;border-radius:10px}
+.w{max-width:1200px;margin:0 auto;padding-left:26px;padding-right:26px}
+.demo{background:var(--perisoft);color:var(--navy);text-align:center;font-size:12.5px;font-weight:700;padding:7px}
+nav .w{display:flex;align-items:center;justify-content:space-between;height:78px;gap:14px}
+.logo{font-weight:800;font-size:28px;letter-spacing:-1px}.logo span{color:var(--rose2)}
+.menu{display:flex;gap:8px}.menu a{border-radius:999px;padding:9px 18px;font-weight:700;background:var(--rosebg)}
+.menu a:nth-child(2n){background:var(--perisoft)}
+.in{background:var(--navy);color:#fff;border-radius:999px;padding:11px 22px;font-weight:700}
+@media(max-width:860px){.menu{display:none}}
+.hero{background:var(--rosebg);border-radius:40px;margin:4px 16px 0;padding:56px 0;position:relative;overflow:hidden}
+.hero .w{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+@media(max-width:900px){.hero .w{grid-template-columns:1fr}}
+.hero h1{font-weight:800;font-size:clamp(36px,5vw,64px);line-height:1.05;letter-spacing:-1.8px}
+.hero h1 span{color:var(--rose2)}
+.hero p{font-size:18px;color:var(--muted);margin-top:14px;font-weight:500}
+.faces{display:flex;align-items:center;margin-top:22px}
+.faces img{width:46px;height:46px;border-radius:50%;object-fit:cover;border:3px solid var(--rosebg);margin-left:-12px}.faces img:first-child{margin-left:0}
+.faces b{margin-left:12px;font-size:14px}
+.btn{display:inline-block;margin-top:22px;background:var(--rose2);color:#fff;border-radius:999px;padding:14px 24px;font-weight:800}
+.quotes{display:flex;flex-direction:column;gap:14px}
+.q{background:#fff;border-radius:26px;padding:18px 20px;box-shadow:0 14px 30px rgba(31,42,86,.07);display:flex;gap:14px;align-items:flex-start}
+.q:nth-child(2){margin-left:40px;background:var(--perisoft)}
+.q img{width:48px;height:48px;border-radius:50%;object-fit:cover;flex:none}
+.q p{font-size:15px;font-weight:600}.q small{display:block;color:var(--muted);font-weight:600;margin-top:4px}
+.q .st{color:#F2A900;letter-spacing:2px}
+section{padding-top:60px}
+h2{font-weight:800;font-size:clamp(26px,3vw,38px);letter-spacing:-1px}
+.sub{color:var(--muted);font-weight:500}
+.ticks{display:flex;gap:14px;overflow-x:auto;padding:18px 2px 8px}
+.tk{flex:none;width:230px;border-radius:22px;padding:16px;background:var(--c)}
+.tk b{display:block;font-size:16px;line-height:1.2}.tk span{font-size:13px;font-weight:600;color:var(--muted)}
+.tk .who{display:flex;align-items:center;gap:6px;margin-top:12px;font-size:12.5px;font-weight:700}
+.tk .who i{width:22px;height:22px;border-radius:50%;background:#fff;display:inline-block}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:20px;padding-bottom:70px}
+@media(max-width:1000px){.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.grid{grid-template-columns:1fr}}
+.card{border-radius:26px;overflow:hidden;border:1px solid #EEE7EE}
+.card img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.card .b{padding:14px 16px}.card h3{font-size:17px;font-weight:800}.card .m{color:var(--muted);font-size:14px;font-weight:500}
+.card .rv{margin-top:10px;background:var(--rosebg);border-radius:16px;padding:10px 12px;font-size:13.5px;font-weight:600}
+footer{background:var(--navy);color:#C9CFEE;padding:30px 0;font-size:14px}
+</style></head><body>
+<div class="demo">Концепция 3 · Майка на майка (розово + перивинкъл, отзиви) · хората и отзивите са измислени</div>
+<nav><div class="w"><div class="logo">zani<span>.</span></div><div class="menu"><a href="#">Събития</a><a href="#">Занимания</a><a href="#">Специалисти</a><a href="#">Блог</a></div><button class="in">Вход</button></div></nav>
+<header class="hero"><div class="w">
+ <div><h1>Препоръките, които си споделяме <span>на площадката</span> — на едно място</h1>
+  <p>Къде да запишеш детето, кой логопед е търпелив, какво има безплатно в събота. От майки, за майки.</p>
+  <div class="faces"><img src="../bold/img/iva.jpg" alt=""><img src="../bold/img/iva2.jpg" alt=""><img src="../bold/img/notka.jpg" alt=""><img src="../bold/img/puhche.jpg" alt=""><b>2 400+ майки вече споделят</b></div>
+  <a class="btn" href="#">Виж какво препоръчват</a></div>
+ <div class="quotes">
+  <div class="q"><img src="../bold/img/iva2.jpg" alt=""><div><span class="st">★★★★★</span><p>„Записах дъщеря ми за 2 минути, без да звъня. Ателието ни хареса толкова, че ходим всяка сряда.“</p><small>Мама на Ема, 5 г. · Лозенец</small></div></div>
+  <div class="q"><img src="../bold/img/iva.jpg" alt=""><div><span class="st">★★★★★</span><p>„Логопедката е проверена — видях документите. Това ме успокои.“</p><small>Мама на Борис, 4 г. · Варна</small></div></div>
+  <div class="q"><img src="../bold/img/puhche.jpg" alt=""><div><span class="st">★★★★★</span><p>„Безплатните събития в събота ни спасяват уикендите.“</p><small>Мама на Ники, 2 г. · Пловдив</small></div></div>
+ </div></div></header>
+<section class="w"><h2>Безплатно тази седмица</h2><p class="sub">И колко майки отиват.</p><div class="ticks" id="ticks"></div></section>
+<section class="w"><h2>Най-обичани от майките</h2><p class="sub">Подредени по отзиви, не по реклама.</p><div class="grid" id="grid"></div></section>
+<footer><div class="w">zani · прототип</div></footer>
+<script src="shared.js"></script><script>
+const CC=['#FFE1E9','#E8ECFF','#FFF1D6','#E3F4EC','#FFE1E9','#E8ECFF'];
+document.getElementById('ticks').innerHTML=EV.map((e,i)=>`<a class="tk" href="#" style="--c:${CC[i]}"><span>${e[0]} ${e[1]} ${e[2]} · ${e[3]}</span><b>${e[4]}</b><div class="who"><i></i><i style="margin-left:-12px"></i><i style="margin-left:-12px"></i> ${12+i*7} майки отиват</div></a>`).join('');
+const RV=['„Децата излизат щастливи и изцапани.“','„Инструкторът е невероятно търпелив.“','„Малки групи, внимание към всяко дете.“','„Синът ми чака сряда цяла седмица.“'];
+document.getElementById('grid').innerHTML=PL.slice(0,4).map((p,i)=>`<a class="card" href="#"><img src="../bold/img/${p[0]}.jpg" alt="${p[1]}" loading="lazy"><div class="b"><h3>${p[1]}</h3><div class="m">${p[2]} · ★ ${p[7]} · ${p[4]}</div><div class="rv">${RV[i]}</div></div></a>`).join('');
+</script></body></html>

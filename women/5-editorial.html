@@ -1,0 +1,68 @@
+<!doctype html><html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Концепция 5 · Тъмносиньо и прасковено</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;500;600;700&display=swap');
+:root{--navy:#1E2B4F;--navy2:#2E3E6E;--blush:#F6D9D2;--blushbg:#FBEFEA;--powder:#DCE6F4;--gold:#C9A46A;--muted:#5F6782}
+*{box-sizing:border-box;margin:0;padding:0}html,body{overflow-x:hidden}
+body{font-family:Inter,sans-serif;color:var(--navy);background:#fff;line-height:1.55}
+a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:8px}
+.w{max-width:1220px;margin:0 auto;padding-left:28px;padding-right:28px}
+.demo{background:var(--navy);color:#C8D2EE;text-align:center;font-size:12.5px;font-weight:600;padding:7px}
+nav .w{display:flex;align-items:center;justify-content:space-between;height:80px;gap:14px}
+.logo{font-family:'Playfair Display';font-weight:700;font-size:30px}
+.menu{display:flex;gap:8px}.menu a{border-radius:999px;padding:9px 18px;font-weight:600;background:var(--blushbg)}
+.menu a:nth-child(2n){background:var(--powder)}
+.in{background:var(--navy);color:#fff;border-radius:999px;padding:11px 22px;font-weight:600}
+@media(max-width:860px){.menu{display:none}}
+.hero{background:var(--navy);color:#fff;border-radius:36px;margin:4px 16px 0;padding:60px 0 0;overflow:hidden}
+.hero .w{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:end}
+@media(max-width:900px){.hero .w{grid-template-columns:1fr}}
+.kick{color:var(--gold);font-weight:700;letter-spacing:2.5px;font-size:12px;text-transform:uppercase}
+.hero h1{font-family:'Playfair Display';font-weight:600;font-size:clamp(38px,5.4vw,74px);line-height:1.06;margin-top:10px}
+.hero h1 i{color:var(--blush)}
+.hero p{color:#C8D2EE;font-size:18px;margin-top:16px;max-width:480px}
+.btn{display:inline-block;margin:24px 0 50px;background:var(--blush);color:var(--navy);border-radius:999px;padding:14px 26px;font-weight:700}
+.arch{border-radius:300px 300px 0 0;overflow:hidden;height:440px}.arch img{width:100%;height:100%;object-fit:cover}
+.picks{padding-top:60px}
+.ph{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap}
+h2{font-family:'Playfair Display';font-weight:600;font-size:clamp(28px,3.4vw,44px)}
+.ph a{font-weight:600;border-bottom:2px solid var(--gold)}
+.ed{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:22px;margin-top:24px}
+@media(max-width:900px){.ed{grid-template-columns:1fr}}
+.ed article{background:var(--blushbg);border-radius:28px;overflow:hidden}
+.ed article:nth-child(2){background:var(--powder)}
+.ed img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.ed article:first-child img{aspect-ratio:16/11}
+.ed .b{padding:18px 20px 20px}.ed small{color:var(--gold);font-weight:700;letter-spacing:1.5px;font-size:11.5px;text-transform:uppercase}
+.ed h3{font-family:'Playfair Display';font-weight:600;font-size:22px;line-height:1.2;margin-top:4px}
+.ed p{color:var(--muted);font-size:14.5px;margin-top:6px}
+.free{margin-top:60px;background:var(--blushbg);border-radius:36px;padding:34px}
+.free h2{font-size:30px}
+.fr{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+@media(max-width:900px){.fr{grid-template-columns:1fr}}
+.fr a{background:#fff;border-radius:20px;padding:16px;display:flex;gap:14px;align-items:center}
+.fr .d{flex:none;width:58px;text-align:center;border-radius:16px;background:var(--navy);color:#fff;padding:8px 0}
+.fr .d b{display:block;font-family:'Playfair Display';font-size:24px;line-height:1}.fr .d small{font-size:11px;letter-spacing:1px}
+.fr .t b{display:block;font-size:15px}.fr .t span{font-size:13px;color:var(--muted)}
+footer{padding:50px 0 40px;color:var(--muted);font-size:14px}
+</style></head><body>
+<div class="demo">Концепция 5 · Тъмносиньо и прасковено (качество + нежност) · всичко е измислено</div>
+<nav><div class="w"><div class="logo">zani</div><div class="menu"><a href="#">Събития</a><a href="#">Занимания</a><a href="#">Специалисти</a><a href="#">Блог</a></div><button class="in">Вход</button></div></nav>
+<header class="hero"><div class="w">
+ <div><div class="kick">Подбрано за родители в цяла България</div><h1>Най-хубавото за детето ти, <i>подбрано с грижа</i></h1>
+  <p>Проверени занимания и специалисти, седмични препоръки и безплатни събития — без безкрайно търсене.</p><a class="btn" href="#">Разгледай подбраното</a></div>
+ <div class="arch"><img src="../bold/img/notka.jpg" alt=""></div>
+</div></header>
+<section class="w picks"><div class="ph"><h2>Тази седмица препоръчваме</h2><a href="#">Всички препоръки</a></div>
+ <div class="ed">
+  <article><img src="../bold/img/lisichka.jpg" alt=""><div class="b"><small>Изкуство · 4–10 г.</small><h3>Ателие „Лисичка“ — малки групи и много цвят</h3><p>София · Лозенец · 15 € · ★ 4.9</p></div></article>
+  <article><img src="../bold/img/iva.jpg" alt=""><div class="b"><small>Проверен специалист</small><h3>Логопед Ива Петрова</h3><p>София · индивидуални часове · 30 €</p></div></article>
+  <article><img src="../bold/img/puhche.jpg" alt=""><div class="b"><small>За най-малките · 1–3 г.</small><h3>„Пухче“ — движение с мама</h3><p>София · Надежда · 11 €</p></div></article>
+ </div>
+ <div class="free"><h2>Безплатно този уикенд</h2><div class="fr" id="fr"></div></div>
+</section>
+<footer><div class="w">zani · прототип</div></footer>
+<script src="shared.js"></script><script>
+document.getElementById('fr').innerHTML=EV.slice(0,6).map(e=>`<a href="#" onclick="event.preventDefault();toast('${e[4]}')"><div class="d"><small>${e[0]}</small><b>${e[1]}</b></div><div class="t"><b>${e[4]}</b><span>${e[3]} · ${e[5]}</span></div></a>`).join('');
+</script></body></html>

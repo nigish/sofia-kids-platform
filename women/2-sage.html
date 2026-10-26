@@ -1,0 +1,64 @@
+<!doctype html><html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Концепция 2 · Градина</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500&family=Onest:wght@400;500;600;700&display=swap');
+:root{--sage:#E3EEDF;--sage2:#9DBF95;--leaf:#3F6B4A;--sky:#E4EFF7;--sea:#4E7FA3;--cream:#FAF8F3;--ink:#22302A;--muted:#66716B}
+*{box-sizing:border-box;margin:0;padding:0}html,body{overflow-x:hidden}
+body{font-family:Onest,sans-serif;color:var(--ink);background:#fff;line-height:1.55}
+a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+:focus-visible{outline:3px solid var(--leaf);outline-offset:3px;border-radius:10px}
+.w{max-width:1220px;margin:0 auto;padding-left:28px;padding-right:28px}
+.demo{background:var(--sage);color:var(--leaf);text-align:center;font-size:12.5px;font-weight:600;padding:7px}
+nav .w{display:flex;align-items:center;justify-content:space-between;height:78px;gap:14px}
+.logo{font-family:Lora;font-weight:600;font-size:28px;color:var(--leaf)}
+.menu{display:flex;gap:8px}.menu a{border-radius:999px;padding:9px 18px;font-weight:600;background:var(--sage);color:var(--leaf)}
+.menu a:nth-child(even){background:var(--sky);color:var(--sea)}
+.in{border:1.5px solid var(--leaf);color:var(--leaf);border-radius:999px;padding:10px 20px;font-weight:600}
+@media(max-width:860px){.menu{display:none}}
+.hero{display:grid;grid-template-columns:1fr 1.1fr;gap:40px;align-items:center;padding-top:30px;padding-bottom:30px}
+@media(max-width:900px){.hero{grid-template-columns:1fr}}
+.hero h1{font-family:Lora;font-weight:500;font-size:clamp(38px,5.2vw,70px);line-height:1.08;letter-spacing:-1px}
+.hero h1 i{color:var(--leaf)}
+.hero p{color:var(--muted);font-size:18px;margin-top:16px;max-width:480px}
+.cta{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
+.btn{border-radius:999px;padding:14px 24px;font-weight:600}.btn.p{background:var(--leaf);color:#fff}.btn.s{background:var(--sky);color:var(--sea)}
+.photos{display:grid;grid-template-columns:1.2fr 1fr;grid-template-rows:200px 200px;gap:12px}
+.photos img{width:100%;height:100%;object-fit:cover;border-radius:28px}
+.photos img:first-child{grid-row:span 2;border-radius:200px 200px 28px 28px}
+.strip{background:var(--sage);padding:34px 0}
+.strip h2{font-family:Lora;font-weight:500;font-size:28px}
+.row{display:flex;gap:16px;overflow-x:auto;padding:18px 0 6px;scroll-snap-type:x mandatory}
+.ev{flex:none;width:260px;background:#fff;border-radius:24px;padding:16px;scroll-snap-align:start;border:1px solid #D6E3D1}
+.ev small{color:var(--sea);font-weight:700;letter-spacing:1px;font-size:12px}.ev b{display:block;font-size:17px;margin-top:4px}.ev span{color:var(--muted);font-size:14px}
+.ev em{display:inline-block;margin-top:10px;font-style:normal;background:var(--sage);color:var(--leaf);border-radius:999px;padding:4px 12px;font-size:12.5px;font-weight:700}
+section{padding-top:60px}
+h2{font-family:Lora;font-weight:500;font-size:clamp(28px,3.2vw,40px)}
+.stages{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:20px}
+@media(max-width:860px){.stages{grid-template-columns:repeat(2,1fr)}}
+.stg{border-radius:24px;padding:18px;text-align:left;background:var(--cream);border:1.5px solid transparent}
+.stg b{font-family:Lora;font-size:26px;display:block}.stg span{color:var(--muted);font-size:14px}
+.stg[aria-pressed="true"]{border-color:var(--leaf);background:var(--sage)}
+.list{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:22px;padding-bottom:70px}
+@media(max-width:760px){.list{grid-template-columns:1fr}}
+.it{display:flex;gap:16px;background:var(--cream);border-radius:28px;padding:12px;align-items:center}
+.it img{width:130px;height:110px;object-fit:cover;border-radius:20px;flex:none}
+.it h3{font-family:Lora;font-weight:600;font-size:19px}.it .m{color:var(--muted);font-size:14px}
+.it .f{display:flex;gap:10px;align-items:center;margin-top:8px}.it .f span{background:#fff;border-radius:999px;padding:4px 12px;font-size:13px;font-weight:600;color:var(--leaf)}
+footer{background:var(--leaf);color:#DDEBDD;padding:30px 0;font-size:14px}
+</style></head><body>
+<div class="demo">Концепция 2 · Градина (зелено + синьо, по снимки) · всичко е измислено</div>
+<nav><div class="w"><div class="logo">zani</div><div class="menu"><a href="#">Събития</a><a href="#">Занимания</a><a href="#">Специалисти</a><a href="#">Блог</a></div><button class="in">Вход</button></div></nav>
+<header class="w hero">
+ <div><h1>Всяка възраст има своите <i>малки открития</i></h1>
+  <p>Занимания, събития и специалисти за деца — подбрани според етапа, в който е детето ти.</p>
+  <div class="cta"><a class="btn p" href="#stages">Избери възраст</a><a class="btn s" href="#">Безплатни събития</a></div></div>
+ <div class="photos"><img src="../bold/img/puhche.jpg" alt=""><img src="../bold/img/lisichka.jpg" alt=""><img src="../bold/img/notka.jpg" alt=""></div>
+</header>
+<div class="strip"><div class="w"><h2>Безплатно този уикенд</h2><div class="row" id="row"></div></div></div>
+<section class="w" id="stages"><h2>Етапи на растене</h2><div class="stages" id="st"></div><div class="list" id="list"></div></section>
+<footer><div class="w">zani · прототип</div></footer>
+<script src="shared.js"></script><script>
+document.getElementById('row').innerHTML=EV.map(e=>`<a class="ev" href="#"><small>${e[0]} ${e[1]} ${e[2].toUpperCase()} · ${e[3].toUpperCase()}</small><b>${e[4]}</b><span>${e[5]}</span><br><em>безплатно</em></a>`).join('');
+let a=2;function r(){document.getElementById('st').innerHTML=AGES.map((x,i)=>`<button class="stg" aria-pressed="${i===a}" onclick="a=${i};r()"><b>${x[0]}</b><span>${x[1]}</span></button>`).join('');
+document.getElementById('list').innerHTML=PL.filter(p=>fit(p,AGES[a])).slice(0,4).map(p=>`<a class="it" href="#"><img src="../bold/img/${p[0]}.jpg" alt="${p[1]}" loading="lazy"><div><h3>${p[1]}</h3><div class="m">${p[2]} · ${p[3]}</div><div class="f"><b>${p[4]}</b><span>★ ${p[7]}</span><span>Свободни часове</span></div></div></a>`).join('')}r();
+</script></body></html>
