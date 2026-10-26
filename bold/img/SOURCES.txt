@@ -10,3 +10,7 @@ iva.jpg: https://unsplash.com/photos/1573497019236-17f8177b81e8
 iva2.jpg: https://unsplash.com/photos/1494790108377-be9c29b29330
 puhche.jpg: https://unsplash.com/photos/1600880291319-1a7499c191e8
 mancheta.jpg: https://unsplash.com/photos/1772419130717-e0630e3e4f28
+kukli.jpg: https://unsplash.com/photos/1769718460805-97642006a6bc
+kukla-dete.jpg: https://unsplash.com/photos/1770926101352-09c4123b3148
+fest.jpg: https://unsplash.com/photos/1781004126846-0eee5217f799
+folklor.jpg: https://unsplash.com/photos/1790441621724-fb458ce5a32e

@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zani · Този уикенд</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;700;900&family=Caveat:wght@600;700&display=swap');
+:root{--paper:#FFFFFF;--grid:#DCE6FB;--margin:#F28B9A;--ink:#121633;--pen:#2340D8;--muted:#5A6185;--red:#E8434F;--card:#FFFDF6}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:hidden}
+body{font-family:'Inter Tight',system-ui,sans-serif;color:var(--ink);line-height:1.45;background-color:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:26px 26px}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+:focus-visible{outline:3px solid var(--pen);outline-offset:3px;border-radius:6px}
+.w{max-width:1200px;margin:0 auto;padding-left:76px;padding-right:28px;position:relative}
+.w::before{content:"";position:absolute;left:44px;top:0;bottom:0;width:2px;background:var(--margin);opacity:.7}
+.demo{font-family:Caveat;font-size:19px;text-align:center;padding:4px;color:var(--pen);background:rgba(255,255,255,.9)}
+
+/* nav */
+nav .w{display:flex;justify-content:space-between;align-items:center;height:80px;gap:16px}
+.logo{font-weight:900;font-size:28px;letter-spacing:-1.2px}
+.logo span{font-family:Caveat;font-weight:700;color:#E23A7A;font-size:32px;margin-left:2px}
+.tabs{display:flex;gap:6px}
+.tabs a{font-weight:700;font-size:15px;padding:8px 14px;border-radius:999px;color:var(--muted);text-decoration:none}
+.tabs a.on{background:var(--ink);color:#fff}
+.saved{display:flex;align-items:center;gap:6px;font-weight:700;border:2px solid var(--ink);border-radius:999px;padding:7px 14px;background:#fff}
+.saved svg{width:18px;height:18px}
+@media(max-width:860px){.tabs{display:none}}
+
+/* hero */
+.hero{padding-top:26px;padding-bottom:6px}
+.eyebrow{font-family:Caveat;font-size:27px;color:var(--pen);display:inline-block;transform:rotate(-2deg)}
+h1{font-weight:900;font-size:clamp(50px,8.5vw,124px);line-height:.9;letter-spacing:-.04em;word-spacing:.12em;margin-top:4px}
+.scr{position:relative;display:inline-block}
+.scr svg{position:absolute;left:-3%;bottom:-.1em;width:106%;height:.36em;overflow:visible}
+.scr path{fill:none;stroke:#FF7A1A;stroke-width:10;stroke-linecap:round}
+.heart-doodle{display:inline-block;width:.42em;vertical-align:.5em;margin-left:.08em;transform:rotate(12deg)}
+@media (prefers-reduced-motion:no-preference){.scr path{stroke-dasharray:900;stroke-dashoffset:900;animation:d .9s .3s ease-out forwards}}
+@keyframes d{to{stroke-dashoffset:0}}
+
+/* tear-off calendar day picker */
+.days{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap}
+.cal{width:92px;background:#fff;border-radius:10px;box-shadow:0 2px 0 rgba(18,22,51,.08),0 8px 18px rgba(18,22,51,.08);overflow:hidden;text-align:center;transition:transform .15s;position:relative}
+.cal::before{content:"";position:absolute;top:0;left:0;right:0;height:8px;background:repeating-linear-gradient(90deg,#fff 0 6px,transparent 6px 12px);opacity:.6;z-index:1}
+.cal .m{background:var(--red);color:#fff;font-weight:700;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;padding:9px 0 5px}
+.cal .d{font-weight:900;font-size:38px;line-height:1;padding:8px 0 2px}
+.cal .wd{font-family:Caveat;font-size:20px;color:var(--muted);padding-bottom:8px}
+.cal:hover{transform:translateY(-3px) rotate(-1deg)}
+.cal[aria-pressed="true"]{outline:3px solid var(--ink);outline-offset:3px;transform:rotate(-2deg)}
+.cal.wk .m{background:var(--pen)}.cal.wk .d{font-size:21px;padding:15px 4px 9px;line-height:1.05}
+
+/* filters */
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;align-items:center}
+.f{display:flex;align-items:center;gap:7px;border:2px dashed #B9C6EC;border-radius:999px;padding:7px 14px;font-weight:700;font-size:14.5px;background:rgba(255,255,255,.85)}
+.f svg{width:20px;height:20px}
+.f[aria-pressed="true"]{border-style:solid;border-color:var(--ink);background:var(--ink);color:#fff}
+.f[aria-pressed="true"] svg *{stroke:#fff}
+.agesel{font-family:Caveat;font-weight:700;font-size:24px;color:var(--pen);border:0;border-bottom:3px solid var(--pen);background:transparent;padding:0 6px;cursor:pointer}
+
+/* day groups + cards */
+.list{padding-top:40px;padding-bottom:40px}
+.dayh{font-family:Caveat;font-weight:700;font-size:34px;color:var(--pen);margin:26px 0 16px;display:flex;align-items:baseline;gap:4px 12px;flex-wrap:wrap}
+.dayh small{font-family:'Inter Tight';font-size:14px;font-weight:700;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:36px 28px}
+.ev{position:relative;background:var(--card);border-radius:4px;padding:16px 18px 18px;box-shadow:0 1px 2px rgba(18,22,51,.08),0 12px 24px rgba(18,22,51,.08)}
+.ev:nth-child(3n+1){transform:rotate(-1deg)}.ev:nth-child(3n+2){transform:rotate(.8deg)}
+.ev .tape{position:absolute;top:-11px;right:28px;width:84px;height:22px;opacity:.78;transform:rotate(4deg);z-index:3}
+.ev .ph{background:#fff;padding:7px 7px 7px;box-shadow:0 2px 6px rgba(18,22,51,.12);transform:rotate(-1deg)}
+.ev .ph img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover}
+.ev .mini{position:absolute;left:4px;top:4px;width:64px;background:#fff;border-radius:8px;overflow:hidden;text-align:center;box-shadow:0 4px 10px rgba(18,22,51,.18);transform:rotate(-6deg);z-index:2}
+.ev .mini b{display:block;background:var(--red);color:#fff;font-size:10.5px;letter-spacing:1px;padding:4px 0 3px}
+.ev .mini span{display:block;font-weight:900;font-size:26px;line-height:1.1;padding:2px 0 4px}
+.free{position:absolute;right:10px;top:150px;width:74px;height:74px;border-radius:50%;background:#FFD43B;display:flex;align-items:center;justify-content:center;text-align:center;
+  font-family:Caveat;font-weight:700;font-size:21px;line-height:.95;color:var(--ink);transform:rotate(12deg);box-shadow:0 3px 0 rgba(18,22,51,.15);border:3px solid #fff;z-index:2}
+.ev h3{font-weight:900;font-size:21px;letter-spacing:-.5px;line-height:1.12;margin-top:16px}
+.ev .meta{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:14px;color:var(--muted);margin-top:6px;align-items:center}
+.ev .meta svg{width:17px;height:17px;vertical-align:-3px;margin-right:3px}
+.ev .note{font-family:Caveat;font-size:21px;color:#E23A7A;margin-top:8px;line-height:1.1}
+.ev .foot{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:12px;border-top:2px dashed var(--grid);gap:10px}
+.ev .price{font-weight:900;font-size:18px}
+.ev .act{display:flex;gap:8px;align-items:center}
+.heart{width:40px;height:40px;border-radius:50%;border:2px solid var(--ink);display:flex;align-items:center;justify-content:center;background:#fff}
+.heart svg{width:20px;height:20px}
+.heart[aria-pressed="true"]{background:#FFE1E6;border-color:#E23A7A}
+.heart[aria-pressed="true"] path{fill:#E23A7A;stroke:#E23A7A}
+@media (prefers-reduced-motion:no-preference){.heart[aria-pressed="true"] svg{animation:beat .35s ease}}
+@keyframes beat{50%{transform:scale(1.3)}}
+.go{border:2px solid var(--ink);background:var(--ink);color:#fff;border-radius:999px;padding:9px 15px;font-weight:700;font-size:14px;white-space:nowrap}
+.go.ext{background:#fff;color:var(--ink)}
+.go[aria-pressed="true"]{background:#16B37E;border-color:#16B37E;color:#fff}
+.empty{font-family:Caveat;font-size:28px;color:var(--muted);padding:20px 0}
+.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,16px);background:var(--ink);color:#fff;padding:13px 20px;border-radius:16px;font-weight:700;opacity:0;visibility:hidden;transition:.25s;z-index:50;max-width:92vw}
+.toast.on{opacity:1;visibility:visible;transform:translate(-50%,0)}
+footer{padding-bottom:50px;color:var(--muted);font-size:14px}
+@media(max-width:600px){
+  .w{padding-left:46px;padding-right:18px}.w::before{left:26px}
+  nav .w{height:68px}.logo{font-size:24px}
+  .days{gap:10px}.cal{width:74px}.cal .d{font-size:30px}.cal.wk .d{font-size:17px}
+  .grid{grid-template-columns:1fr}
+  h1{font-size:15vw}
+  .dayh small{flex-basis:100%}
+  .ev:nth-child(n){transform:rotate(0)}
+}
+@media (prefers-reduced-motion:reduce){.ev:nth-child(n){transform:none}}
+</style></head><body>
+<div class="demo">концепция „Тетрадката“ · Събития — всички събития са измислени, снимките са примерни</div>
+
+<nav><div class="w">
+  <div class="logo">zani<span>тук</span></div>
+  <div class="tabs"><a class="on" href="#">Събития</a><a href="notebook.html">Занимания</a><a href="#">Специалисти</a><a href="#">Блог</a></div>
+  <button class="saved" onclick="toast('Тук ще са запазените събития — само за теб.')"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" fill="#FFE1E6" stroke="#E23A7A" stroke-width="2"/></svg><span id="sc">0</span></button>
+</div></nav>
+
+<header class="w hero">
+  <span class="eyebrow">какво правим с децата?</span>
+  <h1><span class="scr">Този уикенд<svg viewBox="0 0 400 40" preserveAspectRatio="none" aria-hidden="true"><path d="M6 26 C 60 10, 120 34, 180 18 S 300 8, 394 22"/></svg></span><svg class="heart-doodle" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" fill="none" stroke="#E23A7A" stroke-width="2.4" stroke-linejoin="round"/></svg></h1>
+
+  <div class="days" id="days" role="group" aria-label="Кой ден"></div>
+
+  <div class="filters">
+    <button class="f" data-f="free" aria-pressed="false">Безплатни</button>
+    <button class="f" data-f="out" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="#F2A900" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.6M12 18.9v2.6M2.5 12h2.6M18.9 12h2.6M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/></svg>Навън</button>
+    <button class="f" data-f="in" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="#2340D8" stroke-width="2.2" stroke-linecap="round"><path d="M3 12a9 9 0 0 1 18 0z"/><path d="M12 12v6a2 2 0 0 1-4 0"/></svg>На закрито</button>
+    <span style="font-weight:700;margin-left:6px">за</span>
+    <select class="agesel" id="age" aria-label="Възраст"><option value="all">всички деца</option><option value="1">1–3 г.</option><option value="4">4–6 г.</option><option value="7">7+ г.</option></select>
+  </div>
+</header>
+
+<main class="w list" id="list"></main>
+<footer class="w">zani · събития за деца в цяла България · прототип</footer>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const DAYS=[{k:'fri',m:'Окт',d:'30',wd:'петък'},{k:'sat',m:'Окт',d:'31',wd:'събота'},{k:'sun',m:'Ное',d:'1',wd:'неделя'},{k:'week',m:'Седмица',d:'2–6 ное',wd:'следваща',wk:1}];
+const DAYNAME={fri:'петък · 30 октомври',sat:'събота · 31 октомври',sun:'неделя · 1 ноември',week:'следващата седмица'};
+const SUN='<svg viewBox="0 0 24 24" fill="none" stroke="#F2A900" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.6M12 18.9v2.6M2.5 12h2.6M18.9 12h2.6M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/></svg>';
+const UMB='<svg viewBox="0 0 24 24" fill="none" stroke="#2340D8" stroke-width="2.2" stroke-linecap="round"><path d="M3 12a9 9 0 0 1 18 0z"/><path d="M12 12v6a2 2 0 0 1-4 0"/></svg>';
+const PIN='<svg viewBox="0 0 24 24" fill="none" stroke="#5A6185" stroke-width="2"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg>';
+// [day, time, title, place, city, ages[lo,hi], price, free, out, img, tape, note, ext]
+const E=[
+ ['fri','17:30','Хелоуин работилница: фенери от тикви','Ателие „Лисичка“','София',[4,10],'15 €',0,0,'sareno','#FFB3C7','донесете стара тениска',0],
+ ['sat','10:00','Есенен фестивал в парка','Южен парк','София',[0,12],'',1,1,'fest','#FFE37A','пони, лодки и палачинки',1],
+ ['sat','10:30','Куклен театър „Трите прасенца“','Сцена „Шарено“','Русе',[3,7],'8 €',0,0,'kukli','#A6EBCB','40 мин, подходящо за 3+',0],
+ ['sat','11:00','Музика с мама','Музикална къща „Нотка“','Пловдив',[1,3],'12 €',0,0,'notka','#9FD8FF','остават 3 места!',0],
+ ['sat','12:00','Народни танци за малки и големи','Площад „Независимост“','Варна',[0,99],'',1,1,'folklor','#FFB3C7','носиите не са задължителни',1],
+ ['sun','10:00','Отворен урок по плуване','„Делфинче“','София',[3,6],'безплатно',1,0,'delfinche','#9FD8FF','вземете шапка за плуване',0],
+ ['sun','10:30','Игри и пеене за прохождащи','„Пухче“','София',[1,3],'11 €',0,0,'puhche','#FFC9D6','меки постелки, с родител',0],
+ ['sun','11:00','Детски шахматен турнир','Шахматен клуб „Пешка“','Бургас',[6,14],'5 €',0,0,'peshka','#FFE37A','медали за всички',0],
+ ['week','Ср 17:00','Английски с приказки','Little Talk','Варна',[3,10],'14 €',0,0,'littletalk','#A6EBCB','пробен урок',0],
+ ['week','Чт 18:00','Балет за начинаещи','Студио „Пируетче“','Пловдив',[4,8],'10 €',0,0,'piruetche','#FFB3C7','първото занимание е с отстъпка',0]];
+let day='sat';const F=new Set();const saved=new Set(),booked=new Set();
+const $=id=>document.getElementById(id);
+function toast(t){const e=$('toast');e.textContent=t;e.classList.add('on');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('on'),2600)}
+function days(){ $('days').innerHTML=DAYS.map(d=>`<button class="cal ${d.wk?'wk':''}" aria-pressed="${day===d.k}" onclick="day='${d.k}';render()"><div class="m">${d.m}</div><div class="d">${d.d}</div><div class="wd">${d.wd}</div></button>`).join('')}
+function card(e,i){const id=e[2];const [lo,hi]=e[5];const age=hi>=99?'всички възрасти':lo===0?`до ${hi} г.`:`${lo}–${hi} г.`;
+ const sv=saved.has(id),bk=booked.has(id);
+ return `<article class="ev"><span class="tape" style="background:${e[10]}"></span>
+  <div class="ph"><img src="img/${e[9]}.jpg" alt="${e[2]}" loading="lazy"></div>
+  <div class="mini"><b>${e[0]==='week'?'НОЕ':(e[0]==='fri'||e[0]==='sat'?'ОКТ':'НОЕ')}</b><span>${{fri:'30',sat:'31',sun:'1'}[e[0]]||e[1].split(' ')[0]}</span></div>
+  ${e[7]?'<div class="free">без-<br>платно</div>':''}
+  <h3>${e[2]}</h3>
+  <div class="meta"><span>${e[8]?SUN:UMB}${e[1]}</span><span>${PIN}${e[3]}, ${e[4]}</span><span>${age}</span></div>
+  <div class="note">${e[11]}</div>
+  <div class="foot"><span class="price">${e[7]?'Безплатно':e[6]}</span><div class="act">
+   <button class="heart" aria-label="Запази" aria-pressed="${sv}" onclick="sav('${id}')"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" fill="none" stroke="#121633" stroke-width="2"/></svg></button>
+   ${e[12]?`<button class="go ext" onclick="toast('Отваря сайта на организатора в нов прозорец.')">При организатора ↗</button>`
+          :`<button class="go" aria-pressed="${bk}" onclick="bok('${id}')">${bk?'Записано':'Запиши'}</button>`}
+  </div></div></article>`}
+function render(){days();
+ const a=$('age').value;
+ const list=E.filter(e=>e[0]===day&&(!F.has('free')||e[7])&&(!F.has('out')||e[8])&&(!F.has('in')||!e[8])&&(a==='all'||({1:[1,3],4:[4,6],7:[7,99]}[a][0]<=e[5][1]&&{1:[1,3],4:[4,6],7:[7,99]}[a][1]>=e[5][0])));
+ $('list').innerHTML=`<div class="dayh">${DAYNAME[day]} <small>${list.length} ${list.length===1?'събитие':'събития'}</small></div>`+
+  (list.length?`<div class="grid">${list.map(card).join('')}</div>`:`<p class="empty">Няма събития с тези филтри… пробвай друг ден или махни някой филтър.</p>`);
+ $('sc').textContent=saved.size}
+function sav(id){saved.has(id)?saved.delete(id):(saved.add(id),toast('Запазено — ще ти напомним в петък вечер.'));render()}
+function bok(id){booked.has(id)?booked.delete(id):(booked.add(id),toast('Записано! Потвърждението е на имейла ти.'));render()}
+document.querySelectorAll('.f').forEach(b=>b.onclick=()=>{const k=b.dataset.f;
+ if(F.has(k))F.delete(k);else{F.add(k);if(k==='out')F.delete('in');if(k==='in')F.delete('out')}
+ document.querySelectorAll('.f').forEach(x=>x.setAttribute('aria-pressed',F.has(x.dataset.f)));render()});
+$('age').onchange=render;
+render();
+</script></body></html>
