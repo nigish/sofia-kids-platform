@@ -19,7 +19,7 @@ nav .w{display:flex;justify-content:space-between;align-items:center;height:80px
 .logo span{font-family:Caveat;font-weight:700;color:var(--c3);font-size:32px;margin-left:2px}
 nav button{background:var(--ink);color:#fff;border:0;border-radius:999px;padding:11px 20px;font-weight:700;cursor:pointer}
 
-.hero{padding-top:30px;padding-bottom:10px}
+.hero{padding-top:30px;padding-bottom:10px;position:relative}
 .eyebrow{font-family:Caveat;font-size:26px;color:var(--pen);transform:rotate(-2deg);display:inline-block}
 h1{font-weight:900;font-size:clamp(44px,8vw,120px);line-height:.9;letter-spacing:-.045em;margin-top:6px}
 .scr{position:relative;display:inline-block;white-space:nowrap}
@@ -41,6 +41,21 @@ h1{font-weight:900;font-size:clamp(44px,8vw,120px);line-height:.9;letter-spacing
 .blank::after{content:"▾";position:absolute;right:4px;top:.35em;color:var(--pen);font-size:.7em;pointer-events:none}
 .go{margin-top:20px;display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:#fff;border:0;border-radius:999px;padding:16px 26px;font-weight:700;font-size:17px;cursor:pointer}
 
+.card .photo{margin:-6px -4px 16px;background:#fff;padding:8px 8px 20px;box-shadow:0 2px 6px rgba(18,22,51,.12);transform:rotate(1.2deg)}
+.card:nth-child(even) .photo{transform:rotate(-1.4deg)}
+.card .photo img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover}
+.card .tape{z-index:2}
+.card.spec{padding-right:130px;min-height:220px}
+.portrait{position:absolute;right:18px;top:26px;width:100px;background:#fff;padding:6px 6px 16px;box-shadow:0 2px 6px rgba(18,22,51,.14);transform:rotate(3deg)}
+.portrait img{display:block;width:100%;aspect-ratio:1;object-fit:cover}
+.clip{position:absolute;top:-22px;left:14px;width:16px;height:46px}
+.heropics{position:absolute;right:30px;top:40px;width:400px;height:420px;pointer-events:none}
+.heropics figure{position:absolute;background:#fff;padding:9px 9px 34px;box-shadow:0 4px 14px rgba(18,22,51,.16)}
+.heropics img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover}
+.heropics figcaption{font-family:Caveat;font-size:20px;color:var(--ink);position:absolute;left:12px;bottom:4px}
+.heropics .t{position:absolute;top:-11px;left:40%;width:80px;height:22px;opacity:.75;transform:rotate(-4deg)}
+@media(min-width:1101px){.sentence{max-width:640px}}
+@media(max-width:1100px){.heropics{display:none}}
 /* results: taped index cards */
 .res{padding-top:60px;padding-bottom:30px}
 .rh{font-family:Caveat;font-size:30px;color:var(--pen)}
@@ -80,10 +95,15 @@ html,body{overflow-x:hidden}
   .dot{display:none}
 }
 </style></head><body>
-<div class="demo">концепция „Тетрадката“ — всички места са измислени</div>
+<div class="demo">концепция „Тетрадката“ — местата са измислени, снимките са примерни (Unsplash)</div>
 <nav><div class="w"><div class="logo">zani<span>тук</span></div><button>Вход</button></div></nav>
 
 <header class="w hero">
+  <div class="heropics" aria-hidden="true">
+    <figure style="width:250px;left:130px;top:0;transform:rotate(4deg)"><span class="t" style="background:#FFB3C7"></span><img src="img/sareno.jpg" alt=""><figcaption>Русе, ателие</figcaption></figure>
+    <figure style="width:230px;left:0;top:170px;transform:rotate(-5deg)"><span class="t" style="background:#9FD8FF"></span><img src="img/delfinche.jpg" alt=""><figcaption>Плуване, Младост</figcaption></figure>
+    <figure style="width:210px;left:190px;top:250px;transform:rotate(2deg)"><span class="t" style="background:#FFE37A"></span><img src="img/notka.jpg" alt=""><figcaption>Пловдив, музика</figcaption></figure>
+  </div>
   <span class="eyebrow">домашно за родители:</span>
   <h1>В събота<br><span class="scr"><span class="word" id="word">рисуваме</span><svg viewBox="0 0 400 40" preserveAspectRatio="none" aria-hidden="true"><path d="M6 26 C 60 10, 120 34, 180 18 S 300 8, 394 22"/></svg></span>.</h1>
 
@@ -117,20 +137,23 @@ const words=['рисуваме','плуваме','пеем','танцуваме'
 const w=document.getElementById('word');
 if(!matchMedia('(prefers-reduced-motion: reduce)').matches)setInterval(()=>{wi=(wi+1)%words.length;w.textContent=words[wi];w.classList.remove('swap');void w.offsetWidth;w.classList.add('swap')},2200);
 const P=[
- ['arts','Изкуство','Ателие „Лисичка“','София','Лозенец',4,10,'15 €','4 мин до метрото, влиза количка','#FFB3C7'],
- ['sport','Спорт','Плуване „Делфинче“','София','Младост',3,12,'18 €','остават само 2 места в събота!','#9FD8FF'],
- ['music','Музика','Музикална къща „Нотка“','Пловдив','Капана',1,8,'12 €','с мама или татко до 3 г.','#FFE37A'],
- ['lang','Езици','Little Talk · английски','Варна','Левски',3,10,'14 €','групи до 6 деца','#A6EBCB'],
- ['stem','Наука','Шахматен клуб „Пешка“','Бургас','Център',6,14,'10 €','турнир в събота от 10:00','#FFE37A'],
- ['sport','Спорт','Танцово студио „Пируетче“','Пловдив','Тракия',4,12,'10 €','2 мин от спирката','#FFB3C7'],
- ['arts','Изкуство','Ателие „Шарено“','Русе','Център',4,9,'12 €','до парка, влиза количка','#A6EBCB'],
- ['speech','Логопед','Ива Петрова · проверен специалист','София','Лозенец',2,12,'30 €','документите са проверени ✓','#9FD8FF']];
+ ['arts','Изкуство','Ателие „Лисичка“','София','Лозенец',4,10,'15 €','4 мин до метрото, влиза количка','#FFB3C7','lisichka'],
+ ['sport','Спорт','Плуване „Делфинче“','София','Младост',3,12,'18 €','остават само 2 места в събота!','#9FD8FF','delfinche'],
+ ['music','Музика','Музикална къща „Нотка“','Пловдив','Капана',1,8,'12 €','с мама или татко до 3 г.','#FFE37A','notka'],
+ ['lang','Езици','Little Talk · английски','Варна','Левски',3,10,'14 €','групи до 6 деца','#A6EBCB','littletalk'],
+ ['stem','Наука','Шахматен клуб „Пешка“','Бургас','Център',6,14,'10 €','турнир в събота от 10:00','#FFE37A','peshka'],
+ ['sport','Спорт','Танцово студио „Пируетче“','Пловдив','Тракия',4,12,'10 €','2 мин от спирката','#FFB3C7','piruetche'],
+ ['arts','Изкуство','Ателие „Шарено“','Русе','Център',4,9,'12 €','до парка, влиза количка','#A6EBCB','sareno'],
+ ['speech','Логопед','Ива Петрова','София','Лозенец',2,12,'30 €','проверен специалист ✓ документите са видени','#9FD8FF','iva']];
 const CC={arts:'#E23A7A',sport:'#16B37E',music:'#FF7A1A',lang:'#2340D8',stem:'#8A5A00',speech:'#2340D8'};
 const booked=new Set();
 function show(scroll){const c=cat.value,a=+age.value,ar=area.value;
  const list=P.filter(p=>(c==='all'||p[0]===c)&&a>=p[5]&&a<=p[6]&&(ar==='all'||p[3]===ar));
  document.getElementById('rh').textContent=list.length?`${list.length} ${list.length===1?'идея':'идеи'} за ${a}-годишно${ar==='all'?'':' в '+ar}:`:'';
- document.getElementById('cards').innerHTML=list.length?list.map(p=>{const id=p[2],b=booked.has(id);return `<article class="card"><span class="tape" style="background:${p[9]}"></span>
+ document.getElementById('cards').innerHTML=list.length?list.map(p=>{const id=p[2],b=booked.has(id);const spec=p[0]==='speech';
+ return `<article class="card ${spec?'spec':''}"><span class="tape" style="background:${p[9]}"></span>
+   ${spec?`<figure class="portrait"><img src="img/${p[10]}.jpg" alt="${p[2]}" loading="lazy"><svg class="clip" viewBox="0 0 24 60" aria-hidden="true"><path d="M8 52V12a5 5 0 0 1 10 0v34a3 3 0 0 1-6 0V16" fill="none" stroke="#8A93AD" stroke-width="2.4" stroke-linecap="round"/></svg></figure>`
+        :`<figure class="photo"><img src="img/${p[10]}.jpg" alt="${p[2]}" loading="lazy"></figure>`}
    <div class="cat" style="color:${CC[p[0]]}">${p[1]}</div><h3>${p[2]}</h3><div class="m">${p[3]} · ${p[4]} · ${p[5]}–${p[6]} г.</div>
    <div class="note">${p[8]}</div><div class="f"><b>${p[7]}</b><button aria-pressed="${b}" onclick="bk('${id}')">${b?'Записано':'Виж часове'}</button></div></article>`}).join('')
    :'<p class="empty">Няма точно такова място… пробвай друг град или „нещо интересно“.</p>';

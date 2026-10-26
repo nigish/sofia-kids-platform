@@ -1,0 +1,10 @@
+Placeholder photos from Unsplash (Unsplash License: free to use, no attribution required). Replace with each business's real photos.
+lisichka.jpg: https://unsplash.com/photos/1512253080918-79cf0c2e0650
+sareno.jpg: https://unsplash.com/photos/1780751987564-79489283d67b
+delfinche.jpg: https://unsplash.com/photos/1651614158095-b98b6c1da74b
+notka.jpg: https://unsplash.com/photos/1696522732406-065ef560da8c
+littletalk.jpg: https://unsplash.com/photos/1761208662734-fb46f1398551
+peshka.jpg: https://unsplash.com/photos/1725818660598-43b9012a8168
+piruetche.jpg: https://unsplash.com/photos/1685339009948-d807094b1457
+iva.jpg: https://unsplash.com/photos/1573497019236-17f8177b81e8
+iva2.jpg: https://unsplash.com/photos/1494790108377-be9c29b29330
