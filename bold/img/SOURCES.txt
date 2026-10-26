@@ -14,3 +14,6 @@ kukli.jpg: https://unsplash.com/photos/1769718460805-97642006a6bc
 kukla-dete.jpg: https://unsplash.com/photos/1770926101352-09c4123b3148
 fest.jpg: https://unsplash.com/photos/1781004126846-0eee5217f799
 folklor.jpg: https://unsplash.com/photos/1790441621724-fb458ce5a32e
+center1.jpg: https://unsplash.com/photos/1567746455504-cb3213f8f5b8
+center2.jpg: https://unsplash.com/photos/1786667395451-3f0cbf620a90
+center3.jpg: https://unsplash.com/photos/1567746512136-f005499a7575

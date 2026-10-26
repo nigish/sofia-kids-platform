@@ -47,6 +47,23 @@ nav .w{display:flex;align-items:center;justify-content:space-between;height:76px
 @keyframes up{from{transform:translateY(80px);opacity:0}}
 
 /* results */
+
+.centres{padding-top:54px}
+.more{background:var(--lav);color:var(--violet);border-radius:999px;padding:10px 18px;font-weight:800}
+.cg{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:22px}
+@media(max-width:1000px){.cg{grid-template-columns:1fr}}
+.ct{background:#fff;border-radius:34px;overflow:hidden;box-shadow:0 12px 30px rgba(46,42,74,.08);display:flex;flex-direction:column}
+.ct .ph{position:relative}
+.ct img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block}
+.ct .badge{position:absolute;left:14px;top:14px;background:#fff;color:var(--violet);border-radius:999px;padding:5px 12px;font-weight:800;font-size:12.5px}
+.ct .b{padding:16px 18px 18px;flex:1;display:flex;flex-direction:column}
+.ct h3{font-family:Comfortaa;font-weight:700;font-size:20px}
+.ct .m{color:var(--muted);font-size:14px;font-weight:600;margin-top:2px}
+.ct .acts{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.ct .acts span{border-radius:999px;padding:5px 11px;font-size:12.5px;font-weight:800;background:var(--c)}
+.ct .f{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:14px}
+.ct .f b{font-size:14px;color:var(--muted)}
+.ct .f a{background:var(--violet);color:#fff;border-radius:999px;padding:9px 16px;font-weight:800;font-size:14px}
 .results{padding-top:54px}
 .rh{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
 h2{font-family:Comfortaa;font-weight:700;font-size:clamp(24px,2.6vw,34px);letter-spacing:-.5px}
@@ -86,7 +103,7 @@ footer{text-align:center;color:var(--muted);padding:0 0 40px;font-weight:600}
  <h1>Какво ще правим днес?</h1>
  <p>Занимания, събития и специалисти за деца в цяла България.</p>
  <form class="search" id="search">
-  <div class="fld"><label for="qCat">Какво</label><select id="qCat"><option value="all">Всякакви занимания</option><option>Изкуство</option><option>Спорт</option><option>Музика</option><option>Танци</option><option>Езици</option><option>Наука</option><option>Бебета</option></select></div>
+  <div class="fld"><label for="qCat">Какво</label><select id="qCat"><option value="all">Всякакви занимания</option><option>Изкуство</option><option>Спорт</option><option>Музика</option><option>Танци</option><option>Езици</option><option>Наука</option><option>Бебета</option><option>Детски центрове</option></select></div>
   <div class="fld"><label for="qAge">Възраст</label><select id="qAge"></select></div>
   <div class="fld"><label for="qCity">Град</label><select id="qCity"><option value="all">Цяла България</option><option>София</option><option>Пловдив</option><option>Варна</option><option>Бургас</option></select></div>
   <button class="go">Търси</button>
@@ -95,6 +112,12 @@ footer{text-align:center;color:var(--muted);padding:0 0 40px;font-weight:600}
  <div class="bubhead">Безплатно този уикенд</div>
  <div class="bubbles" id="bub"></div>
 </header>
+
+<section class="w centres">
+ <div class="rh"><div><h2>Детски центрове близо до теб</h2><p class="sub">Много занимания на едно място - удобно за цялото семейство.</p></div>
+ <button class="more" onclick="document.getElementById('qCat').value='Детски центрове';render();document.getElementById('results').scrollIntoView({behavior:'smooth'})">Всички центрове</button></div>
+ <div class="cg" id="cg"></div>
+</section>
 
 <section class="w results" id="results">
  <div class="rh"><div><h2 id="rt">Места за деца</h2><p class="sub" id="rs"></p></div>
@@ -116,6 +139,17 @@ footer{text-align:center;color:var(--muted);padding:0 0 40px;font-weight:600}
 
 <script src="shared.js"></script><script>
 const LL={lisichka:[23.3205,42.6795],delfinche:[23.378,42.653],notka:[24.748,42.148],piruetche:[24.79,42.137],puhche:[23.301,42.724],mancheta:[27.92,43.225],littletalk:[27.905,43.215],peshka:[27.468,42.497]};
+
+const CT=[['center1','Детски център „Слънчоглед“','София · Лозенец','2–12 г.',[2,12],4.9,['Занималня','Английски','Рисуване','Рождени дни'],[23.318,42.672]],
+ ['center3','Център „Пъстро“','Пловдив · Кършияка','1–10 г.',[1,10],4.8,['Игрална зала','Сензорна игра','Танци'],[24.75,42.158]],
+ ['center2','Клуб „Малки откриватели“','Варна · Бриз','4–12 г.',[4,12],4.9,['Занималня','Роботика','Математика','Логопед'],[27.94,43.21]]];
+const ACT=['#FFE4EC','#DCEEFF','#DDF3E8','#E9E3FF','#FFF1D6'];
+CT.forEach(c=>{PL.push([c[0],c[1],c[2],c[3],'от 12 €','Детски центрове',c[4],c[5]]);LL[c[0]]=c[7]});
+function centres(){const cs=CT.filter(c=>age==='all'||(c[4][0]<=AGES[+age][2][1]&&c[4][1]>=AGES[+age][2][0]));
+ document.getElementById('cg').innerHTML=(cs.length?cs:CT).map(c=>`<article class="ct"><div class="ph"><img src="../bold/img/${c[0]}.jpg" alt="${c[1]}" loading="lazy"><span class="badge">♥ Партньор</span></div>
+  <div class="b"><h3>${c[1]}</h3><div class="m">${c[2]} · ${c[3]} · ★ ${c[5]}</div>
+  <div class="acts">${c[6].map((a,i)=>`<span style="--c:${ACT[i%ACT.length]}">${a}</span>`).join('')}</div>
+  <div class="f"><b>${c[6].length} занимания</b><a href="#" onclick="event.preventDefault();toast('${c[1]} - отваря страницата на центъра')">Виж центъра</a></div></div></article>`).join('')}
 const AC=['#FFE4EC','#DCEEFF','#DDF3E8','#E9E3FF','#FFF1D6'];
 let age='all',view='list',map=null,markers=[];
 const $=id=>document.getElementById(id);
@@ -130,7 +164,7 @@ function render(){
  $('rs').textContent=`${l.length} ${l.length===1?'място':'места'}${$('qCity').value==='all'?' в цяла България':' в '+$('qCity').value}`;
  $('grid').innerHTML=l.length?l.map(p=>`<a class="card" href="#"><img src="../bold/img/${p[0]}.jpg" alt="${p[1]}" loading="lazy"><div class="b"><h3>${p[1]}</h3><div class="m">${p[2]} · ${p[3]} · ★ ${p[7]}</div><div class="f"><b>${p[4]}</b><span>Свободни часове</span></div></div></a>`).join('')
    :'<p class="empty">Няма места с тези филтри - пробвай друга възраст или град.</p>';
- if(map)pins(l)}
+ if(map)pins(l);centres()}
 function setAge(v){age=v;$('qAge').value=v;render()}
 $('qAge').onchange=e=>{age=e.target.value;render()};$('qCat').onchange=render;$('qCity').onchange=render;
 $('search').onsubmit=e=>{e.preventDefault();render();$('results').scrollIntoView({behavior:'smooth'})};
