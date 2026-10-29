@@ -1,0 +1,404 @@
+<!doctype html><html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>zani · календар за бизнеса</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@600;700&family=Nunito:wght@500;600;700;800&display=swap');
+:root{--lav:#E9E3FF;--lav2:#CFC3FF;--violet:#6D5BD0;--violet-dk:#5747B8;--sky:#DCEEFF;--blush:#FFE4EC;--mint:#DDF3E8;--butter:#FFF1D6;
+  --ink:#2E2A4A;--muted:#6B6788;--line:#ECE8F7;--bg:#FAF9FE;--red:#E5484D;--green:#2E9E6B;--amber:#C98A12;--hour:64px}
+*{box-sizing:border-box;margin:0;padding:0}html,body{height:100%}[hidden]{display:none!important}
+body{font-family:Nunito,sans-serif;color:var(--ink);background:var(--bg);line-height:1.45}
+button,input,select{font:inherit;color:inherit}button{cursor:pointer;border:0;background:none}
+:focus-visible{outline:3px solid var(--violet);outline-offset:2px;border-radius:10px}
+.demo{background:var(--lav);color:var(--violet);text-align:center;font-size:12.5px;font-weight:700;padding:6px}
+.demo button{color:var(--violet);text-decoration:underline;font-weight:800;margin-left:8px}
+
+/* app shell */
+.app{display:grid;grid-template-columns:240px 1fr;min-height:calc(100vh - 31px)}
+.side{background:#fff;border-right:1px solid var(--line);padding:22px 16px;display:flex;flex-direction:column;gap:6px}
+.logo{font-family:Comfortaa;font-weight:700;font-size:26px;color:var(--violet);padding:0 10px 14px}
+.biz{display:flex;gap:10px;align-items:center;padding:10px;border-radius:16px;background:var(--bg);margin-bottom:10px}
+.biz i{width:38px;height:38px;border-radius:12px;background:var(--blush);display:flex;align-items:center;justify-content:center;font-style:normal;font-weight:800}
+.biz b{display:block;font-size:14px;line-height:1.2}.biz span{font-size:12px;color:var(--muted);font-weight:700}
+.nav{display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:14px;font-weight:700;color:var(--muted);width:100%;text-align:left}
+.nav svg{width:19px;height:19px;flex:none}
+.nav.on{background:var(--lav);color:var(--violet)}
+.nav .cnt{margin-left:auto;background:var(--red);color:#fff;border-radius:999px;font-size:11.5px;padding:1px 8px;font-weight:800}
+.side .foot{margin-top:auto;font-size:12.5px;color:var(--muted);padding:10px}
+@media(max-width:900px){.app{grid-template-columns:1fr}.side{display:none}}
+
+main{padding:20px 24px 30px;min-width:0}
+.top{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.top h1{font-family:Comfortaa;font-weight:700;font-size:24px;margin-right:auto}
+.pill{border-radius:999px;padding:9px 16px;font-weight:800;background:#fff;border:1px solid var(--line)}
+.pill:hover{border-color:var(--lav2)}
+.icon{width:40px;height:40px;border-radius:50%;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
+.icon svg{width:18px;height:18px}
+.seg{display:flex;background:var(--lav);border-radius:999px;padding:4px}
+.seg button{border-radius:999px;padding:7px 14px;font-weight:800;font-size:14px}
+.seg button[aria-pressed="true"]{background:#fff;color:var(--violet);box-shadow:0 1px 4px rgba(109,91,208,.18)}
+.primary{background:var(--violet);color:#fff;border-radius:999px;padding:11px 18px;font-weight:800;display:inline-flex;align-items:center;gap:6px}
+.primary:hover{background:var(--violet-dk)}
+.range{font-weight:800;color:var(--muted);min-width:170px;text-align:center}
+.alert{margin-top:14px;display:flex;align-items:center;gap:10px;background:var(--blush);border-radius:16px;padding:11px 16px;font-weight:700}
+.alert button{margin-left:auto;background:#fff;border-radius:999px;padding:6px 14px;font-weight:800;color:var(--violet)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:18px;padding:12px 16px}
+.stat b{font-family:Comfortaa;font-size:22px;display:block}.stat span{font-size:12.5px;color:var(--muted);font-weight:700}
+@media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+/* calendar grid */
+.cal{margin-top:16px;background:#fff;border:1px solid var(--line);border-radius:22px;overflow:hidden}
+.dh{display:grid;border-bottom:1px solid var(--line);position:sticky;top:0;background:#fff;z-index:3}
+.dh div{padding:10px 8px;text-align:center;font-weight:800;font-size:13px;color:var(--muted)}
+.dh div b{display:block;font-size:20px;color:var(--ink);font-family:Comfortaa}
+.dh div.today b{background:var(--violet);color:#fff;border-radius:999px;width:38px;height:38px;line-height:38px;margin:2px auto 0}
+.body{display:grid;position:relative;max-height:calc(100vh - 330px);min-height:420px;overflow:auto}
+.hours{position:relative}
+.hours span{position:absolute;right:8px;font-size:11.5px;color:var(--muted);font-weight:700;transform:translateY(-50%)}
+.col{position:relative;border-left:1px solid var(--line);
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(#F5F3FB 1px,transparent 1px);background-size:100% var(--hour),100% calc(var(--hour)/2)}
+.col.today{background-color:#FCFBFF}
+.now{position:absolute;left:0;right:0;height:2px;background:var(--red);z-index:2}
+.now::before{content:"";position:absolute;left:-5px;top:-4px;width:10px;height:10px;border-radius:50%;background:var(--red)}
+.ev{position:absolute;left:4px;right:4px;border-radius:12px;padding:6px 8px;text-align:left;overflow:hidden;background:var(--c);border-left:4px solid var(--b);transition:box-shadow .15s}
+.ev:hover{box-shadow:0 6px 16px rgba(46,42,74,.14)}
+.ev b{display:block;font-size:12.5px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ev small{display:block;font-size:11.5px;color:var(--muted);font-weight:700}
+.ev .cap{display:flex;align-items:center;gap:6px;margin-top:4px;font-size:11.5px;font-weight:800}
+.ev .bar{flex:1;height:5px;border-radius:4px;background:rgba(46,42,74,.1);overflow:hidden}.ev .bar i{display:block;height:100%;background:var(--b)}
+.ev .dot{position:absolute;right:6px;top:6px;width:9px;height:9px;border-radius:50%;background:var(--red);box-shadow:0 0 0 2px #fff}
+.ev.full .cap{color:var(--green)}
+.ev.cancelled{opacity:.55;text-decoration:line-through;background:#F3F1F8;border-left-color:#B5B0C9}
+.ev.sel{outline:3px solid var(--violet);outline-offset:1px}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;font-size:12.5px;color:var(--muted);font-weight:700}
+.legend span{display:flex;align-items:center;gap:6px}.legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+/* drawer & modal */
+.scrim{position:fixed;inset:0;background:rgba(46,42,74,.28);z-index:20}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(440px,100%);background:#fff;z-index:21;box-shadow:-20px 0 50px rgba(46,42,74,.15);display:flex;flex-direction:column}
+.dw-h{padding:20px 22px 14px;border-bottom:1px solid var(--line)}
+.dw-h .x{float:right}
+.dw-h small{font-weight:800;color:var(--violet);font-size:12.5px;letter-spacing:.5px;text-transform:uppercase}
+.dw-h h2{font-family:Comfortaa;font-size:22px;margin-top:4px}
+.dw-h .meta{color:var(--muted);font-weight:700;font-size:14px;margin-top:4px}
+.dw-b{padding:16px 22px;overflow:auto;flex:1}
+.capbox{display:flex;align-items:center;gap:12px;background:var(--bg);border-radius:16px;padding:12px 14px}
+.capbox .bar{flex:1;height:8px;border-radius:5px;background:var(--line);overflow:hidden}.capbox .bar i{display:block;height:100%;background:var(--violet)}
+.capbox b{font-family:Comfortaa;font-size:18px}
+.sec{font-weight:800;font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin:18px 0 8px}
+.kid{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}
+.kid .av{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;flex:none}
+.kid .who{flex:1;min-width:0}.kid b{display:block;font-size:14.5px}.kid span{font-size:12.5px;color:var(--muted);font-weight:600}
+.st{font-size:11.5px;font-weight:800;border-radius:999px;padding:3px 9px;white-space:nowrap}
+.st.pending{background:#FFF1D6;color:var(--amber)}.st.confirmed{background:var(--mint);color:var(--green)}.st.declined{background:#FDE7E8;color:var(--red)}
+.mini{border-radius:999px;padding:6px 11px;font-weight:800;font-size:12.5px}
+.mini.ok{background:var(--green);color:#fff}.mini.no{border:1px solid var(--line);color:var(--muted)}
+.empty{color:var(--muted);font-weight:700;padding:14px 0}
+.dw-f{padding:14px 22px;border-top:1px solid var(--line);display:flex;gap:10px;flex-wrap:wrap}
+.danger{color:var(--red);font-weight:800;border-radius:999px;padding:10px 14px;border:1px solid #F6CFD1}
+.ghost{border:1px solid var(--line);border-radius:999px;padding:10px 16px;font-weight:800}
+.modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(560px,calc(100% - 24px));max-height:calc(100vh - 40px);overflow:auto;background:#fff;border-radius:26px;z-index:22;box-shadow:0 30px 80px rgba(46,42,74,.25)}
+.modal form{padding:22px}
+.modal h2{font-family:Comfortaa;font-size:22px;margin-bottom:12px}
+.f{display:flex;flex-direction:column;gap:5px;margin-top:12px}
+.f label{font-weight:800;font-size:13px;color:var(--muted)}
+.f input,.f select{width:100%;min-width:0;border:1.5px solid var(--line);border-radius:14px;padding:11px 13px;font-weight:700;background:#fff}
+.f input:focus,.f select:focus{border-color:var(--violet);outline:none}
+.row2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}.row3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.days{display:flex;gap:6px;flex-wrap:wrap}
+.days label{display:flex}.days input{position:absolute;opacity:0;pointer-events:none}
+.days span{border:1.5px solid var(--line);border-radius:999px;padding:7px 12px;font-weight:800;font-size:13px;cursor:pointer}
+.days input:checked+span{background:var(--violet);border-color:var(--violet);color:#fff}
+.days input:focus-visible+span{outline:3px solid var(--violet);outline-offset:2px}
+.typesel{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.typesel label{border:1.5px solid var(--line);border-radius:16px;padding:12px;cursor:pointer}
+.typesel input{margin-right:6px;accent-color:var(--violet)}
+.typesel b{font-size:14.5px}.typesel span{display:block;font-size:12.5px;color:var(--muted);font-weight:600;margin-top:2px}
+.err{margin-top:12px;background:#FDE7E8;color:#B4282D;border-radius:14px;padding:10px 12px;font-weight:700;font-size:14px}
+.mfoot{display:flex;justify-content:flex-end;gap:10px;margin-top:18px}
+
+/* parent view */
+.pview{margin-top:16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.ps{background:#fff;border:1px solid var(--line);border-radius:20px;padding:16px;border-top:5px solid var(--b)}
+.ps small{font-weight:800;color:var(--muted);font-size:12.5px}.ps h3{font-size:17px;margin-top:2px}
+.ps .m{color:var(--muted);font-size:13.5px;font-weight:600}
+.ps .ff{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+.ps .left{font-weight:800;font-size:13px}.ps .left.few{color:var(--red)}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 18px;border-radius:14px;font-weight:700;z-index:40;max-width:92vw;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.on{opacity:1}
+.mdays{display:none;gap:6px;overflow-x:auto;margin-top:12px}
+.mdays button{flex:none;border-radius:14px;padding:8px 12px;font-weight:800;background:#fff;border:1px solid var(--line);text-align:center;font-size:12.5px}
+.mdays button b{display:block;font-size:17px}
+.mdays button[aria-pressed="true"]{background:var(--violet);color:#fff;border-color:var(--violet)}
+@media(max-width:760px){main{padding:14px}.mdays{display:flex}.range{min-width:0}.top h1{font-size:20px;width:100%}.body{max-height:none}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body>
+<div class="demo">Прототип на календара за бизнеса · всички данни са измислени и се пазят само в този браузър <button id="reset">Нулирай демото</button></div>
+<div class="app">
+ <aside class="side">
+  <div class="logo">zani</div>
+  <div class="biz"><i>АЛ</i><div><b>Ателие „Лисичка“</b><span>примерен бизнес · София</span></div></div>
+  <button class="nav on" data-tab="cal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Календар</button>
+  <button class="nav" data-tab="req"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg>Записвания<span class="cnt" id="navcnt" hidden>0</span></button>
+  <button class="nav" data-tab="parent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>Как го вижда родителят</button>
+  <div class="foot">Часова зона: София (EET)</div>
+ </aside>
+
+ <main>
+  <div class="top">
+   <h1 id="title">Календар</h1>
+   <div id="calctl" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+    <button class="icon" id="prev" aria-label="Предишна седмица"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m15 6-6 6 6 6"/></svg></button>
+    <span class="range" id="range"></span>
+    <button class="icon" id="next" aria-label="Следваща седмица"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg></button>
+    <button class="pill" id="today">Днес</button>
+    <div class="seg" role="group" aria-label="Изглед"><button id="vWeek" aria-pressed="true">Седмица</button><button id="vDay" aria-pressed="false">Ден</button></div>
+    <button class="primary" id="add"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Ново занимание</button>
+   </div>
+  </div>
+
+  <section id="tab-cal">
+   <div class="alert" id="alert" hidden><span id="alerttxt"></span><button id="seereq">Прегледай</button></div>
+   <div class="stats" id="stats"></div>
+   <div class="mdays" id="mdays" role="group" aria-label="Ден"></div>
+   <div class="cal"><div class="dh" id="dh"></div><div class="body" id="grid"></div></div>
+   <div class="legend"><span><i style="background:#FFE4EC"></i>Групово занимание</span><span><i style="background:#DCEEFF"></i>Индивидуален час</span><span><i style="background:var(--red);border-radius:50%"></i>Чака потвърждение</span><span>Кликни занимание за записаните деца</span></div>
+  </section>
+
+  <section id="tab-req" hidden><div id="reqlist"></div></section>
+
+  <section id="tab-parent" hidden>
+   <p style="color:var(--muted);font-weight:700;margin-top:10px">Така родителят вижда свободните часове в zani. Запиши дете - и виж как се появява в календара веднага.</p>
+   <div class="pview" id="pview"></div>
+  </section>
+ </main>
+</div>
+
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dwTitle" hidden></aside>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle" hidden>
+ <form id="form" novalidate>
+  <h2 id="mTitle">Ново занимание</h2>
+  <div class="typesel">
+   <label><input type="radio" name="type" value="group" checked><b>Групово</b><span>Няколко деца, ограничени места</span></label>
+   <label><input type="radio" name="type" value="one"><b>Индивидуален час</b><span>Едно дете - логопед, учител</span></label>
+  </div>
+  <div class="f"><label for="fTitle">Име на заниманието</label><input id="fTitle" required maxlength="60" placeholder="напр. Рисуване с акварел"></div>
+  <div class="f"><label>Дни (повтаря се всяка седмица)</label><div class="days" id="fDays"></div></div>
+  <div class="row3">
+   <div class="f"><label for="fStart">Начало</label><input id="fStart" type="time" value="17:30" step="900" required></div>
+   <div class="f"><label for="fDur">Продължителност</label><select id="fDur"><option value="30">30 мин</option><option value="45">45 мин</option><option value="60" selected>60 мин</option><option value="90">90 мин</option><option value="120">120 мин</option></select></div>
+   <div class="f" id="capF"><label for="fCap">Места</label><input id="fCap" type="number" min="1" max="40" value="8"></div>
+  </div>
+  <div class="row3">
+   <div class="f"><label for="fAge">Възраст</label><input id="fAge" value="4-10 г." maxlength="20"></div>
+   <div class="f"><label for="fPrice">Цена (€)</label><input id="fPrice" type="number" min="0" step="0.5" value="15"></div>
+   <div class="f"><label for="fFrom">От дата</label><input id="fFrom" type="date"></div>
+  </div>
+  <div class="err" id="ferr" hidden></div>
+  <div class="mfoot"><button type="button" class="ghost" id="mCancel">Отказ</button><button class="primary" type="submit">Запази</button></div>
+ </form>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+// ───────── helpers ─────────
+const $=id=>document.getElementById(id);
+const DN=['Пн','Вт','Ср','Чт','Пт','Сб','Нд'], MN=['яну','фев','мар','апр','май','юни','юли','авг','сеп','окт','ное','дек'];
+const START_H=8, END_H=21;
+const pad=n=>String(n).padStart(2,'0');
+const ymd=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const addDays=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x};
+const monday=d=>{const x=new Date(d.getFullYear(),d.getMonth(),d.getDate());return addDays(x,-((x.getDay()+6)%7))};
+const toMin=t=>{const [h,m]=t.split(':').map(Number);return h*60+m};
+const fmt=m=>`${pad(Math.floor(m/60))}:${pad(m%60)}`;
+const uid=()=>Math.random().toString(36).slice(2,9);
+function toast(t){const e=$('toast');e.textContent=t;e.classList.add('on');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('on'),2800)}
+
+// ───────── state (saved per browser) ─────────
+const KEY='zani-cal-demo-v1';
+function seed(){
+ const wk=ymd(monday(new Date()));
+ const T=[
+  {id:'t1',type:'group',title:'Рисуване с акварел',days:[0,2],start:'17:30',dur:60,cap:8,age:'4-6 г.',price:15,from:wk},
+  {id:'t2',type:'group',title:'Моделиране с глина',days:[1,3],start:'17:00',dur:90,cap:8,age:'6-10 г.',price:18,from:wk},
+  {id:'t3',type:'group',title:'Есенни фенерчета',days:[5],start:'11:00',dur:90,cap:10,age:'4-10 г.',price:15,from:wk},
+  {id:'t4',type:'one',title:'Индивидуален час по рисуване',days:[1,4],start:'10:00',dur:45,cap:1,age:'5-12 г.',price:25,from:wk},
+  {id:'t5',type:'one',title:'Индивидуален час по рисуване',days:[1,4],start:'11:00',dur:45,cap:1,age:'5-12 г.',price:25,from:wk},
+  {id:'t6',type:'group',title:'Малки художници (с родител)',days:[5,6],start:'09:30',dur:60,cap:6,age:'2-4 г.',price:12,from:wk}];
+ const base=monday(new Date());
+ const inst=(t,dayIdx,w=0)=>`${t}@${ymd(addDays(base,dayIdx+7*w))}`;
+ const K=[['Мария','5 г.','Елена П.'],['Иван','8 г.','Георги И.'],['Ема','4 г.','Десислава К.'],['Боби','6 г.','Петя Н.'],['Сара','5 г.','Мила Т.'],['Ники','7 г.','Анна Д.'],['Тео','3 г.','Ива С.'],['Лора','9 г.','Мира В.']];
+ const B=[];const add=(i,k,s)=>B.push({id:uid(),inst:i,kid:K[k][0],age:K[k][1],parent:K[k][2],phone:'08** *** '+(100+k*7),status:s,src:'zani'});
+ [0,2,3,4,5].forEach((k,j)=>add(inst('t1',0),k,j<4?'confirmed':'pending'));
+ [1,5,7].forEach(k=>add(inst('t2',1),k,'confirmed'));
+ [0,1,2,3,4,5,6].forEach((k,j)=>add(inst('t2',3),k,j===6?'pending':'confirmed'));
+ add(inst('t4',1),7,'confirmed');add(inst('t5',4),3,'pending');
+ [0,2,4,6].forEach(k=>add(inst('t3',5),k,'confirmed'));
+ [6,2].forEach(k=>add(inst('t6',5),k,'confirmed'));
+ [3,1].forEach(k=>add(inst('t1',2),k,'confirmed'));
+ return {tpl:T,bookings:B,cancelled:[]};
+}
+let S;
+function load(){try{const r=localStorage.getItem(KEY);S=r?JSON.parse(r):seed()}catch(e){S=seed()}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+load();
+
+// ───────── derived ─────────
+let week=monday(new Date()), view=innerWidth<760?'day':'week', dayIdx=(new Date().getDay()+6)%7, selected=null, tab='cal';
+function instancesOn(date){
+ const di=(date.getDay()+6)%7, d=ymd(date);
+ return S.tpl.filter(t=>t.days.includes(di)&&t.from<=d).map(t=>({key:`${t.id}@${d}`,t,date:d,di,start:toMin(t.start),end:toMin(t.start)+t.dur}))
+  .sort((a,b)=>a.start-b.start);
+}
+const booked=k=>S.bookings.filter(b=>b.inst===k&&b.status!=='declined');
+const pending=()=>S.bookings.filter(b=>b.status==='pending'&&!S.cancelled.includes(b.inst));
+const isCancelled=k=>S.cancelled.includes(k);
+const findInst=k=>{const [id,d]=k.split('@');const t=S.tpl.find(x=>x.id===id);if(!t)return null;const dt=new Date(d+'T00:00');return {key:k,t,date:d,di:(dt.getDay()+6)%7,start:toMin(t.start),end:toMin(t.start)+t.dur}};
+const dateLabel=d=>{const x=new Date(d+'T00:00');return `${DN[(x.getDay()+6)%7]}, ${x.getDate()} ${MN[x.getMonth()]}`};
+
+// ───────── render: calendar ─────────
+function render(){
+ const days=[...Array(7)].map((_,i)=>addDays(week,i));
+ const today=ymd(new Date());
+ const e=days[6];
+ $('range').textContent=`${days[0].getDate()} ${MN[days[0].getMonth()]} - ${e.getDate()} ${MN[e.getMonth()]} ${e.getFullYear()}`;
+ $('vWeek').setAttribute('aria-pressed',view==='week');$('vDay').setAttribute('aria-pressed',view==='day');
+ const shown=view==='week'?days:[days[dayIdx]];
+ const cols=`64px repeat(${shown.length},minmax(${view==='week'?110:0}px,1fr))`;
+ $('dh').style.gridTemplateColumns=cols;$('grid').style.gridTemplateColumns=cols;
+ $('dh').innerHTML='<div></div>'+shown.map(d=>`<div class="${ymd(d)===today?'today':''}">${DN[(d.getDay()+6)%7]}<b>${d.getDate()}</b></div>`).join('');
+ $('mdays').innerHTML=days.map((d,i)=>`<button aria-pressed="${view==='day'&&i===dayIdx}" data-i="${i}">${DN[i]}<b>${d.getDate()}</b></button>`).join('');
+ const H=END_H-START_H, hpx=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--hour'));
+ let html=`<div class="hours" style="height:${H*hpx}px">${[...Array(H)].map((_,i)=>i?`<span style="top:${i*hpx}px">${pad(START_H+i)}:00</span>`:'').join('')}</div>`;
+ shown.forEach(d=>{
+  const ds=ymd(d);let c=`<div class="col ${ds===today?'today':''}" style="height:${H*hpx}px">`;
+  if(ds===today){const n=new Date(),m=n.getHours()*60+n.getMinutes();if(m>=START_H*60&&m<=END_H*60)c+=`<div class="now" style="top:${(m-START_H*60)/60*hpx}px"></div>`}
+  instancesOn(d).forEach(x=>{
+   const bs=booked(x.key),n=bs.length,cap=x.t.cap,pend=bs.some(b=>b.status==='pending'),canc=isCancelled(x.key);
+   const top=(x.start-START_H*60)/60*hpx, h=Math.max(x.t.dur/60*hpx-3,26);
+   const one=x.t.type==='one';
+   const colr=one?['#DCEEFF','#5B8FD6']:['#FFE4EC','#E07A9A'];
+   c+=`<button class="ev ${n>=cap?'full':''} ${canc?'cancelled':''} ${selected===x.key?'sel':''}" style="top:${top}px;height:${h}px;--c:${colr[0]};--b:${colr[1]}" data-k="${x.key}" aria-label="${x.t.title}, ${fmt(x.start)}, ${one?(n?'зает':'свободен'):n+' от '+cap+' места'}${pend?', чака потвърждение':''}">
+    ${pend&&!canc?'<span class="dot"></span>':''}<b>${x.t.title}</b><small style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${one?fmt(x.start):fmt(x.start)+' - '+fmt(x.end)}${one?` · <span style="color:${canc?'inherit':n?'#2E9E6B':'#5B8FD6'}">${canc?'Отменено':n?'Зает':'Свободен'}</span>`:''}</small>
+    ${!one&&h>=56?`<div class="cap"><span class="bar"><i style="width:${Math.min(100,n/cap*100)}%"></i></span>${canc?'Отменено':n+'/'+cap}</div>`:''}</button>`;
+  });
+  html+=c+'</div>';
+ });
+ $('grid').innerHTML=html;
+ // stats for the visible week
+ const wkInst=days.flatMap(instancesOn).filter(x=>!isCancelled(x.key));
+ const seats=wkInst.reduce((a,x)=>a+x.t.cap,0), taken=wkInst.reduce((a,x)=>a+booked(x.key).length,0);
+ const income=wkInst.reduce((a,x)=>a+booked(x.key).filter(b=>b.status==='confirmed').length*x.t.price,0);
+ const fresh=wkInst.reduce((a,x)=>a+booked(x.key).filter(b=>b.src==='zani'&&b.status==='pending').length,0);
+ $('stats').innerHTML=`<div class="stat"><b>${wkInst.length}</b><span>занимания тази седмица</span></div><div class="stat"><b>${seats?Math.round(taken/seats*100):0}%</b><span>запълненост (${taken}/${seats} места)</span></div><div class="stat"><b>${income} €</b><span>потвърдени записвания</span></div><div class="stat"><b>${fresh}</b><span>чакат потвърждение</span></div>`;
+ const p=pending();$('navcnt').hidden=!p.length;$('navcnt').textContent=p.length;
+ $('alert').hidden=!p.length;$('alerttxt').textContent=`${p.length} ${p.length===1?'ново записване чака':'нови записвания чакат'} потвърждение`;
+ if(tab==='req')renderReq();if(tab==='parent')renderParent();
+ if(selected&&!$('drawer').hidden)openDrawer(selected,true);
+}
+// scroll to first hour with activity
+function scrollToMorning(){const g=$('grid');g.scrollTop=(9-START_H)*parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--hour'))}
+
+// ───────── drawer ─────────
+function openDrawer(k,keep){
+ const x=findInst(k);if(!x)return;selected=k;
+ const bs=S.bookings.filter(b=>b.inst===k),act=bs.filter(b=>b.status!=='declined'),n=act.length,canc=isCancelled(k),one=x.t.type==='one';
+ const AV=['#FFE4EC','#DCEEFF','#DDF3E8','#FFF1D6','#E9E3FF'];
+ $('drawer').innerHTML=`<div class="dw-h"><button class="icon x" id="dwX" aria-label="Затвори"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  <small>${one?'Индивидуален час':'Групово занимание'}${canc?' · отменено':''}</small><h2 id="dwTitle">${x.t.title}</h2>
+  <div class="meta">${dateLabel(x.date)} · ${fmt(x.start)} - ${fmt(x.end)} · ${x.t.age} · ${x.t.price} €</div></div>
+  <div class="dw-b">
+   <div class="capbox"><b>${n}/${x.t.cap}</b><span class="bar"><i style="width:${Math.min(100,n/x.t.cap*100)}%"></i></span><span style="font-weight:800;color:var(--muted)">${n>=x.t.cap?'пълно':(x.t.cap-n)+' свободни'}</span></div>
+   <div class="sec">Записани деца</div>
+   ${bs.length?bs.map((b,i)=>`<div class="kid"><div class="av" style="background:${AV[i%AV.length]}">${b.kid[0]}</div><div class="who"><b>${b.kid}, ${b.age}</b><span>${b.parent} · ${b.phone}${b.src==='manual'?' · добавено ръчно':''}</span></div>
+     ${b.status==='pending'&&!canc?`<button class="mini no" data-act="decline" data-id="${b.id}">Откажи</button><button class="mini ok" data-act="confirm" data-id="${b.id}">Потвърди</button>`
+     :`<span class="st ${b.status}">${{confirmed:'Потвърдено',pending:'Чака',declined:'Отказано'}[b.status]}</span>`}</div>`).join('')
+   :'<p class="empty">Още няма записани деца.</p>'}
+   ${!canc&&n<x.t.cap?`<div class="sec">Записване по телефона</div>
+   <form id="manual" class="row2" style="align-items:end"><div class="f" style="margin:0"><label for="mName">Име на детето</label><input id="mName" required maxlength="30"></div>
+   <div class="f" style="margin:0"><label for="mAge">Възраст</label><input id="mAge" maxlength="10" placeholder="5 г."></div>
+   <button class="ghost" type="submit" style="grid-column:span 2">Добави дете</button></form>`:''}
+  </div>
+  <div class="dw-f">${canc?`<button class="ghost" data-act="restore">Възстанови заниманието</button>`:`<button class="danger" data-act="cancel">Отмени това занимание</button>`}
+   <button class="ghost" data-act="close" style="margin-left:auto">Готово</button></div>`;
+ $('drawer').hidden=false;$('scrim').hidden=false;
+ if(!keep)setTimeout(()=>$('dwX').focus(),30);
+ const m=$('manual');if(m)m.onsubmit=ev=>{ev.preventDefault();const nm=$('mName').value.trim();if(!nm){$('mName').focus();return}
+  if(booked(k).length>=x.t.cap){toast('Няма свободни места.');return}
+  S.bookings.push({id:uid(),inst:k,kid:nm,age:$('mAge').value.trim()||'-',parent:'записано по телефона',phone:'-',status:'confirmed',src:'manual'});save();render();toast(`${nm} е добавен(а).`)};
+}
+function closeDrawer(){$('drawer').hidden=true;$('scrim').hidden=true;const k=selected;selected=null;render();const b=document.querySelector(`.ev[data-k="${k}"]`);if(b)b.focus()}
+$('drawer').addEventListener('click',e=>{const b=e.target.closest('[data-act],#dwX');if(!b)return;
+ if(b.id==='dwX'||b.dataset.act==='close')return closeDrawer();
+ const a=b.dataset.act,k=selected,x=findInst(k);
+ if(a==='confirm'||a==='decline'){const bk=S.bookings.find(z=>z.id===b.dataset.id);
+  if(a==='confirm'&&booked(k).filter(z=>z.status==='confirmed').length>=x.t.cap){toast('Няма свободни места за потвърждение.');return}
+  bk.status=a==='confirm'?'confirmed':'declined';save();render();toast(a==='confirm'?`Потвърдено. ${bk.parent} получи известие.`:`Отказано. ${bk.parent} получи известие с предложение за друг час.`)}
+ if(a==='cancel'){if(b.dataset.sure!=='1'){b.dataset.sure='1';b.textContent='Сигурни ли сте? Натисни отново';return}
+  S.cancelled.push(k);save();render();toast(`Отменено. ${booked(k).length} родители получиха известие.`)}
+ if(a==='restore'){S.cancelled=S.cancelled.filter(z=>z!==k);save();render();toast('Заниманието е възстановено.')}
+});
+
+// ───────── requests tab ─────────
+function renderReq(){const p=pending();
+ $('reqlist').innerHTML=p.length?`<div class="cal" style="padding:6px 18px">${p.map(b=>{const x=findInst(b.inst);return x?`<div class="kid"><div class="av" style="background:var(--blush)">${b.kid[0]}</div><div class="who"><b>${b.kid}, ${b.age} · ${x.t.title}</b><span>${dateLabel(x.date)} · ${fmt(x.start)} · ${b.parent}</span></div>
+   <button class="mini no" data-r="decline" data-id="${b.id}">Откажи</button><button class="mini ok" data-r="confirm" data-id="${b.id}">Потвърди</button></div>`:''}).join('')}</div>`
+  :'<p class="empty" style="margin-top:16px">Няма чакащи записвания. Новите ще се появят тук и ще получиш известие.</p>'}
+$('reqlist').addEventListener('click',e=>{const b=e.target.closest('[data-r]');if(!b)return;const bk=S.bookings.find(z=>z.id===b.dataset.id),x=findInst(bk.inst);
+ if(b.dataset.r==='confirm'&&booked(bk.inst).filter(z=>z.status==='confirmed').length>=x.t.cap){toast('Няма свободни места за потвърждение.');return}
+ bk.status=b.dataset.r==='confirm'?'confirmed':'declined';save();render();toast(b.dataset.r==='confirm'?`Потвърдено. ${bk.parent} получи известие.`:'Отказано. Родителят получи известие.')});
+
+// ───────── parent preview ─────────
+function renderParent(){
+ const days=[...Array(14)].map((_,i)=>addDays(new Date(),i));const now=new Date(),nowMin=now.getHours()*60+now.getMinutes(),td=ymd(now);
+ const list=days.flatMap(instancesOn).filter(x=>!isCancelled(x.key)&&!(x.date===td&&x.start<=nowMin)).map(x=>({x,left:x.t.cap-booked(x.key).length})).filter(o=>o.left>0).slice(0,12);
+ $('pview').innerHTML=list.length?list.map(({x,left})=>`<div class="ps" style="--b:${x.t.type==='one'?'#5B8FD6':'#E07A9A'}"><small>${dateLabel(x.date)} · ${fmt(x.start)}</small><h3>${x.t.title}</h3><div class="m">Ателие „Лисичка“ · ${x.t.age} · ${x.t.price} €</div>
+  <div class="ff"><span class="left ${left<=2?'few':''}">${x.t.type==='one'?'свободен час':left+' '+(left===1?'място':'места')}</span><button class="primary" data-pk="${x.key}">Запиши</button></div></div>`).join('')
+  :'<p class="empty">Няма свободни часове в следващите 2 седмици.</p>'}
+$('pview').addEventListener('click',e=>{const b=e.target.closest('[data-pk]');if(!b)return;const k=b.dataset.pk,x=findInst(k);
+ if(booked(k).length>=x.t.cap){toast('Току-що се запълни. Избери друг час.');render();return}
+ const names=['Алекс','Вики','Дани','Габи','Криси','Филип'];const nm=names[Math.floor(Math.random()*names.length)];
+ S.bookings.push({id:uid(),inst:k,kid:nm,age:'5 г.',parent:'Родител (демо)',phone:'08** *** 555',status:'pending',src:'zani'});save();render();
+ toast(`Записано: ${nm} · ${x.t.title}. Ателието получи известие - виж „Календар“.`)});
+
+// ───────── new session modal ─────────
+$('fDays').innerHTML=DN.map((d,i)=>`<label><input type="checkbox" value="${i}"><span>${d}</span></label>`).join('');
+function openModal(){const f=$('form');f.reset();$('fFrom').value=ymd(new Date());$('ferr').hidden=true;
+ const di=view==='day'?dayIdx:(new Date().getDay()+6)%7;$('fDays').querySelectorAll('input')[di].checked=true;syncType();
+ $('modal').hidden=false;$('scrim').hidden=false;setTimeout(()=>$('fTitle').focus(),30)}
+function closeModal(){$('modal').hidden=true;if($('drawer').hidden)$('scrim').hidden=true;$('add').focus()}
+function syncType(){const one=$('form').type.value==='one';$('capF').style.opacity=one?.45:1;$('fCap').disabled=one;if(one)$('fCap').value=1}
+$('form').addEventListener('change',e=>{if(e.target.name==='type')syncType()});
+$('form').onsubmit=e=>{e.preventDefault();const err=m=>{$('ferr').textContent=m;$('ferr').hidden=false};
+ const title=$('fTitle').value.trim(),days=[...$('fDays').querySelectorAll('input:checked')].map(i=>+i.value),start=$('fStart').value,dur=+$('fDur').value,cap=+$('fCap').value,price=+$('fPrice').value;
+ if(!title)return err('Въведи име на заниманието.');
+ if(!days.length)return err('Избери поне един ден.');
+ if(!start)return err('Избери начален час.');
+ const s=toMin(start),en=s+dur;
+ if(s<START_H*60||en>END_H*60)return err(`Заниманието трябва да е между ${START_H}:00 и ${END_H}:00.`);
+ if(!(cap>=1&&cap<=40))return err('Местата трябва да са между 1 и 40.');
+ if(!(price>=0))return err('Въведи валидна цена.');
+ const clash=S.tpl.find(t=>t.days.some(d=>days.includes(d))&&s<toMin(t.start)+t.dur&&en>toMin(t.start));
+ if(clash)return err(`Застъпва се с „${clash.title}“ (${DN[clash.days.find(d=>days.includes(d))]} ${clash.start}). Избери друг час - иначе едно и също място ще е заето два пъти.`);
+ S.tpl.push({id:'t'+uid(),type:$('form').type.value,title,days,start,dur,cap,age:$('fAge').value.trim()||'-',price,from:$('fFrom').value||ymd(new Date())});
+ save();closeModal();render();toast(`„${title}“ е добавено и вече се вижда от родителите.`)};
+$('mCancel').onclick=closeModal;
+
+// ───────── wiring ─────────
+$('grid').addEventListener('click',e=>{const b=e.target.closest('.ev');if(b)openDrawer(b.dataset.k)});
+$('mdays').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;dayIdx=+b.dataset.i;view='day';render()});
+$('prev').onclick=()=>{week=addDays(week,-7);render()};$('next').onclick=()=>{week=addDays(week,7);render()};
+$('today').onclick=()=>{week=monday(new Date());dayIdx=(new Date().getDay()+6)%7;render();scrollToMorning()};
+$('vWeek').onclick=()=>{view='week';render()};$('vDay').onclick=()=>{view='day';render()};
+$('add').onclick=openModal;
+$('scrim').onclick=()=>{if(!$('modal').hidden)closeModal();else closeDrawer()};
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(!$('modal').hidden)closeModal();else if(!$('drawer').hidden)closeDrawer()}});
+$('seereq').onclick=()=>setTab('req');
+document.querySelectorAll('.nav').forEach(n=>n.onclick=()=>setTab(n.dataset.tab));
+function setTab(t){tab=t;document.querySelectorAll('.nav').forEach(n=>n.classList.toggle('on',n.dataset.tab===t));
+ ['cal','req','parent'].forEach(x=>$('tab-'+x).hidden=x!==t);$('calctl').style.display=t==='cal'?'flex':'none';
+ $('title').textContent={cal:'Календар',req:'Записвания',parent:'Как го вижда родителят'}[t];render()}
+$('reset').onclick=()=>{try{localStorage.removeItem(KEY)}catch(e){}S=seed();week=monday(new Date());render();toast('Демото е нулирано.')};
+render();scrollToMorning();
+setInterval(()=>{if(tab==='cal'&&$('drawer').hidden&&$('modal').hidden)render()},60000);
+</script></body></html>
